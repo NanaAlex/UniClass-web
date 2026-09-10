@@ -20,7 +20,7 @@ const itensSuperiores: ItemMenu[] = [
     },
     {
         nome: 'Tela Inicial',
-        rota: '/',
+        rota: '/home',
         iconeBranco: '/icons/telaInicialBranco.svg',
         iconePreto: '/icons/telaInicialPreto.svg',
     },
