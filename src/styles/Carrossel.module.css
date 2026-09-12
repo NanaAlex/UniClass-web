@@ -1,0 +1,140 @@
+.container {
+  width: 99%;
+  height: 76.5%;
+  margin-top: 0.5%;
+  border-radius: 25px;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  transition: background-image 0.5s ease;
+}
+
+/* SOMBRA AZUL DA ESQUERDA */
+.sombra {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 65%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 28, 51, 0.95) 0%,
+    rgba(0, 28, 51, 0.75) 45%,
+    rgba(0, 28, 51, 0) 100%
+  );
+}
+
+.conteudo {
+  position: relative;
+  z-index: 2;
+  width: 35%;
+  height: 100%;
+  margin-left: 6%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+}
+
+.aviso {
+  width: fit-content;
+  background-color: #e30613;
+  color: white;
+  padding: 4px 18px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.titulo {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 700;
+  font-family: 'Hind', sans-serif;
+  color: white;
+}
+
+.destaque {
+  margin-top: 8px;
+  margin-bottom: 4px;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+}
+
+.descricao {
+  width: 90%;
+  margin-top: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: white;
+}
+
+.data {
+  margin-top: 25px;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  color: white;
+}
+
+.seta {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.setaEsquerda {
+  left: 15px;
+}
+
+.setaDireita {
+  right: 15px;
+}
+
+.seta:hover {
+  opacity: 0.7;
+}
+
+.indicadores {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+.indicador {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: white;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: 0.2s;
+}
+
+
+.indicadorAtivo {
+  width: 45px;
+  border-radius: 50px;
+  opacity: 1;
+}

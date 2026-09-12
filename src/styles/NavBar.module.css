@@ -1,0 +1,74 @@
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+
+.barraSuperior {
+  background-color: #001C33;
+  width: 90%;
+  min-height: 46vh;
+  margin-left: 5%;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.barraInferior {
+  background-color: #001C33;
+  width: 90%;
+  min-height: 20vh;
+  margin-left: 5%;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.itemBarraLateral {
+  width: 90%;
+  min-height: 6vh;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  display: flex;
+  align-items: center;
+  border-radius: 100px;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+
+.iconeMenu {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    display: block;
+    margin-left: 15px;
+}
+
+.nomeItemBarraLateral {
+  margin-left: 22px;
+  color: inherit;
+  font-size: 18px;
+}
+
+.itemSelecionado {
+  background-color: white;
+  color: #001C33;
+}
+
+.itemSair {
+  background-color: #D70000;
+  color: white;
+}

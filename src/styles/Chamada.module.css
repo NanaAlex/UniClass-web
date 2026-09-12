@@ -1,0 +1,833 @@
+.paginaChamada {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #eeeeee;
+}
+
+.header {
+  width: 100%;
+  height: 10vh;
+  flex-shrink: 0;
+}
+
+.corpoPagina {
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  background: #eeeeee;
+  overflow: hidden;
+}
+
+/* ==========================================================
+   NAVBAR
+========================================================== */
+
+.menuLateral {
+  width: 15%;
+  min-width: 170px;
+  height: 100%;
+  flex-shrink: 0;
+
+  display: flex;
+  justify-content: center;
+
+  box-sizing: border-box;
+}
+
+/* ==========================================================
+   CONTAINER PRINCIPAL
+========================================================== */
+
+.containerChamada {
+  width: 85%;
+  height: 100%;
+
+  margin: 12px 18px 12px 8px;
+
+  background: #dddddd;
+
+  border: 1px solid #c8c8c8;
+  border-radius: 28px;
+
+  padding: 12px;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+}
+
+.areaScroll {
+  width: 100%;
+  height: 100%;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding: 0 2px 12px;
+
+  box-sizing: border-box;
+
+  scrollbar-width: thin;
+  scrollbar-color: #bcbcbc transparent;
+}
+
+.areaScroll::-webkit-scrollbar {
+  width: 7px;
+}
+
+.areaScroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.areaScroll::-webkit-scrollbar-thumb {
+  background: #bcbcbc;
+  border-radius: 20px;
+}
+
+/* ==========================================================
+   ÁREA STICKY
+========================================================== */
+
+.areaSticky {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+
+  background: #dddddd;
+
+  padding-bottom: 6px;
+}
+
+/* ==========================================================
+   CABEÇALHO DA TURMA
+========================================================== */
+
+.cabecalhoTurma {
+  position: relative;
+
+  width: 100%;
+  height: 138px;
+
+  border-radius: 18px;
+
+  display: flex;
+  align-items: flex-start;
+
+  padding: 22px 20px;
+
+  box-sizing: border-box;
+
+  color: #ffffff;
+
+  overflow: hidden;
+
+  transition:
+    height 0.25s ease,
+    padding 0.25s ease,
+    border-radius 0.25s ease;
+}
+
+.cabecalhoCompacto {
+  height: 66px;
+
+  padding: 0 20px;
+
+  align-items: center;
+
+  border-radius: 17px;
+}
+
+/* ==========================================================
+   VOLTAR
+========================================================== */
+
+.botaoVoltar {
+  width: 36px;
+  height: 44px;
+
+  flex: 0 0 36px;
+
+  border: none;
+  background: transparent;
+
+  padding: 0;
+  margin: 0 10px 0 0;
+
+  color: #ffffff;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.botaoVoltar svg {
+  width: 29px;
+  height: 29px;
+}
+
+/* ==========================================================
+   TEXTOS EXPANDIDOS
+========================================================== */
+
+.informacoesCabecalho {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+
+  margin-top: -1px;
+}
+
+.tituloTurma {
+  margin: 0;
+
+  font-size: 2.6rem;
+  font-weight: 700;
+
+  line-height: 1;
+}
+
+.tipoTurma {
+  margin: 6px 0 0;
+
+  font-size: 1.28rem;
+  font-weight: 400;
+
+  line-height: 1;
+}
+
+.dataChamada {
+  margin: 9px 0 0;
+
+  font-size: 0.94rem;
+  font-weight: 400;
+}
+
+/* ==========================================================
+   AÇÕES CABEÇALHO
+========================================================== */
+
+.acoesCabecalho {
+  margin-left: auto;
+
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  gap: 13px;
+}
+
+.botaoHistorico {
+  border: 1px solid #c8c8c8;
+
+  background: #ffffff;
+
+  min-width: 192px;
+  height: 39px;
+
+  padding: 0 13px;
+
+  border-radius: 17px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  font-size: 0.65rem;
+  font-weight: 700;
+
+  color: #333333;
+
+  cursor: pointer;
+
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.botaoHistorico svg {
+  width: 16px;
+  height: 16px;
+}
+
+.indicadorTurmaExpandido {
+  width: 192px;
+  height: 8px;
+
+  background: rgba(255, 255, 255, 0.35);
+
+  border-radius: 20px;
+
+  overflow: hidden;
+}
+
+.indicadorTurmaExpandido span {
+  display: block;
+  height: 100%;
+
+  border-radius: inherit;
+
+  transition:
+    width 0.3s ease,
+    background-color 0.3s ease;
+}
+
+/* ==========================================================
+   CABEÇALHO COMPACTO
+========================================================== */
+
+.tituloCompacto {
+  min-width: 0;
+
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+
+  color: #ffffff;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tituloCompacto strong {
+  font-size: 1.72rem;
+  font-weight: 700;
+
+  line-height: 1;
+}
+
+.tituloCompacto span {
+  font-size: 1.55rem;
+  font-weight: 300;
+
+  line-height: 1;
+}
+
+.indicadorTurmaCompacto {
+  width: 185px;
+  height: 8px;
+
+  margin-left: auto;
+
+  flex-shrink: 0;
+
+  background: rgba(255, 255, 255, 0.7);
+
+  border-radius: 20px;
+
+  overflow: hidden;
+}
+
+.indicadorTurmaCompacto span {
+  display: block;
+  height: 100%;
+
+  border-radius: inherit;
+
+  transition:
+    width 0.3s ease,
+    background-color 0.3s ease;
+}
+
+/* ==========================================================
+   CARDS INDICADORES
+========================================================== */
+
+.cardsIndicadores {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 10px;
+
+  margin-top: 12px;
+}
+
+.cardIndicador {
+  height: 78px;
+
+  background: #cecece;
+
+  border-radius: 11px;
+
+  padding: 13px 28px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  color: #272727;
+}
+
+.cardIndicador strong {
+  font-size: 2rem;
+  font-weight: 500;
+
+  line-height: 1;
+}
+
+.cardIndicador span {
+  margin-top: 7px;
+
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+/* ==========================================================
+   CABEÇALHO LISTA
+========================================================== */
+
+.cabecalhoListaPresenca {
+  min-height: 51px;
+
+  margin-top: 11px;
+
+  background: #cecece;
+
+  border-radius: 10px;
+
+  padding: 0 17px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  box-sizing: border-box;
+}
+
+.cabecalhoListaPresenca h2 {
+  margin: 0;
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  color: #111111;
+}
+
+.acoesListaPresenca {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+}
+
+.acoesListaPresenca button {
+  min-width: 74px;
+  height: 34px;
+
+  border: 1px solid #a8a8a8;
+
+  background: #f8f8f8;
+
+  border-radius: 8px;
+
+  padding: 0 16px;
+
+  font-size: 0.67rem;
+  font-weight: 500;
+
+  color: #222222;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    transform 0.1s ease;
+}
+
+.acoesListaPresenca button:first-child {
+  min-width: 160px;
+}
+
+.acoesListaPresenca button:hover {
+  background: #ffffff;
+}
+
+.acoesListaPresenca button:active {
+  transform: scale(0.98);
+}
+
+/* ==========================================================
+   LISTA DOS ALUNOS
+========================================================== */
+
+.listaAlunos {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+
+  padding: 0 8px 0 8px;
+
+  margin-top: 6px;
+}
+
+.alunoCard {
+  width: 100%;
+  min-height: 46px;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 5px 10px;
+
+  background: #efefef;
+
+  border: 1px solid #d5d5d5;
+
+  border-radius: 10px;
+
+  box-sizing: border-box;
+}
+
+/* ==========================================================
+   NÚMERO
+========================================================== */
+
+.numeroAluno {
+  width: 30px;
+  height: 30px;
+
+  flex: 0 0 30px;
+
+  border: 1px solid #bababa;
+  border-radius: 50%;
+
+  background: #f4f4f4;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 0.66rem;
+  font-weight: 500;
+
+  color: #333333;
+}
+
+/* ==========================================================
+   BOTÕES PRESENTE / AUSENTE
+========================================================== */
+
+.controlesPresenca {
+  display: flex;
+
+  gap: 7px;
+
+  flex-shrink: 0;
+}
+
+.botaoSituacao {
+  min-width: 78px;
+  height: 29px;
+
+  border: 1px solid #bdbdbd;
+
+  border-radius: 8px;
+
+  background: #f6f6f6;
+
+  padding: 0 9px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  font-size: 0.61rem;
+  font-weight: 500;
+
+  color: #252525;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.botaoSituacao span {
+  font-size: 0.8rem;
+}
+
+.presenteSelecionado {
+  background: #13a84c;
+  border-color: #13a84c;
+
+  color: #ffffff;
+}
+
+.ausenteSelecionado {
+  background: #e3263e;
+  border-color: #e3263e;
+
+  color: #ffffff;
+}
+
+/* ==========================================================
+   DADOS ALUNO
+========================================================== */
+
+.dadosAluno {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+
+  line-height: 1.05;
+}
+
+.dadosAluno strong {
+  font-size: 0.71rem;
+  font-weight: 600;
+
+  color: #1b1b1b;
+}
+
+.dadosAluno span {
+  margin-top: 2px;
+
+  font-size: 0.58rem;
+
+  color: #303030;
+}
+
+/* ==========================================================
+   FALTAS
+========================================================== */
+
+.faltasAluno {
+  margin-left: auto;
+
+  height: 31px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  border: 1px solid #cecece;
+
+  border-radius: 8px;
+
+  background: #f8f8f8;
+
+  padding: 0 6px 0 9px;
+
+  flex-shrink: 0;
+}
+
+.textoFaltas {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+}
+
+.textoFaltas span {
+  font-size: 0.46rem;
+
+  color: #5e5e5e;
+}
+
+.textoFaltas strong {
+  font-size: 0.58rem;
+  font-weight: 600;
+
+  color: #202020;
+}
+
+.trilhoFaltas {
+  width: 6px;
+  height: 23px;
+
+  padding: 1px;
+
+  background: #dddddd;
+
+  border: 1px solid #bbbbbb;
+
+  border-radius: 20px;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+}
+
+.trilhoFaltas span {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  border-radius: 20px;
+
+  transition: background-color 0.2s ease;
+}
+
+/* ==========================================================
+   RODAPÉ
+========================================================== */
+
+.rodapeChamada {
+  margin: 7px 8px 0;
+
+  min-height: 176px;
+
+  display: grid;
+  grid-template-columns: 2fr 0.9fr;
+
+  gap: 8px;
+
+  padding: 8px;
+
+  background: #f3f3f3;
+
+  border: 1px solid #d3d3d3;
+
+  border-radius: 11px;
+
+  box-sizing: border-box;
+}
+
+.descricaoContainer {
+  position: relative;
+
+  min-width: 0;
+}
+
+.descricaoContainer textarea {
+  width: 100%;
+  height: 100%;
+
+  min-height: 157px;
+
+  resize: none;
+
+  border: 1px solid #d0d0d0;
+
+  border-radius: 9px;
+
+  outline: none;
+
+  padding: 12px 13px 30px;
+
+  box-sizing: border-box;
+
+  background: #f8f8f8;
+
+  font-family: inherit;
+
+  font-size: 0.75rem;
+
+  color: #222222;
+}
+
+.descricaoContainer textarea::placeholder {
+  color: #333333;
+  opacity: 1;
+}
+
+.descricaoContainer textarea:focus {
+  border-color: #9b9b9b;
+}
+
+.contadorCaracteres {
+  position: absolute;
+
+  right: 12px;
+  bottom: 11px;
+
+  font-size: 0.68rem;
+
+  color: #333333;
+}
+
+/* ==========================================================
+   SALVAR
+========================================================== */
+
+.botaoSalvarChamada {
+  height: 58px;
+
+  align-self: start;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #d3223d;
+
+  color: #ffffff;
+
+  font-size: 0.91rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 0 #a9152b;
+
+  transition:
+    transform 0.1s ease,
+    opacity 0.15s ease;
+}
+
+.botaoSalvarChamada:hover {
+  opacity: 0.92;
+}
+
+.botaoSalvarChamada:active {
+  transform: translateY(2px);
+
+  box-shadow: 0 2px 0 #a9152b;
+}
+
+/* ==========================================================
+   RESPONSIVIDADE
+========================================================== */
+
+@media (max-width: 1200px) {
+  .menuLateral {
+    width: 18%;
+  }
+
+  .containerChamada {
+    width: 82%;
+  }
+
+  .tituloTurma {
+    font-size: 2.25rem;
+  }
+
+  .tituloCompacto strong {
+    font-size: 1.5rem;
+  }
+
+  .tituloCompacto span {
+    font-size: 1.3rem;
+  }
+
+  .botaoSituacao {
+    min-width: 70px;
+  }
+}

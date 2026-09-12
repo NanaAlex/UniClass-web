@@ -1,0 +1,991 @@
+.paginaNotificacoes {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.headerTelaNotificacoes {
+  width: 100%;
+  height: 10vh;
+}
+
+.telaNotificacoes {
+  width: 100%;
+  height: 90vh;
+
+  display: flex;
+
+  background-color: #eeeeee;
+}
+
+.menuLateral {
+  width: 15%;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.containerConteudos {
+  width: 85%;
+  height: calc(100% - 24px);
+
+  margin: 12px 18px 12px 8px;
+
+  padding: 20px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: #dddddd;
+
+  border: 1px solid #c8c8c8;
+  border-radius: 28px;
+
+  overflow: hidden;
+}
+
+.conteudosTelaNotificacoes {
+  width: 85%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  padding: 12px 18px 0 8px;
+  box-sizing: border-box;
+
+  border-radius: 25px;
+}
+
+.parteSuperior {
+  width: 100%;
+  flex-shrink: 0;
+
+  padding: 18px 24px 12px 24px;
+  box-sizing: border-box;
+
+  background-color: #dddddd;
+
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
+}
+
+.cabecalhoConteudo {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tituloPagina {
+  margin: 0;
+
+  color: #252525;
+
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.abas {
+  display: flex;
+  align-items: center;
+
+  width: 280px;
+  height: 30px;
+
+  border: 2px solid #001c33;
+  border-radius: 30px;
+
+  overflow: hidden;
+}
+
+.botaoAba {
+  width: 50%;
+  height: 100%;
+
+  border: none;
+  outline: none;
+
+  background-color: #f8f8f8;
+  color: #001c33;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.botaoAba:hover {
+  background-color: #e8e8e8;
+}
+
+.botaoAbaSelecionado {
+  background-color: #001c33;
+  color: white;
+}
+
+.botaoAbaSelecionado:hover {
+  background-color: #001c33;
+}
+
+.areaPesquisa {
+  width: 38%;
+  min-width: 300px;
+  max-width: 480px;
+
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+
+  margin-top: 17px;
+
+  padding: 0 12px;
+
+  background-color: #f8f8f8;
+
+  border: 1px solid #cccccc;
+  border-radius: 30px;
+
+  box-sizing: border-box;
+}
+
+.iconePesquisa {
+  flex-shrink: 0;
+
+  margin-right: 8px;
+
+  color: #8a8a8a;
+}
+
+.inputPesquisa {
+  width: 100%;
+  height: 100%;
+
+  border: none;
+  outline: none;
+
+  background-color: transparent;
+
+  color: #333333;
+
+  font-size: 12px;
+}
+
+.inputPesquisa::placeholder {
+  color: #888888;
+}
+
+.parteInferior {
+  width: 100%;
+  flex: 1;
+
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 12px 12px 15px 12px;
+  box-sizing: border-box;
+
+  background-color: #fbfafa;
+
+  border: 1px solid #cccccc;
+
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.filtros {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 12px;
+
+  padding-bottom: 10px;
+}
+
+.botaoFiltro {
+  min-height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  padding: 5px 14px;
+
+  border: 1px solid #cfcfcf;
+  border-radius: 20px;
+
+  background-color: #ffffff;
+  color: #666666;
+
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+.botaoFiltro:hover {
+  background-color: #f4f4f4;
+}
+
+.acoes {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 12px;
+}
+
+.selecionarTudo {
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 0 10px 0 14px;
+
+  border: 1px solid #cfcfcf;
+  border-radius: 22px;
+
+  background-color: white;
+  color: #555555;
+
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+.checkboxSelecionarTudo {
+  width: 17px;
+  height: 17px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px solid #aaaaaa;
+  border-radius: 2px;
+
+  box-sizing: border-box;
+
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.checkboxSelecionarTudoMarcado {
+  background-color: #001c33;
+  border-color: #001c33;
+  color: white;
+}
+
+.botaoRecuperar,
+.botaoExcluir {
+  width: 135px;
+  height: 32px;
+
+  border: none;
+  border-radius: 25px;
+
+  color: white;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.1s ease;
+}
+
+.botaoRecuperar {
+  background-color: #001c33;
+}
+
+.botaoExcluir {
+  background-color: #e00000;
+}
+
+.botaoRecuperar:hover,
+.botaoExcluir:hover {
+  opacity: 0.9;
+}
+
+.botaoRecuperar:active,
+.botaoExcluir:active {
+  transform: scale(0.98);
+}
+
+.listaDeNotificacoes {
+  width: 100%;
+
+  flex: 1;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+
+  box-sizing: border-box;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  scrollbar-width: thin;
+}
+
+.notificacao {
+  width: 100%;
+  min-height: 92px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 8px 10px;
+
+  box-sizing: border-box;
+
+  background-color: #ffffff;
+
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.notificacao:hover {
+  background-color: #fafafa;
+  border-color: #9d9d9d;
+}
+
+.notificacaoSelecionada {
+  border-color: #001c33;
+}
+
+.notificacaoSelecionada:hover {
+  border-color: #001c33;
+}
+
+.linhaTempo {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  margin-bottom: 5px;
+}
+
+.checkboxNotificacao {
+  width: 18px;
+  height: 18px;
+
+  margin: 0;
+
+  accent-color: #001c33;
+
+  cursor: pointer;
+}
+
+.tempoNotificacao {
+  color: #999999;
+
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.cabecalhoNotificacao {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  position: relative;
+}
+
+.tituloNotificacao {
+  flex: 1;
+  min-width: 0;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #252525;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.conteudoNotificacao {
+  width: 100%;
+
+  margin-top: 7px;
+
+  color: #3f3f3f;
+
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.avisoExclusao {
+  width: 100%;
+
+  margin-top: 14px;
+  padding: 14px 10px 4px 10px;
+
+  box-sizing: border-box;
+
+  border-top: 3px solid #d2d2d2;
+
+  color: #e02a2a;
+
+  font-size: 12px;
+}
+
+
+@media (max-width: 1200px) {
+  .menuLateral {
+    width: 20%;
+  }
+
+  .conteudosTelaNotificacoes {
+    width: 80%;
+  }
+
+  .areaPesquisa {
+    width: 50%;
+  }
+}
+
+@media (max-width: 900px) {
+  .cabecalhoConteudo {
+    gap: 15px;
+  }
+
+  .tituloPagina {
+    font-size: 26px;
+  }
+
+  .abas {
+    width: 240px;
+  }
+
+  .areaPesquisa {
+    width: 65%;
+  }
+}
+
+/* ==========================================================
+   BOTÃO MANDAR NOTIFICAÇÃO
+========================================================== */
+
+.botaoMandarNotificacao {
+  position: absolute;
+
+  right: 30px;
+  bottom: 28px;
+
+  z-index: 15;
+
+  min-width: 190px;
+  height: 54px;
+
+  padding: 0 20px;
+
+  border: none;
+  border-radius: 9px;
+
+  background-color: #099447;
+
+  color: #ffffff;
+
+  font-size: 0.78rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.25);
+
+  transition:
+    background-color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.botaoMandarNotificacao:hover {
+  background-color: #07823e;
+}
+
+.botaoMandarNotificacao:active {
+  transform: scale(0.98);
+}
+
+
+/* ==========================================================
+   OVERLAY DO MODAL
+========================================================== */
+
+.overlayModal {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.32
+  );
+}
+
+
+/* ==========================================================
+   MODAL
+========================================================== */
+
+.modalNotificacao {
+  width: 76%;
+  min-height: 350px;
+
+  padding: 10px;
+
+  box-sizing: border-box;
+
+  background-color: #001c33;
+
+  border-radius: 25px;
+
+  box-shadow:
+    0 4px 12px rgba(
+      0,
+      0,
+      0,
+      0.25
+    );
+}
+
+
+/* ==========================================================
+   CONTEÚDO BRANCO DO MODAL
+========================================================== */
+
+.conteudoModal {
+  position: relative;
+
+  width: 100%;
+  min-height: 330px;
+
+  padding: 30px 18px 55px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 11px;
+
+  background-color: #ffffff;
+
+  border-radius: 19px;
+}
+
+
+/* ==========================================================
+   TÍTULO
+========================================================== */
+
+.tituloModal {
+  margin: 0 0 5px;
+
+  font-size: 1.55rem;
+  font-weight: 700;
+
+  color: #292929;
+}
+
+
+/* ==========================================================
+   FILTROS SUPERIORES
+========================================================== */
+
+.linhaFiltrosModal {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  width: 100%;
+}
+
+.selectModal {
+  height: 34px;
+
+  min-width: 110px;
+
+  padding: 0 34px 0 12px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #c8c8c8;
+
+  border-radius: 18px;
+
+  outline: none;
+
+  background-color: #ffffff;
+
+  color: #5f5f5f;
+
+  font-family: inherit;
+  font-size: 0.72rem;
+
+  cursor: pointer;
+}
+
+.selectModal:first-child {
+  min-width: 145px;
+}
+
+
+/* ==========================================================
+   INPUTS
+========================================================== */
+
+.inputModal {
+  width: 30%;
+  height: 32px;
+
+  padding: 0 12px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #c6c6c6;
+
+  border-radius: 17px;
+
+  outline: none;
+
+  background-color: #ffffff;
+
+  font-family: inherit;
+  font-size: 0.74rem;
+
+  color: #333333;
+}
+
+.inputModal:focus {
+  border-color: #001c33;
+}
+
+
+/* ==========================================================
+   TÍTULO + ANEXO
+========================================================== */
+
+.linhaTituloModal {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 15px;
+}
+
+.inputTituloModal {
+  flex: 1;
+
+  height: 32px;
+
+  padding: 0 12px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #c6c6c6;
+
+  border-radius: 17px;
+
+  outline: none;
+
+  font-family: inherit;
+  font-size: 0.74rem;
+
+  color: #333333;
+}
+
+.inputTituloModal:focus {
+  border-color: #001c33;
+}
+
+
+/* ==========================================================
+   ANEXO
+========================================================== */
+
+.botaoAnexo {
+  min-width: 145px;
+  height: 32px;
+
+  padding: 0 14px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 17px;
+
+  background-color: #001c33;
+
+  color: #ffffff;
+
+  font-size: 0.68rem;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition: opacity 0.15s ease;
+}
+
+.botaoAnexo:hover {
+  opacity: 0.9;
+}
+
+.inputArquivo {
+  display: none;
+}
+
+
+/* ==========================================================
+   CONTEÚDO DA NOTIFICAÇÃO
+========================================================== */
+
+.areaConteudoModal {
+  position: relative;
+
+  width: 100%;
+  min-height: 120px;
+}
+
+.textareaModal {
+  width: 100%;
+  height: 120px;
+
+  padding: 13px 13px 30px;
+
+  box-sizing: border-box;
+
+  resize: none;
+
+  border: 1px solid #c6c6c6;
+
+  border-radius: 12px;
+
+  outline: none;
+
+  background-color: #ffffff;
+
+  font-family: inherit;
+  font-size: 0.75rem;
+
+  color: #333333;
+}
+
+.textareaModal:focus {
+  border-color: #001c33;
+}
+
+.contadorCaracteres {
+  position: absolute;
+
+  right: 12px;
+  bottom: 10px;
+
+  font-size: 0.69rem;
+
+  color: #666666;
+}
+
+
+/* ==========================================================
+   BOTÃO ENVIAR
+========================================================== */
+
+.botaoEnviar {
+  position: absolute;
+
+  right: 18px;
+  bottom: 15px;
+
+  min-width: 105px;
+  height: 34px;
+
+  padding: 0 13px;
+
+  border: none;
+
+  border-radius: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  background-color: #099447;
+
+  color: #ffffff;
+
+  font-size: 0.75rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.botaoEnviar:hover {
+  background-color: #07823e;
+}
+
+.botaoEnviar:active {
+  transform: scale(0.98);
+}
+
+
+/* ==========================================================
+   BOTÃO FECHAR
+========================================================== */
+
+.botaoFecharModal {
+  position: fixed;
+
+  right: 30px;
+  bottom: 27px;
+
+  width: 54px;
+  height: 54px;
+
+  padding: 0;
+
+  border: none;
+
+  border-radius: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #d7263d;
+
+  color: #ffffff;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 3px 8px rgba(
+      0,
+      0,
+      0,
+      0.2
+    );
+
+  transition:
+    background-color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.botaoFecharModal:hover {
+  background-color: #bf1f34;
+}
+
+.botaoFecharModal:active {
+  transform: scale(0.96);
+}
+
+/* ==========================================================
+   BOTÃO X INTERNO DO MODAL
+========================================================== */
+
+.botaoFecharModalInterno {
+  position: absolute;
+
+  top: 14px;
+  right: 15px;
+
+  width: 34px;
+  height: 34px;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: transparent;
+
+  color: #001c33;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.botaoFecharModalInterno:hover {
+  background-color: #e3e3e3;
+  color: #d7263d;
+}
+
+.botaoFecharModalInterno:active {
+  transform: scale(0.92);
+}

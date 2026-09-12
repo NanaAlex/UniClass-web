@@ -1,0 +1,814 @@
+/* ==========================================================
+   PÁGINA
+========================================================== */
+
+.paginaPerfil {
+  width: 100%;
+  min-height: 100vh;
+
+  margin: 0;
+  padding: 0;
+
+  overflow: hidden;
+
+  background-color: #eeeeee;
+}
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.headerPerfil {
+  width: 100%;
+  height: 10vh;
+}
+
+/* ==========================================================
+   ÁREA PRINCIPAL
+========================================================== */
+
+.areaPerfil {
+  width: 100%;
+  height: 90vh;
+
+  padding: 20px 8px 8px;
+
+  box-sizing: border-box;
+
+  background-color: #eeeeee;
+}
+
+.containerPerfil {
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+
+  grid-template-columns: 1.12fr 0.96fr;
+
+  gap: 19px;
+
+  padding: 13px 16px;
+
+  box-sizing: border-box;
+
+  background-color: #d7d7d7;
+
+  border-radius: 16px;
+
+  overflow: hidden;
+}
+
+/* ==========================================================
+   CARDS
+========================================================== */
+
+.cardPerfil {
+  min-width: 0;
+  min-height: 0;
+
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: #ffffff;
+
+  border-radius: 8px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 2px 7px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================================
+   TOPO AZUL DO PERFIL
+========================================================== */
+
+.topoPerfil {
+  height: 40%;
+  min-height: 245px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 28px 36px;
+
+  box-sizing: border-box;
+
+  background-color: #001c33;
+
+  color: #ffffff;
+}
+
+/* ==========================================================
+   FOTO
+========================================================== */
+
+.areaFoto {
+  width: 190px;
+  height: 190px;
+
+  position: relative;
+
+  flex-shrink: 0;
+
+  margin-right: 45px;
+}
+
+.fotoProfessor {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  border-radius: 50%;
+}
+
+/* ==========================================================
+   BOTÃO EDITAR FOTO
+========================================================== */
+
+.botaoEditarFoto {
+  width: 42px;
+  height: 42px;
+
+  position: absolute;
+
+  right: -3px;
+  bottom: 1px;
+
+  border: none;
+
+  border-radius: 7px;
+
+  background-color: #ffffff;
+
+  color: #000000;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 8px;
+
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.15);
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.botaoEditarFoto:hover {
+  transform: scale(1.05);
+}
+
+.botaoEditarFotoAtivo {
+  background-color: #18a64a;
+  color: #ffffff;
+}
+
+.botaoEditarFotoAtivo:hover {
+  background-color: #138d3e;
+}
+
+.botaoEditarFoto svg {
+  width: 100%;
+  height: 100%;
+}
+
+.inputFoto {
+  display: none;
+}
+
+/* ==========================================================
+   RESUMO DO PROFESSOR
+========================================================== */
+
+.resumoProfessor {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 19px;
+}
+
+.grupoResumo {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.grupoResumo span {
+  font-size: 0.8rem;
+  font-weight: 400;
+
+  letter-spacing: 0.04em;
+
+  color: #c8d0d6;
+}
+
+.grupoResumo strong {
+  font-size: 1.17rem;
+  font-weight: 500;
+
+  letter-spacing: 0.04em;
+
+  color: #ffffff;
+}
+
+/* ==========================================================
+   INPUTS DO TOPO AZUL
+========================================================== */
+
+.inputResumo {
+  width: 100%;
+  min-width: 220px;
+  height: 38px;
+
+  padding: 0 11px;
+
+  box-sizing: border-box;
+
+  border: 1px solid rgba(255, 255, 255, 0.65);
+
+  border-radius: 6px;
+
+  outline: none;
+
+  background-color: rgba(255, 255, 255, 0.12);
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 0.94rem;
+  font-weight: 500;
+
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.inputResumo:focus {
+  border-color: #ffffff;
+
+  background-color: rgba(255, 255, 255, 0.18);
+}
+
+/* ==========================================================
+   CORPO ESQUERDO
+========================================================== */
+
+.corpoPerfil {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 39px 43px 35px;
+
+  box-sizing: border-box;
+
+  overflow-y: auto;
+}
+
+.gridInformacoesPerfil {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  column-gap: 45px;
+  row-gap: 22px;
+}
+
+/* ==========================================================
+   INFORMAÇÕES DO PERFIL
+========================================================== */
+
+.campoInformacao {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.tituloInformacao {
+  font-size: 0.76rem;
+  font-weight: 400;
+
+  letter-spacing: 0.04em;
+
+  color: #818181;
+}
+
+.campoInformacao strong {
+  font-size: 0.88rem;
+  font-weight: 600;
+
+  line-height: 1.3;
+
+  color: #171717;
+}
+
+/* ==========================================================
+   INPUTS DE EDIÇÃO DO CARD ESQUERDO
+========================================================== */
+
+.inputEdicaoPerfil {
+  width: 100%;
+  height: 36px;
+
+  padding: 0 10px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #c8c8c8;
+
+  border-radius: 6px;
+
+  outline: none;
+
+  background-color: #ffffff;
+
+  color: #171717;
+
+  font-family: inherit;
+
+  font-size: 0.86rem;
+  font-weight: 500;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.inputEdicaoPerfil:focus {
+  border-color: #001c33;
+
+  box-shadow:
+    0 0 0 1px rgba(0, 28, 51, 0.08);
+}
+
+/* ==========================================================
+   FORMAÇÃO
+========================================================== */
+
+.informacaoFormacao {
+  margin-top: 22px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.informacaoFormacao p {
+  max-width: 95%;
+
+  margin: 0;
+
+  font-size: 0.86rem;
+  font-weight: 600;
+
+  line-height: 1.5;
+
+  text-align: justify;
+
+  color: #161616;
+}
+
+.textareaFormacao {
+  width: 100%;
+  min-height: 95px;
+
+  padding: 10px;
+
+  resize: vertical;
+
+  box-sizing: border-box;
+
+  border: 1px solid #c8c8c8;
+
+  border-radius: 6px;
+
+  outline: none;
+
+  background-color: #ffffff;
+
+  color: #171717;
+
+  font-family: inherit;
+
+  font-size: 0.84rem;
+  font-weight: 500;
+
+  line-height: 1.45;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.textareaFormacao:focus {
+  border-color: #001c33;
+
+  box-shadow:
+    0 0 0 1px rgba(0, 28, 51, 0.08);
+}
+
+.informacaoFormacao + .campoInformacao {
+  margin-top: 21px;
+}
+
+/* ==========================================================
+   CARD DIREITO
+========================================================== */
+
+.cardDados {
+  position: relative;
+
+  padding: 0;
+
+  overflow: hidden;
+}
+
+.conteudoDados {
+  width: 100%;
+  height: 100%;
+
+  padding: 31px 22px 82px;
+
+  box-sizing: border-box;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* ==========================================================
+   TÍTULO
+========================================================== */
+
+.tituloDadosPessoais {
+  margin: 0 0 44px;
+
+  font-size: 1.45rem;
+  font-weight: 700;
+
+  color: #111111;
+}
+
+/* ==========================================================
+   GRID DOS DADOS PRINCIPAIS
+========================================================== */
+
+.gridCamposPrincipais {
+  display: grid;
+
+  grid-template-columns: 1.13fr 0.87fr;
+
+  column-gap: 24px;
+  row-gap: 16px;
+}
+
+/* ==========================================================
+   CAMPOS / INPUTS
+========================================================== */
+
+.campoInput {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.campoInput span {
+  padding-left: 1px;
+
+  font-size: 0.72rem;
+  font-weight: 500;
+
+  letter-spacing: 0.03em;
+
+  color: #696969;
+}
+
+.campoInput input {
+  width: 100%;
+  height: 35px;
+
+  padding: 0 10px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #c9c9c9;
+
+  border-radius: 6px;
+
+  outline: none;
+
+  background-color: #ffffff;
+
+  color: #151515;
+
+  font-family: inherit;
+
+  font-size: 0.78rem;
+  font-weight: 500;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.campoInput input:disabled {
+  opacity: 1;
+
+  color: #151515;
+
+  background-color: #fafafa;
+
+  cursor: default;
+}
+
+/* Campo liberado para edição */
+
+.campoInput input:not(:disabled) {
+  background-color: #ffffff;
+}
+
+/* Campo em foco */
+
+.campoInput input:not(:disabled):focus {
+  border-color: #001c33;
+
+  box-shadow:
+    0 0 0 1px rgba(0, 28, 51, 0.08);
+}
+
+/* ==========================================================
+   SEÇÕES
+========================================================== */
+
+.secaoDados {
+  margin-top: 32px;
+}
+
+.secaoDados h2 {
+  margin: 0 0 20px;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  color: #151515;
+}
+
+/* ==========================================================
+   ENDEREÇO
+========================================================== */
+
+.gridEndereco {
+  display: grid;
+
+  grid-template-columns:
+    1.15fr
+    0.76fr
+    0.78fr;
+
+  gap: 16px 25px;
+}
+
+.campoRua {
+  grid-column: span 2;
+}
+
+.campoReferencia {
+  grid-column: span 2;
+}
+
+/* ==========================================================
+   CONTATO DE EMERGÊNCIA
+========================================================== */
+
+.gridEmergencia {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    0.83fr;
+
+  gap: 16px 24px;
+}
+
+/* ==========================================================
+   ÚNICO BOTÃO EDITAR / SALVAR
+========================================================== */
+
+.botaoEditar {
+  width: 150px;
+  height: 42px;
+
+  position: absolute;
+
+  right: 24px;
+  bottom: 18px;
+
+  z-index: 10;
+
+  border: none;
+
+  border-radius: 6px;
+
+  background-color: #001c33;
+
+  color: #ffffff;
+
+  font-size: 0.95rem;
+  font-weight: 700;
+
+  letter-spacing: 0.08em;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    opacity 0.15s ease,
+    transform 0.1s ease;
+}
+
+.botaoEditar:hover {
+  opacity: 0.9;
+}
+
+.botaoEditar:active {
+  transform: scale(0.98);
+}
+
+/* ==========================================================
+   BOTÃO SALVAR
+========================================================== */
+
+.botaoSalvar {
+  background-color: #18a64a;
+}
+
+.botaoSalvar:hover {
+  background-color: #138d3e;
+
+  opacity: 1;
+}
+
+/* ==========================================================
+   BOTÃO VOLTAR
+========================================================== */
+
+.bannerConteudo {
+  position: absolute;
+
+  top: 18px;
+  left: 20px;
+
+  z-index: 10;
+}
+
+.botaoVoltar {
+  width: 2rem;
+  height: 2rem;
+
+  border: none;
+
+  background: transparent;
+
+  color: #ffffff;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+}
+
+.setaVoltar {
+  font-size: 1.8rem;
+  font-weight: 500;
+
+  line-height: 1;
+
+  color: #ffffff;
+}
+
+.botaoVoltar:hover {
+  opacity: 0.8;
+}
+
+/* ==========================================================
+   SCROLL CARD ESQUERDO
+========================================================== */
+
+.corpoPerfil {
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    #bcbcbc
+    transparent;
+}
+
+.corpoPerfil::-webkit-scrollbar {
+  width: 6px;
+}
+
+.corpoPerfil::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.corpoPerfil::-webkit-scrollbar-thumb {
+  background-color: #bcbcbc;
+
+  border-radius: 20px;
+}
+
+/* ==========================================================
+   SCROLL CARD DIREITO
+========================================================== */
+
+.conteudoDados {
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    #bcbcbc
+    transparent;
+}
+
+.conteudoDados::-webkit-scrollbar {
+  width: 6px;
+}
+
+.conteudoDados::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.conteudoDados::-webkit-scrollbar-thumb {
+  background-color: #bcbcbc;
+
+  border-radius: 20px;
+}
+
+/* ==========================================================
+   RESPONSIVIDADE - 1200px (Principalmente pra deixar a foto maiorzinha)
+========================================================== */
+
+@media (max-width: 1200px) {
+
+  .containerPerfil {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .areaFoto {
+    width: 150px;
+    height: 150px;
+
+    margin-right: 30px;
+  }
+
+  .topoPerfil {
+    min-height: 220px;
+
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+
+  .corpoPerfil {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .inputResumo {
+    min-width: 170px;
+  }
+
+  .grupoResumo strong {
+    font-size: 1.05rem;
+  }
+
+  .gridEndereco {
+    column-gap: 15px;
+  }
+}

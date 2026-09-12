@@ -1,0 +1,138 @@
+.container {
+    width: 41.2%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.textoNotificacoes {
+    display: flex;
+    align-items: center;
+    height: 10%;
+    flex-shrink: 0;
+    padding-left: 5%;
+    box-sizing: border-box;
+}
+
+.textoNotificacoes h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.iconeSino {
+    margin-right: 10px;
+}
+
+.painelNotificacoes {
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: #dfdede;
+    border: 1px solid #bdbdbd;
+    border-radius: 25px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.listaDeNotificacoes {
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 18px 16px 10px 16px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    cursor: grab;
+}
+
+.notificacao {
+    width: 100%;
+    min-height: 58px;
+    flex: 0 0 58px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 7px 14px 7px 23px;
+    box-sizing: border-box;
+    background-color: #f8f6f6;
+    border-radius: 15px;
+
+    box-shadow:
+        0 -2px 2px rgba(0, 0, 0, 0.15),
+        0 1px 1px rgba(255, 255, 255, 0.7);
+
+    cursor: pointer;
+}
+
+.cabecalhoNotificacao {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.tituloNotificacao {
+    flex: 1;
+    min-width: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #252525;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dataEnvio {
+    margin-left: 15px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #666666;
+    white-space: nowrap;
+}
+
+.indicadorVisualizacao {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-left: 9px;
+    border-radius: 50%;
+    background-color: #e00000;
+}
+
+.conteudoNotificacao {
+    width: calc(100% - 25px);
+    margin-top: 5px;
+    font-size: 13px;
+    font-weight: 400;
+    color: #3f3f3f;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.verMais {
+    width: 100%;
+    height: 43px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 0 19px;
+    box-sizing: border-box;
+    font-size: 13px;
+    font-weight: 500;
+    color: #1f1f1f;
+    cursor: pointer;
+}
+
+.verMais:hover {
+    text-decoration: underline;
+}

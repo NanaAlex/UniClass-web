@@ -1,0 +1,453 @@
+.notasDaTurma {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.headerNotasDaTurma {
+  width: 100%;
+  height: 10vh;
+}
+
+.telaNotasDaTurma {
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  background-color: #eeeeee;
+  overflow: hidden;
+}
+
+.menuLateral {
+  width: 15%;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.containerNotas {
+  width: 85%;
+  height: calc(100% - 24px);
+  margin: 12px 18px 12px 8px;
+  padding: 9px;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, var(--cor-turma) 0%, var(--cor-turma) 8%, #001c33 58%, #001c33 100%);
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+.painelNotas {
+  width: 100%;
+  height: 100%;
+  padding: 20px 14px 0 14px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.topoPainel {
+  width: 100%;
+  min-height: 72px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.botaoVoltar {
+  width: 42px;
+  height: 42px;
+  margin-left: 4px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: #001c33;
+  cursor: pointer;
+}
+
+.iconeVoltar {
+  width: 33px;
+  height: 33px;
+}
+
+.mediaTurma {
+  min-width: 220px;
+  padding: 7px 13px 0 0;
+  box-sizing: border-box;
+  text-align: right;
+  color: #001c33;
+}
+
+.mediaTurmaTitulo {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.15;
+  font-weight: 700;
+}
+
+.mediaTurmaValor {
+  margin: 2px 0 0;
+  font-size: 31px;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.linhaTitulo {
+  width: 100%;
+  min-height: 55px;
+  display: grid;
+  grid-template-columns: 165px minmax(0, 1fr) 165px;
+  column-gap: 34px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.botaoNotas {
+  width: 154px;
+  height: 33px;
+  border: none;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease, transform 0.1s ease;
+}
+
+.botaoNotas:hover {
+  opacity: 0.9;
+}
+
+.botaoNotas:active {
+  transform: translateY(1px);
+}
+
+.botaoLancarNotas {
+  background-color: #001c33;
+}
+
+.botaoSalvarNotas {
+  background-color: #079447;
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.13);
+}
+
+.tituloTurma {
+  margin: 0;
+  color: #001c33;
+  font-size: clamp(24px, 2vw, 32px);
+  line-height: 1;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.espacoTitulo {
+  width: 165px;
+}
+
+.areaTabela {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  margin-top: 2px;
+  overflow-x: auto;
+  overflow-y: auto;
+  padding-right: 2px;
+  padding-bottom: 15px;
+  box-sizing: border-box;
+}
+
+.tabelaNotas {
+  width: 100%;
+  min-width: 885px;
+}
+
+.cabecalhoTabelaNotas {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(190px, 1.7fr) repeat(4, minmax(150px, 1.38fr)) minmax(70px, 0.62fr);
+  column-gap: 3px;
+  padding-bottom: 5px;
+  background-color: #ffffff;
+}
+
+.cabecalhoCelula {
+  min-height: 34px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #dcdcdc;
+  color: #2d2d2d;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+.cabecalhoAluno {
+  padding: 0 8px;
+}
+
+.cabecalhoBimestre {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+  text-align: center;
+  column-gap: 1px;
+  padding: 2px 4px;
+}
+
+.cabecalhoBimestre span {
+  white-space: nowrap;
+}
+
+.cabecalhoTotal {
+  min-height: 27px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+  background-color: #eeeeee;
+  border: 1px solid #bababa;
+  border-radius: 7px;
+}
+
+.cabecalhoMedia {
+  padding: 0 5px;
+  text-align: center;
+}
+
+.corpoTabela {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.linhaAluno {
+  --fundo-linha: #f1f1f1;
+  --fundo-campo: #d8d8d8;
+  width: 100%;
+  min-height: 37px;
+  display: grid;
+  grid-template-columns: minmax(190px, 1.7fr) repeat(4, minmax(150px, 1.38fr)) minmax(70px, 0.62fr);
+  column-gap: 3px;
+  align-items: stretch;
+}
+
+.linhaAluno:nth-child(even) {
+  --fundo-linha: #d3d3d3;
+  --fundo-campo: #f2f2f2;
+}
+
+.celulaAluno {
+  min-width: 0;
+  min-height: 37px;
+  padding: 4px 7px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  background-color: var(--fundo-linha);
+  border-radius: 9px;
+}
+
+.nomeAluno {
+  width: 100%;
+  overflow: hidden;
+  color: #111111;
+  font-size: 11px;
+  line-height: 1.05;
+  font-weight: 500;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.matriculaAluno {
+  width: 100%;
+  margin-top: 1px;
+  overflow: hidden;
+  color: #111111;
+  font-size: 9px;
+  line-height: 1;
+  font-weight: 400;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.grupoNotas {
+  min-width: 0;
+  min-height: 37px;
+  padding: 3px 5px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 8px;
+  align-items: center;
+  background-color: var(--fundo-linha);
+  border-radius: 9px;
+}
+
+.notaEstatica {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #202020;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.notaTotal {
+  font-weight: 800;
+}
+
+.campoNota {
+  width: 100%;
+  min-width: 0;
+  height: 25px;
+  padding: 0 3px;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  background-color: var(--fundo-campo);
+  border-radius: 7px;
+  color: #202020;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.campoNota::-webkit-outer-spin-button,
+.campoNota::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}
+
+.campoNota:focus {
+  outline: 2px solid rgba(0, 28, 51, 0.35);
+  outline-offset: 1px;
+}
+
+.campoTotalEditavel {
+  width: 100%;
+  min-width: 0;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--fundo-campo);
+  border-radius: 7px;
+  color: #202020;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.mediaFinal {
+  min-width: 0;
+  min-height: 37px;
+  padding: 3px 7px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--fundo-linha);
+  border-radius: 9px;
+}
+
+.valorMediaFinal {
+  color: #202020;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.campoMediaEditavel {
+  width: 100%;
+  min-width: 0;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--fundo-campo);
+  border-radius: 7px;
+  color: #202020;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.areaTabela::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+.areaTabela::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.areaTabela::-webkit-scrollbar-thumb {
+  background-color: #a7a7a7;
+  border-radius: 10px;
+}
+
+.turmaNaoEncontrada {
+  width: 85%;
+  height: calc(100% - 24px);
+  margin: 12px 18px 12px 8px;
+  padding: 25px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border-radius: 25px;
+  color: #001c33;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+@media (max-width: 1200px) {
+  .menuLateral {
+    width: 20%;
+  }
+  .containerNotas {
+    width: 80%;
+  }
+  .turmaNaoEncontrada {
+    width: 80%;
+  }
+  .linhaTitulo {
+    grid-template-columns: 155px minmax(0, 1fr) 130px;
+    column-gap: 20px;
+  }
+  .tituloTurma {
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 900px) {
+  .menuLateral {
+    width: 24%;
+  }
+  .containerNotas {
+    width: 76%;
+  }
+  .linhaTitulo {
+    grid-template-columns: 150px minmax(400px, 1fr);
+  }
+  .espacoTitulo {
+    display: none;
+  }
+  .areaTabela {
+    overflow-x: auto;
+  }
+}

@@ -1,0 +1,80 @@
+.fundoGradiente{
+    display: flex;
+    background: linear-gradient(180deg, #001C33 4.81%, #CF263C 95%);
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.fundoTransparente{
+    display: flex;
+    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(1, 27, 50, 0.00) 0%, #001C33 85%);
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.45);
+    height: 60%;
+    width: 50%;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.login{
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    width: 30%;
+}
+
+.titulo{
+    align-self: center;
+    color: #F8F6F6;
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 15%;
+}
+
+.espacamentoTituloInpput{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.texto{
+    color: #F8F6F6;
+    margin-top: 10%;
+    margin-bottom: 5%;
+    font-weight: bold;
+}
+
+.inputs{
+  background: transparent;
+  border: 2px solid #F8F6F6;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  outline: none;
+  color: #F8F6F6;
+}
+
+.inputs::placeholder{
+    color: #F8F6F6;
+    opacity: 0.5;
+}
+
+.link{
+    color: #CECECE;
+    opacity: 0.5;
+    font-size: 10px;
+    font-weight: 500;
+    text-decoration: underline;
+    margin-top: 5%;
+    align-self: flex-end;
+}
+
+.botaoEntrar{
+    margin-top: 20%;
+    font-weight: bold;
+    padding: 8px;
+    border-radius: 30px;
+}

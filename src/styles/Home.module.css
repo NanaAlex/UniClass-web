@@ -1,0 +1,82 @@
+.headerHome {
+  width: 100%;
+  height: 10vh;
+}
+
+.telaHome {
+  width: 100%;
+  height: 90vh;
+
+  display: flex;
+
+  background-color: #eeeeee;
+}
+
+/* MENU ESQUERDO */
+.menuLateral {
+  width: 15%;
+  height: 100%;
+
+}
+
+/* RESTANTE DA TELA */
+.conteudosHome {
+  width: 85%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+}
+
+.parteSuperior {
+  width: 100%;
+  height: 53.5%;
+
+}
+
+.parteInferior {
+  width: 99%;
+  height: 43.5%;
+  margin-top: 1.4%;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-between;
+}
+
+.textosTopo{
+  flex-direction: row;
+  display: flex;
+  margin-top: 0.5%;
+  color: #001C33;
+}
+
+.olaProfessor{
+  border: 1px #001C33 solid;
+  border-radius: 25px;
+  width: 75%;
+}
+
+.olaProfessorTexto{
+  margin-left: 2%;
+  color: #001C33;
+}
+
+.data {
+  border: 1px #001C33 solid;
+  border-radius: 25px;
+  width: 23%;
+  margin-left: 1%;
+  display: flex;
+  align-items: center;   
+  justify-content: center;
+}
+
+
+.dataTexto {
+  font-family: 'Hind', sans-serif;
+  font-size: 20px;
+  margin: 0; 
+}
