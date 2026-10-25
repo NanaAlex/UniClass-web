@@ -1,0 +1,142 @@
+.botao {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: var(--raio-medio);
+  font-weight: var(--peso-semi);
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    background-color var(--transicao-padrao),
+    border-color var(--transicao-padrao),
+    color var(--transicao-padrao),
+    box-shadow var(--transicao-padrao);
+}
+
+.botao:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.botao.carregando {
+  cursor: progress;
+  opacity: 1;
+}
+
+.conteudo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espaco-2);
+}
+
+.carregando .conteudo {
+  visibility: hidden;
+}
+
+.icone {
+  display: inline-flex;
+  width: 1.125em;
+  height: 1.125em;
+}
+
+.larguraTotal {
+  width: 100%;
+}
+
+/* Tamanhos */
+.p {
+  height: 32px;
+  padding: 0 var(--espaco-3);
+  font-size: var(--texto-tamanho-sm);
+}
+
+.m {
+  height: 40px;
+  padding: 0 var(--espaco-4);
+  font-size: var(--texto-tamanho-sm);
+}
+
+.g {
+  height: 48px;
+  padding: 0 var(--espaco-5);
+  font-size: var(--texto-tamanho-md);
+}
+
+/* Variantes */
+.primario {
+  background: var(--cor-primaria);
+  color: var(--cor-texto-invertido);
+}
+
+.primario:hover:not(:disabled) {
+  background: var(--cor-primaria-hover);
+}
+
+.secundario {
+  background: var(--cor-superficie);
+  border-color: var(--cor-borda);
+  color: var(--cor-primaria);
+}
+
+.secundario:hover:not(:disabled) {
+  background: var(--cor-primaria-suave);
+  border-color: var(--cor-primaria);
+}
+
+.fantasma {
+  color: var(--cor-primaria);
+}
+
+.fantasma:hover:not(:disabled) {
+  background: var(--cor-primaria-suave);
+}
+
+/* Invertido: ação principal sobre superfície azul-marinho */
+.invertido {
+  background: var(--cor-superficie);
+  color: var(--cor-primaria);
+}
+
+.invertido:hover:not(:disabled) {
+  background: var(--cor-primaria-suave);
+}
+
+.invertido:focus-visible {
+  box-shadow: 0 0 0 2px var(--cor-primaria), 0 0 0 4px var(--cor-texto-invertido);
+}
+
+.perigo {
+  background: var(--cor-perigo);
+  color: var(--cor-texto-invertido);
+}
+
+.perigo:hover:not(:disabled) {
+  background: var(--cor-perigo-hover);
+}
+
+.perigo:focus-visible {
+  box-shadow: var(--anel-foco-perigo);
+}
+
+.spinner {
+  position: absolute;
+  width: 1.125em;
+  height: 1.125em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: var(--raio-total);
+  animation: girar 700ms linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* LinkBotao: <a> com a aparência do botão */
+.link {
+  text-decoration: none;
+}
