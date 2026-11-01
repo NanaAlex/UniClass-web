@@ -47,10 +47,86 @@ npm start
 ## Estrutura de pastas
 
 ```
+public/
+└── icons/                                  # Ícones do projeto e logo
+
 src/
-└── app/
-    ├── layout.tsx   # Layout raiz da aplicação
-    └── page.tsx     # Página inicial
+├── app/
+│   ├── layout.tsx                          # Layout raiz da aplicação
+│   ├── page.tsx                            # Redireciona para /login
+│   ├── (auth)/                             # Telas sem menu lateral
+│   │   ├── layout.tsx                      # Painel da marca + conteúdo
+│   │   ├── layout.module.css
+│   │   ├── login/page.tsx                  # Tela de login
+│   │   └── recuperar-senha/page.tsx        # Tela de recuperar senha
+│   ├── (admin)/admin/horarios/page.tsx     # Provisória: destino do login do administrador
+│   └── (professor)/professor/horario/page.tsx  # Provisória: destino do login do professor
+├── components/
+│   ├── autenticacao/
+│   │   ├── Autenticacao.module.css
+│   │   ├── FormularioLogin.tsx
+│   │   ├── FormularioRecuperarSenha.tsx
+│   │   ├── PainelMarca.tsx
+│   │   └── PainelMarca.module.css
+│   └── ui/                                 # Componentes reutilizáveis (com seus .module.css)
+│       ├── Abas.tsx
+│       ├── AreaTexto.tsx
+│       ├── Aviso.tsx
+│       ├── BarraPesquisa.tsx
+│       ├── Botao.tsx
+│       ├── BotaoIcone.tsx
+│       ├── Campo.module.css                # Estilos dos campos de formulário
+│       ├── CampoTexto.tsx
+│       ├── Cartao.tsx
+│       ├── Chip.tsx
+│       ├── DescricaoCampo.tsx
+│       ├── Dica.tsx
+│       ├── ErroCarregamento.tsx
+│       ├── Esqueleto.tsx
+│       ├── EstadoVazio.tsx
+│       ├── Etiqueta.tsx
+│       ├── Icones.tsx
+│       ├── LinkBotao.tsx
+│       ├── Modal.tsx
+│       ├── ModalConfirmacao.tsx
+│       ├── ProvedorAvisos.tsx
+│       └── Seletor.tsx
+├── lib/                                    # Regras de negócio e utilitários
+│   ├── dadosAcademicos.ts
+│   ├── edicaoGrade.ts
+│   ├── escalonador.ts
+│   ├── formatacao.ts
+│   ├── formulario.ts
+│   ├── gestaoFormulario.ts
+│   ├── gestaoHorario.ts
+│   ├── horario.ts
+│   ├── professores.ts
+│   ├── solicitacao.ts
+│   └── validacao.ts
+├── mocks/                                  # Dados fictícios por domínio
+│   ├── academico.ts
+│   ├── formularios.ts
+│   ├── grades.ts
+│   ├── solicitacoes.ts
+│   └── usuarios.ts
+├── services/                               # Funções async que leem os mocks
+│   ├── academico.ts
+│   ├── autenticacao.ts
+│   ├── formularios.ts
+│   ├── horarios.ts
+│   ├── professores.ts
+│   ├── simulacao.ts                        # Simula a latência de uma API
+│   ├── solicitacoes.ts
+│   └── usuarios.ts
+├── styles/
+│   └── globals.css                         # Estilos globais e variáveis CSS
+└── types/                                  # Tipos do domínio
+    ├── index.ts
+    ├── academico.ts
+    ├── formulario.ts
+    ├── horario.ts
+    ├── solicitacao.ts
+    └── usuario.ts
 ```
 
 ## Variáveis de ambiente

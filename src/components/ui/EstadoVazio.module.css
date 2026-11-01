@@ -1,0 +1,44 @@
+.estado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--espaco-7) var(--espaco-5);
+  text-align: center;
+}
+
+.contorno {
+  border: 1px dashed var(--cor-borda-forte);
+  border-radius: var(--raio-grande);
+  background: var(--cor-superficie);
+}
+
+.icone {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: var(--espaco-4);
+  border-radius: var(--raio-total);
+  background: var(--cor-primaria-suave);
+  color: var(--cor-primaria);
+}
+
+.icone svg {
+  width: 28px;
+  height: 28px;
+}
+
+.titulo {
+  font-size: var(--texto-tamanho-lg);
+}
+
+.descricao {
+  max-width: 40ch;
+  margin-top: var(--espaco-2);
+  font-size: var(--texto-tamanho-sm);
+  color: var(--cor-texto-secundario);
+}
+
+.acao {
+  margin-top: var(--espaco-5);
+}
