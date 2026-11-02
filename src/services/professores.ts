@@ -40,10 +40,10 @@ export type ResultadoConvite = { professor: ProfessorComSituacao; jaTinhaConta: 
  * RF 1.13: se o e-mail já tem conta em outro curso, o convite é de vínculo e o nome já é conhecido.
  */
 export async function convidarProfessores(emails: string[]): Promise<ResultadoConvite[]> {
-  const resultados = emails.map((email) => {
+  const resultados = emails.map((email, indice) => {
     const existente = professoresOutrosCursos.find((p) => p.email === email);
     const professor: Professor = {
-      id: existente?.id ?? `p${Date.now()}-${email}`,
+      id: existente?.id ?? `p${Date.now()}-${indice}`,
       nome: existente?.nome ?? "",
       email,
       telefone: existente?.telefone,

@@ -1,0 +1,105 @@
+.lista {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-grande);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra-suave);
+  list-style: none;
+}
+
+.lista > li + li {
+  border-top: 1px solid var(--cor-borda);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-4);
+  padding: var(--espaco-4) var(--espaco-5);
+  color: inherit;
+  text-decoration: none;
+  transition: background-color var(--transicao-padrao);
+}
+
+a.item:hover {
+  background: var(--cor-primaria-suave);
+}
+
+/* Foco dentro da lista: anel interno para não ser cortado pelo overflow */
+a.item:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--cor-primaria);
+}
+
+.esqueleto {
+  pointer-events: none;
+}
+
+.identificacao {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--espaco-1);
+  min-width: 0;
+}
+
+.nome {
+  overflow: hidden;
+  font-weight: var(--peso-semi);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: var(--texto-tamanho-sm);
+  color: var(--cor-texto-secundario);
+}
+
+.meta > * + *::before {
+  content: "·";
+  margin: 0 var(--espaco-2);
+}
+
+.etiquetas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--espaco-2);
+  max-width: 50%;
+}
+
+.seta {
+  flex-shrink: 0;
+  font-size: var(--texto-tamanho-lg);
+  color: var(--cor-texto-secundario);
+  transition:
+    transform var(--transicao-padrao),
+    color var(--transicao-padrao);
+}
+
+a.item:hover .seta {
+  color: var(--cor-primaria);
+  transform: translateX(2px);
+}
+
+/* Tablet: as etiquetas descem para baixo do nome */
+@container conteudo (max-width: 880px) {
+  .item {
+    flex-wrap: wrap;
+  }
+
+  .identificacao {
+    flex-basis: calc(100% - 44px - var(--espaco-4) - 18px - var(--espaco-4));
+  }
+
+  .etiquetas {
+    order: 1;
+    justify-content: flex-start;
+    max-width: none;
+    padding-left: calc(44px + var(--espaco-4));
+  }
+}
