@@ -63,7 +63,7 @@ src/
 │   └── (professor)/                        # Área do professor
 │       ├── layout.tsx                      # Menu lateral + conteúdo
 │       └── professor/
-│           ├── horario/page.tsx            # Provisória: destino do login do professor
+│           ├── horario/page.tsx            # Horário do professor e pedidos de alteração
 │           └── formulario/
 │               ├── page.tsx                # Situação do formulário e solicitações
 │               └── resposta/page.tsx       # Preencher, editar ou ver a resposta
@@ -96,6 +96,13 @@ src/
 │   │   ├── TelaRespostaFormulario.tsx
 │   │   ├── useRespostaFormulario.ts
 │   │   └── VisualizacaoResposta.tsx
+│   ├── horario/                            # Horário do professor (com seus .module.css)
+│   │   ├── CelulaAula.tsx
+│   │   ├── FormularioSolicitacaoHorario.tsx
+│   │   ├── GradeHorario.tsx
+│   │   ├── PainelHorarioProfessor.tsx      # Grade, pedido de alteração e histórico
+│   │   ├── QuadroHorarioProfessor.tsx
+│   │   └── useHorarioProfessor.ts
 │   ├── layout/                             # Estrutura das telas logadas (com seus .module.css)
 │   │   ├── CabecalhoPagina.tsx
 │   │   ├── CabecalhoSecao.tsx

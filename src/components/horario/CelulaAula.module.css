@@ -1,0 +1,187 @@
+.aula {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  width: 100%;
+  min-height: 64px;
+  padding: var(--espaco-2) var(--espaco-3);
+  border: 1px solid transparent;
+  border-left: 4px solid var(--disciplina-destaque);
+  border-radius: var(--raio-medio);
+  background: var(--disciplina-fundo);
+  text-align: left;
+  transition:
+    box-shadow var(--transicao-padrao),
+    opacity var(--transicao-padrao),
+    border-color var(--transicao-padrao);
+}
+
+.nome {
+  display: -webkit-box;
+  overflow: hidden;
+  padding-right: var(--espaco-5);
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-semi);
+  line-height: var(--altura-linha-justa);
+  color: var(--cor-texto);
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.secundaria {
+  overflow: hidden;
+  font-size: var(--texto-tamanho-xs);
+  color: var(--cor-texto-secundario);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.livre {
+  display: grid;
+  place-items: center;
+  min-height: 64px;
+  border: 1px dashed var(--cor-borda);
+  border-radius: var(--raio-medio);
+  font-size: var(--texto-tamanho-xs);
+  color: var(--cor-texto-secundario);
+}
+
+/* Selecionar */
+.selecionavel:hover {
+  box-shadow: var(--sombra-elevada);
+}
+
+.selecionavel[aria-pressed="true"] {
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 0 2px var(--cor-primaria);
+}
+
+.selecionavel[aria-pressed="true"]:focus-visible {
+  box-shadow:
+    0 0 0 2px var(--cor-primaria),
+    var(--anel-foco);
+}
+
+.marcaSelecao {
+  position: absolute;
+  top: var(--espaco-2);
+  right: var(--espaco-2);
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--raio-total);
+  background: var(--cor-primaria);
+  color: var(--cor-texto-invertido);
+  font-size: var(--texto-tamanho-xs);
+}
+
+/* Editar (bloqueio) */
+.bloqueada {
+  border-color: var(--disciplina-destaque);
+  border-style: dashed;
+  border-left-style: solid;
+}
+
+.acaoBloqueio {
+  position: absolute;
+  top: var(--espaco-1);
+  right: var(--espaco-1);
+}
+
+.cadeado {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--raio-pequeno);
+  font-size: var(--texto-tamanho-md);
+  color: var(--cor-texto-secundario);
+  transition:
+    background-color var(--transicao-padrao),
+    color var(--transicao-padrao);
+}
+
+.cadeado:hover {
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+}
+
+.cadeado[aria-pressed="true"] {
+  background: var(--cor-primaria);
+  color: var(--cor-texto-invertido);
+}
+
+/* Editar: mover ou trocar aulas (RF 3.3). O botão cobre a célula; o cadeado fica por cima. */
+.mover {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  color: inherit;
+  text-align: left;
+}
+
+.mover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.mover:focus-visible {
+  box-shadow: none;
+}
+
+.mover:focus-visible::after {
+  box-shadow: var(--anel-foco);
+}
+
+.aula:has(.mover):hover {
+  box-shadow: var(--sombra-elevada);
+}
+
+.escolhida {
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 0 2px var(--cor-primaria);
+}
+
+.destino {
+  width: 100%;
+  border-color: var(--cor-primaria);
+  background: var(--cor-primaria-suave);
+  font-weight: var(--peso-medio);
+  color: var(--cor-primaria);
+  transition: background-color var(--transicao-padrao);
+}
+
+.destino:hover {
+  background: var(--cor-superficie);
+}
+
+.acaoBloqueio {
+  z-index: 1;
+}
+
+/* Pedido de alteração não lido (RF 3.4) */
+.pedido {
+  position: absolute;
+  right: var(--espaco-2);
+  bottom: var(--espaco-2);
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--cor-superficie);
+  border-radius: var(--raio-total);
+  background: var(--cor-perigo);
+}
+
+.indicadorBloqueio {
+  position: absolute;
+  top: var(--espaco-2);
+  right: var(--espaco-2);
+  display: grid;
+  font-size: var(--texto-tamanho-sm);
+  color: var(--disciplina-destaque);
+}

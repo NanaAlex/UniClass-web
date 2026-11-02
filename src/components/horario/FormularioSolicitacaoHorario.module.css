@@ -1,0 +1,48 @@
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+}
+
+/* Resumo da aula escolhida, com a mesma cor da disciplina na grade */
+.aula {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--espaco-3) var(--espaco-4);
+  border-left: 4px solid var(--disciplina-destaque);
+  border-radius: var(--raio-medio);
+  background: var(--disciplina-fundo);
+}
+
+.rotuloAula {
+  font-size: var(--texto-tamanho-xs);
+  font-weight: var(--peso-medio);
+  color: var(--cor-texto-secundario);
+}
+
+.nomeAula {
+  font-size: var(--texto-tamanho-md);
+  font-weight: var(--peso-semi);
+}
+
+.detalhesAula {
+  font-size: var(--texto-tamanho-sm);
+  color: var(--cor-texto-secundario);
+}
+
+.acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--espaco-3);
+}
+
+.espera {
+  padding: var(--espaco-5);
+  border: 1px dashed var(--cor-borda);
+  border-radius: var(--raio-medio);
+  font-size: var(--texto-tamanho-sm);
+  color: var(--cor-texto-secundario);
+  text-align: center;
+}
+

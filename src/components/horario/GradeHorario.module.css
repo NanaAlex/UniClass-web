@@ -1,0 +1,104 @@
+.rolagem {
+  overflow-x: auto;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-grande);
+  background: var(--cor-superficie);
+}
+
+.grade {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: separate;
+  border-spacing: var(--espaco-2);
+  table-layout: fixed;
+  font-variant-numeric: tabular-nums;
+}
+
+.colunaHorario {
+  width: 92px;
+}
+
+.canto {
+  padding: 0;
+}
+
+.dia {
+  padding: var(--espaco-2) 0 var(--espaco-1);
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-semi);
+  color: var(--cor-texto-secundario);
+  text-align: left;
+}
+
+.diaCurto {
+  display: none;
+  text-decoration: none;
+}
+
+.horario {
+  padding-right: var(--espaco-2);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.posicao,
+.hora {
+  display: block;
+  white-space: nowrap;
+}
+
+.posicao {
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-semi);
+  color: var(--cor-texto);
+}
+
+.hora {
+  font-size: var(--texto-tamanho-xs);
+  font-weight: var(--peso-normal);
+  color: var(--cor-texto-secundario);
+}
+
+.celula {
+  padding: 0;
+  vertical-align: top;
+}
+
+.intervalo td {
+  padding: var(--espaco-1) var(--espaco-3);
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-superficie-alternativa);
+  font-size: var(--texto-tamanho-xs);
+  font-weight: var(--peso-semi);
+  letter-spacing: 0.04em;
+  color: var(--cor-texto-secundario);
+  text-align: center;
+}
+
+.intervaloHora {
+  margin-left: var(--espaco-2);
+  font-weight: var(--peso-normal);
+}
+
+/* Com uma aula selecionada, as demais recuam para destacar a escolha */
+.comSelecao :global(button[aria-pressed="false"]) {
+  opacity: 0.55;
+}
+
+.comSelecao :global(button[aria-pressed="false"]:hover) {
+  opacity: 1;
+}
+
+@container conteudo (max-width: 880px) {
+  .diaLongo {
+    display: none;
+  }
+
+  .diaCurto {
+    display: inline;
+  }
+
+  .colunaHorario {
+    width: 76px;
+  }
+}
