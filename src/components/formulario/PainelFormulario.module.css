@@ -1,0 +1,33 @@
+.esqueletoCartao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-3);
+  padding: var(--espaco-6);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-grande);
+}
+
+.secao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+}
+
+.acaoSecao {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--espaco-1);
+}
+
+.motivo {
+  font-size: var(--texto-tamanho-xs);
+  color: var(--cor-texto-secundario);
+}
+
+@container conteudo (max-width: 760px) {
+  .acaoSecao {
+    align-items: flex-start;
+  }
+}

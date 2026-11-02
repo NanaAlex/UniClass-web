@@ -1,0 +1,91 @@
+.assistente {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-5);
+  scroll-margin-top: var(--espaco-6);
+}
+
+.painel {
+  overflow: hidden;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-grande);
+  box-shadow: var(--sombra-suave);
+}
+
+/* Cabeçalho da marca: etapas + título da etapa atual */
+.cabecalhoPainel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-5);
+  padding: var(--espaco-5) var(--espaco-6) var(--espaco-6);
+  background: var(--cor-primaria);
+  color: var(--cor-texto-invertido);
+}
+
+.titulo {
+  font-size: var(--texto-tamanho-2xl);
+  color: inherit;
+}
+
+.descricao {
+  max-width: 72ch;
+  margin-top: var(--espaco-1);
+  font-size: var(--texto-tamanho-sm);
+  color: var(--cor-menu-texto-suave);
+}
+
+.corpo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-6);
+  padding: var(--espaco-6);
+}
+
+.subsecao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+}
+
+.subsecao + .subsecao {
+  padding-top: var(--espaco-6);
+  border-top: 1px solid var(--cor-borda);
+}
+
+.tituloSubsecao {
+  font-size: var(--texto-tamanho-lg);
+}
+
+.descricaoSubsecao {
+  margin-top: var(--espaco-1);
+  font-size: var(--texto-tamanho-sm);
+  color: var(--cor-texto-secundario);
+}
+
+.rodape {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espaco-3);
+}
+
+.navegacao {
+  display: flex;
+  gap: var(--espaco-3);
+}
+
+/* Modo leitura (VisualizacaoResposta) reaproveita o painel */
+.leitura {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-5);
+}
+
+@container conteudo (max-width: 760px) {
+  .cabecalhoPainel,
+  .corpo {
+    padding-inline: var(--espaco-5);
+  }
+}
+
