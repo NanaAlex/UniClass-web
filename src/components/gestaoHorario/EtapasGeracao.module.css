@@ -1,0 +1,78 @@
+.lista {
+  display: flex;
+  gap: var(--espaco-2);
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--espaco-2);
+  min-width: 0;
+}
+
+/* Linha que liga uma etapa à próxima */
+.item:not(:last-child)::after {
+  content: "";
+  flex: 1;
+  min-width: var(--espaco-4);
+  height: 2px;
+  border-radius: var(--raio-total);
+  background: var(--cor-borda);
+}
+
+.item[data-estado="concluida"]::after {
+  background: var(--cor-primaria);
+}
+
+.numero {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-total);
+  font-size: var(--texto-tamanho-xs);
+  font-weight: var(--peso-semi);
+  font-variant-numeric: tabular-nums;
+  color: var(--cor-texto-secundario);
+}
+
+.rotulo {
+  overflow: hidden;
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-medio);
+  color: var(--cor-texto-secundario);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.item[data-estado="atual"] .numero {
+  border-color: var(--cor-primaria);
+  background: var(--cor-primaria);
+  color: var(--cor-texto-invertido);
+}
+
+.item[data-estado="concluida"] .numero {
+  border-color: var(--cor-primaria);
+  background: var(--cor-primaria-suave);
+  color: var(--cor-primaria);
+}
+
+.item[data-estado="atual"] .rotulo {
+  font-weight: var(--peso-semi);
+  color: var(--cor-texto);
+}
+
+@container conteudo (max-width: 880px) {
+  /* Em telas estreitas só a etapa atual mostra o nome */
+  .item:not([data-estado="atual"]) .rotulo {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+}

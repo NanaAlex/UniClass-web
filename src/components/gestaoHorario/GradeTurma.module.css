@@ -1,0 +1,76 @@
+.painel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-6);
+}
+
+.textos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-2);
+  min-width: 0;
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-2);
+}
+
+.versaoAntiga {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espaco-3);
+}
+
+.versaoAntiga > :first-child {
+  flex: 1;
+  min-width: 280px;
+}
+
+/* Barra de edição: fica visível enquanto a grade rola */
+.barraEdicao {
+  position: sticky;
+  top: var(--espaco-4);
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espaco-3) var(--espaco-5);
+  padding: var(--espaco-4) var(--espaco-5);
+  border: 1px solid var(--cor-primaria);
+  border-radius: var(--raio-grande);
+  background: var(--cor-primaria-suave);
+  box-shadow: var(--sombra-elevada);
+}
+
+.barraEdicao .textos {
+  flex: 1;
+  min-width: 280px;
+  gap: 2px;
+}
+
+.tituloBarra {
+  font-weight: var(--peso-semi);
+  color: var(--cor-primaria);
+}
+
+.instrucao {
+  max-width: 72ch;
+  font-size: var(--texto-tamanho-sm);
+  color: var(--cor-texto-secundario);
+}
+
+.contador {
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-medio);
+  font-variant-numeric: tabular-nums;
+}
+
+.secao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+}
+

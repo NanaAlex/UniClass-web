@@ -1,0 +1,111 @@
+.cartao {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+  padding: var(--espaco-4) var(--espaco-5);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-grande);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra-suave);
+  transition:
+    border-color var(--transicao-padrao),
+    box-shadow var(--transicao-padrao);
+}
+
+.cartao:hover {
+  border-color: var(--cor-borda-forte);
+  box-shadow: var(--sombra-elevada);
+}
+
+/* Turma bloqueada: borda tracejada, como a aula bloqueada na grade */
+.bloqueado {
+  border-style: dashed;
+  border-color: var(--cor-primaria);
+}
+
+.topo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--espaco-3);
+}
+
+.textos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-1);
+  min-width: 0;
+}
+
+.titulo {
+  font-size: var(--texto-tamanho-md);
+  font-weight: var(--peso-semi);
+  color: var(--cor-texto);
+  text-decoration: none;
+}
+
+/* O cartão inteiro é clicável; o cadeado fica por cima */
+.titulo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--raio-grande);
+}
+
+.titulo:focus-visible {
+  box-shadow: none;
+}
+
+.titulo:focus-visible::after {
+  box-shadow: var(--anel-foco);
+}
+
+.cartao:hover .titulo {
+  color: var(--cor-primaria);
+}
+
+.meta {
+  font-size: var(--texto-tamanho-xs);
+  color: var(--cor-texto-secundario);
+  font-variant-numeric: tabular-nums;
+}
+
+.cadeado {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-medio);
+  background: var(--cor-superficie);
+  font-size: var(--texto-tamanho-md);
+  color: var(--cor-texto-secundario);
+  transition:
+    background-color var(--transicao-padrao),
+    color var(--transicao-padrao);
+}
+
+.cadeado:hover:not(:disabled) {
+  background: var(--cor-primaria-suave);
+  color: var(--cor-primaria);
+}
+
+.cadeado[aria-pressed="true"] {
+  border-color: var(--cor-primaria);
+  background: var(--cor-primaria);
+  color: var(--cor-texto-invertido);
+}
+
+.cadeado:disabled {
+  opacity: 0.5;
+}
+
+.etiquetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-2);
+}

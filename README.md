@@ -63,7 +63,9 @@ src/
 │   │   ├── layout.tsx                      # Menu lateral + conteúdo
 │   │   └── admin/
 │   │       ├── dados/page.tsx              # Dias e horários, semestres, turmas e disciplinas
-│   │       ├── horarios/page.tsx           # Provisória: destino do login do administrador
+│   │       ├── horarios/
+│   │       │   ├── page.tsx                # Gerar, revisar e oficializar o horário das turmas
+│   │       │   └── [gradeId]/page.tsx      # Grade de uma turma: edição e pedidos de alteração
 │   │       └── professores/
 │   │           ├── page.tsx                # Lista, busca, filtros e convite de professores
 │   │           └── [id]/page.tsx           # Perfil: formulário, horário e solicitações
@@ -116,6 +118,27 @@ src/
 │   │   ├── TelaRespostaFormulario.tsx
 │   │   ├── useRespostaFormulario.ts
 │   │   └── VisualizacaoResposta.tsx
+│   ├── gestaoHorario/                      # Horários do administrador (com seus .module.css)
+│   │   ├── AcoesGeracao.tsx
+│   │   ├── BarraEdicaoGrade.tsx
+│   │   ├── CabecalhoGradeTurma.tsx
+│   │   ├── CartaoGeracaoHorario.tsx
+│   │   ├── CartaoTurmaHorario.tsx
+│   │   ├── EsqueletoHorarios.tsx
+│   │   ├── EtapasGeracao.tsx
+│   │   ├── FiltrosHorario.tsx
+│   │   ├── ListaHorarios.tsx
+│   │   ├── ListaProfessoresHorario.tsx
+│   │   ├── ModalHistoricoVersoes.tsx
+│   │   ├── PainelGradeTurma.tsx            # Grade de uma turma, edição e pedidos de alteração
+│   │   ├── PainelHorarios.tsx              # Geração, prévia e oficialização
+│   │   ├── PendenciasHorario.tsx
+│   │   ├── ResumoFormularioGeracao.tsx
+│   │   ├── SecaoSolicitacoesGrade.tsx
+│   │   ├── useAcoesHorario.ts
+│   │   ├── useEdicaoGrade.ts
+│   │   ├── useGestaoHorario.ts
+│   │   └── useGradeTurma.ts
 │   ├── horario/                            # Horário do professor (com seus .module.css)
 │   │   ├── CelulaAula.tsx
 │   │   ├── FormularioSolicitacaoHorario.tsx
