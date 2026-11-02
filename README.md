@@ -60,7 +60,13 @@ src/
 │   │   ├── login/page.tsx                  # Tela de login
 │   │   └── recuperar-senha/page.tsx        # Tela de recuperar senha
 │   ├── (admin)/admin/horarios/page.tsx     # Provisória: destino do login do administrador
-│   └── (professor)/professor/horario/page.tsx  # Provisória: destino do login do professor
+│   └── (professor)/                        # Área do professor
+│       ├── layout.tsx                      # Menu lateral + conteúdo
+│       └── professor/
+│           ├── horario/page.tsx            # Provisória: destino do login do professor
+│           └── formulario/
+│               ├── page.tsx                # Situação do formulário e solicitações
+│               └── resposta/page.tsx       # Preencher, editar ou ver a resposta
 ├── components/
 │   ├── autenticacao/
 │   │   ├── Autenticacao.module.css
@@ -68,6 +74,40 @@ src/
 │   │   ├── FormularioRecuperarSenha.tsx
 │   │   ├── PainelMarca.tsx
 │   │   └── PainelMarca.module.css
+│   ├── compartilhados/                     # Usados por mais de uma área
+│   │   ├── FiltroSemestre.tsx
+│   │   ├── GradeDisponibilidade.tsx
+│   │   ├── GradeDisponibilidade.module.css
+│   │   └── TabelaDisponibilidade.tsx
+│   ├── formulario/                         # Formulário do professor (com seus .module.css)
+│   │   ├── AssistenteFormulario.tsx        # Preenchimento em etapas
+│   │   ├── CartaoSituacaoFormulario.tsx
+│   │   ├── ConteudoEtapa.tsx
+│   │   ├── EscalaInteresse.tsx
+│   │   ├── IndicadorEtapas.tsx
+│   │   ├── ItemInteresseDisciplina.tsx
+│   │   ├── ListaInteresseDisciplinas.tsx
+│   │   ├── ModalConfirmarEnvio.tsx
+│   │   ├── ModalSolicitarAlteracao.tsx
+│   │   ├── PainelFormulario.tsx            # Situação do formulário e pedidos de alteração
+│   │   ├── ResumoResposta.tsx
+│   │   ├── SecaoSolicitacoesFormulario.tsx
+│   │   ├── TabelaPrioridadePeriodo.tsx
+│   │   ├── TelaRespostaFormulario.tsx
+│   │   ├── useRespostaFormulario.ts
+│   │   └── VisualizacaoResposta.tsx
+│   ├── layout/                             # Estrutura das telas logadas (com seus .module.css)
+│   │   ├── CabecalhoPagina.tsx
+│   │   ├── CabecalhoSecao.tsx
+│   │   ├── EstruturaPagina.tsx             # Menu lateral + área de conteúdo
+│   │   ├── IconeMenu.tsx
+│   │   ├── LinkVoltar.tsx
+│   │   └── MenuLateral.tsx
+│   ├── solicitacoes/                       # Pedidos de alteração
+│   │   ├── EtiquetaStatusSolicitacao.tsx
+│   │   ├── ItemSolicitacao.tsx
+│   │   ├── ListaSolicitacoes.tsx
+│   │   └── ListaSolicitacoes.module.css
 │   └── ui/                                 # Componentes reutilizáveis (com seus .module.css)
 │       ├── Abas.tsx
 │       ├── AreaTexto.tsx
@@ -100,6 +140,7 @@ src/
 │   ├── gestaoFormulario.ts
 │   ├── gestaoHorario.ts
 │   ├── horario.ts
+│   ├── navegacao.ts                        # Itens do menu e links do formulário
 │   ├── professores.ts
 │   ├── solicitacao.ts
 │   └── validacao.ts

@@ -1,0 +1,5 @@
+/* Compensa o padding do botão "p" para o ícone alinhar com o texto abaixo */
+.voltar {
+  align-self: flex-start;
+  margin-left: calc(var(--espaco-3) * -1);
+}

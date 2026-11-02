@@ -1,0 +1,46 @@
+.resumo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--espaco-3);
+}
+
+.item {
+  padding: var(--espaco-3) var(--espaco-4);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-medio);
+  background: var(--cor-fundo);
+}
+
+.item dt {
+  font-size: var(--texto-tamanho-xs);
+  font-weight: var(--peso-medio);
+  color: var(--cor-texto-secundario);
+}
+
+.item dd {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--espaco-1);
+  font-size: var(--texto-tamanho-sm);
+  color: var(--cor-texto-secundario);
+}
+
+.item strong {
+  font-size: var(--texto-tamanho-xl);
+  font-weight: var(--peso-semi);
+  color: var(--cor-texto);
+  font-variant-numeric: tabular-nums;
+}
+
+.extra {
+  flex-basis: 100%;
+  font-size: var(--texto-tamanho-xs);
+}
+
+/* Conteúdo do ModalConfirmarEnvio */
+.confirmacao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+}
