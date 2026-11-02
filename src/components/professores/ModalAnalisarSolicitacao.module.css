@@ -1,0 +1,55 @@
+.conteudo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espaco-3);
+  font-size: var(--texto-tamanho-sm);
+  color: var(--cor-texto-secundario);
+}
+
+.aula {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--espaco-3);
+  padding: var(--espaco-3) var(--espaco-4);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-medio);
+}
+
+.aula dt {
+  font-size: var(--texto-tamanho-xs);
+  font-weight: var(--peso-medio);
+  color: var(--cor-texto-secundario);
+}
+
+.aula dd {
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-medio);
+}
+
+.pedido {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-1);
+  padding: var(--espaco-3) var(--espaco-4);
+  border-left: 3px solid var(--cor-primaria);
+  border-radius: 0 var(--raio-medio) var(--raio-medio) 0;
+  background: var(--cor-fundo);
+  white-space: pre-line;
+}
+
+.rotulo {
+  font-size: var(--texto-tamanho-xs);
+  font-weight: var(--peso-medio);
+  color: var(--cor-texto-secundario);
+}
+
+.atalho {
+  align-self: flex-start;
+}

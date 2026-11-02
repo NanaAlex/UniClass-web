@@ -59,7 +59,13 @@ src/
 │   │   ├── layout.module.css
 │   │   ├── login/page.tsx                  # Tela de login
 │   │   └── recuperar-senha/page.tsx        # Tela de recuperar senha
-│   ├── (admin)/admin/horarios/page.tsx     # Provisória: destino do login do administrador
+│   ├── (admin)/                            # Área do administrador
+│   │   ├── layout.tsx                      # Menu lateral + conteúdo
+│   │   └── admin/
+│   │       ├── horarios/page.tsx           # Provisória: destino do login do administrador
+│   │       └── professores/
+│   │           ├── page.tsx                # Lista, busca, filtros e convite de professores
+│   │           └── [id]/page.tsx           # Perfil: formulário, horário e solicitações
 │   └── (professor)/                        # Área do professor
 │       ├── layout.tsx                      # Menu lateral + conteúdo
 │       └── professor/
@@ -110,6 +116,24 @@ src/
 │   │   ├── IconeMenu.tsx
 │   │   ├── LinkVoltar.tsx
 │   │   └── MenuLateral.tsx
+│   ├── professores/                        # Professores do administrador (com seus .module.css)
+│   │   ├── AbaFormularioProfessor.tsx
+│   │   ├── AbaHorarioProfessor.tsx
+│   │   ├── AbaSolicitacoesProfessor.tsx
+│   │   ├── AcoesConta.tsx
+│   │   ├── AvatarProfessor.tsx
+│   │   ├── BotaoEditarFoto.tsx
+│   │   ├── CabecalhoPerfilProfessor.tsx
+│   │   ├── CampoEmails.tsx
+│   │   ├── FiltroProfessores.tsx
+│   │   ├── ItemProfessor.tsx
+│   │   ├── ListaProfessores.tsx
+│   │   ├── ModalAnalisarSolicitacao.tsx
+│   │   ├── ModalConvidarProfessores.tsx
+│   │   ├── PainelPerfilProfessor.tsx       # Perfil do professor com abas
+│   │   ├── PainelProfessores.tsx           # Lista, busca, filtros e convite
+│   │   ├── usePerfilProfessor.ts
+│   │   └── useProfessores.ts
 │   ├── solicitacoes/                       # Pedidos de alteração
 │   │   ├── EtiquetaStatusSolicitacao.tsx
 │   │   ├── ItemSolicitacao.tsx
