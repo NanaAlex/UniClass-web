@@ -1,0 +1,248 @@
+.painel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-6);
+}
+
+.textoSecundario {
+  font-size: var(--texto-tamanho-sm);
+  color: var(--cor-texto-secundario);
+}
+
+/* Cartão de geração: etapas + formulário + ações */
+.cartaoGeracao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-5);
+  padding: var(--espaco-6);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-grande);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra-suave);
+}
+
+.blocoFormulario {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espaco-4) var(--espaco-6);
+  padding: var(--espaco-4) var(--espaco-5);
+  border-radius: var(--raio-medio);
+  background: var(--cor-superficie-alternativa);
+}
+
+.formularioTitulo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rotuloPequeno {
+  font-size: var(--texto-tamanho-xs);
+  font-weight: var(--peso-medio);
+  color: var(--cor-texto-secundario);
+}
+
+.nomeFormulario {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espaco-2);
+  font-weight: var(--peso-semi);
+}
+
+.dadosFormulario {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-6);
+  font-variant-numeric: tabular-nums;
+}
+
+.dadosFormulario dt {
+  font-size: var(--texto-tamanho-xs);
+  font-weight: var(--peso-medio);
+  color: var(--cor-texto-secundario);
+}
+
+.dadosFormulario dd {
+  font-size: var(--texto-tamanho-sm);
+}
+
+.urgente {
+  font-weight: var(--peso-semi);
+  color: var(--cor-aviso);
+}
+
+.acoesFormulario {
+  display: flex;
+  gap: var(--espaco-2);
+  margin-left: auto;
+}
+
+.blocoAcoes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+}
+
+.linhaAcoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espaco-3);
+}
+
+.visibilidade {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espaco-2);
+}
+
+.botoesGeracao {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-2);
+  margin-left: auto;
+}
+
+/* Pendências (RF 4) */
+.pendencias {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-3);
+  padding: var(--espaco-4) var(--espaco-5);
+  border: 1px solid var(--cor-aviso-borda);
+  border-left: 4px solid var(--cor-aviso);
+  border-radius: var(--raio-medio);
+  background: var(--cor-aviso-suave);
+}
+
+.tituloPendencias {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  font-size: var(--texto-tamanho-md);
+  color: var(--cor-texto);
+}
+
+.tituloPendencias svg {
+  color: var(--cor-aviso);
+}
+
+.listaPendencias {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-2);
+  padding-left: var(--espaco-6);
+  font-size: var(--texto-tamanho-sm);
+}
+
+.listaPendencias li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--espaco-1) var(--espaco-4);
+}
+
+.linkPendencia {
+  flex-shrink: 0;
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-semi);
+  color: var(--cor-primaria);
+  text-underline-offset: 3px;
+}
+
+.linkPendencia:hover {
+  color: var(--cor-primaria-hover);
+}
+
+/* Lista de turmas */
+.secaoLista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+}
+
+.filtros {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--espaco-4);
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--espaco-4);
+  list-style: none;
+}
+
+.esqueletoCartao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-3);
+  padding: var(--espaco-4) var(--espaco-5);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-grande);
+  background: var(--cor-superficie);
+}
+
+.acaoLinha {
+  flex-shrink: 0;
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-semi);
+  color: var(--cor-primaria);
+}
+
+/* Histórico de versões */
+.historico {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-5);
+}
+
+.tituloHistorico {
+  margin-bottom: var(--espaco-2);
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-semi);
+}
+
+.listaVersoes {
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-medio);
+  list-style: none;
+}
+
+.listaVersoes li {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--espaco-4);
+  padding: var(--espaco-2) var(--espaco-4);
+  font-variant-numeric: tabular-nums;
+}
+
+.listaVersoes li + li {
+  border-top: 1px solid var(--cor-borda);
+}
+
+.versao {
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-semi);
+}
+
+.etiquetasVersao {
+  display: flex;
+}
+
+@container conteudo (max-width: 880px) {
+  .filtros {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .acoesFormulario {
+    margin-left: 0;
+  }
+}
