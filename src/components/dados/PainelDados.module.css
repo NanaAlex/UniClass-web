@@ -1,0 +1,43 @@
+.painel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-5);
+}
+
+.conteudo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-5);
+  min-width: 0;
+}
+
+/* Barra de salvar fixa no fim da área de conteúdo */
+.rodape {
+  position: sticky;
+  bottom: var(--espaco-4);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espaco-4);
+  padding: var(--espaco-3) var(--espaco-3) var(--espaco-3) var(--espaco-5);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-grande);
+  box-shadow: var(--sombra-elevada);
+}
+
+.situacao {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  font-size: var(--texto-tamanho-sm);
+  color: var(--cor-texto-secundario);
+}
+
+.ponto {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--raio-total);
+  background: var(--cor-aviso);
+}
