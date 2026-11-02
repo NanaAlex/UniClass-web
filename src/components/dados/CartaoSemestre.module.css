@@ -1,0 +1,70 @@
+.cartao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-3);
+  padding: var(--espaco-4);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-grande);
+  box-shadow: var(--sombra-suave);
+  transition: border-color var(--transicao-padrao);
+}
+
+.cartao:hover {
+  border-color: var(--cor-borda-forte);
+}
+
+.cabecalho {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--espaco-2);
+}
+
+.titulo {
+  font-size: var(--texto-tamanho-lg);
+  font-weight: var(--peso-semi);
+  color: var(--cor-primaria);
+}
+
+.resumo {
+  font-size: var(--texto-tamanho-xs);
+  color: var(--cor-texto-secundario);
+  font-variant-numeric: tabular-nums;
+}
+
+.turmas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-1);
+}
+
+.turma {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  min-height: 40px;
+  padding: 0 var(--espaco-1) 0 var(--espaco-3);
+  border-radius: var(--raio-medio);
+  background: var(--cor-superficie-alternativa);
+}
+
+.nomeTurma {
+  flex: 1;
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-medio);
+}
+
+.semTurmas {
+  padding: var(--espaco-3);
+  border: 1px dashed var(--cor-borda);
+  border-radius: var(--raio-medio);
+  font-size: var(--texto-tamanho-sm);
+  color: var(--cor-texto-secundario);
+  text-align: center;
+}
+
+.adicionar {
+  align-self: flex-start;
+  margin-top: auto;
+}

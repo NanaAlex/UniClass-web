@@ -1,0 +1,81 @@
+.envoltorio {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--espaco-4);
+}
+
+.rolagem {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.grade {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: separate;
+  border-spacing: var(--espaco-2) var(--espaco-1);
+  font-variant-numeric: tabular-nums;
+}
+
+.grade thead th {
+  padding-bottom: var(--espaco-2);
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-medio);
+  color: var(--cor-texto-secundario);
+  text-align: center;
+}
+
+.colunaAula {
+  width: 132px;
+  text-align: left;
+}
+
+.numeroAula,
+.horas {
+  display: block;
+}
+
+.numeroAula {
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-semi);
+  color: var(--cor-texto);
+}
+
+.horas {
+  font-size: var(--texto-tamanho-xs);
+  font-weight: var(--peso-normal);
+  color: var(--cor-texto-secundario);
+}
+
+.vaga {
+  display: block;
+  height: 44px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-medio);
+  background: var(--cor-superficie-alternativa);
+}
+
+/* Separa visualmente o início de cada bloco */
+.inicioBloco td,
+.inicioBloco th {
+  padding-top: var(--espaco-2);
+}
+
+.intervalo {
+  padding: var(--espaco-2);
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-primaria-suave);
+  font-size: var(--texto-tamanho-xs);
+  font-weight: var(--peso-medio);
+  letter-spacing: 0.04em;
+  color: var(--cor-primaria);
+  text-align: center;
+}
+
+.colunaAcao {
+  width: 44px;
+  vertical-align: middle;
+  text-align: center;
+}
+

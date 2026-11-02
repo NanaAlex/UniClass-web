@@ -62,6 +62,7 @@ src/
 │   ├── (admin)/                            # Área do administrador
 │   │   ├── layout.tsx                      # Menu lateral + conteúdo
 │   │   └── admin/
+│   │       ├── dados/page.tsx              # Dias e horários, semestres, turmas e disciplinas
 │   │       ├── horarios/page.tsx           # Provisória: destino do login do administrador
 │   │       └── professores/
 │   │           ├── page.tsx                # Lista, busca, filtros e convite de professores
@@ -85,6 +86,19 @@ src/
 │   │   ├── GradeDisponibilidade.tsx
 │   │   ├── GradeDisponibilidade.module.css
 │   │   └── TabelaDisponibilidade.tsx
+│   ├── dados/                              # Dados do curso do administrador (com seus .module.css)
+│   │   ├── AbaDiasHorarios.tsx
+│   │   ├── AbaDisciplinas.tsx
+│   │   ├── AbaSemestres.tsx
+│   │   ├── CartaoSemestre.tsx
+│   │   ├── EsqueletoDados.tsx
+│   │   ├── FiltroDias.tsx
+│   │   ├── FormularioDisciplina.tsx
+│   │   ├── GradeEstruturaTurno.tsx
+│   │   ├── ModalNovaTurma.tsx
+│   │   ├── PainelDados.tsx                 # Abas de dias e horários, semestres e disciplinas
+│   │   ├── TabelaDisciplinas.tsx
+│   │   └── useDadosAcademicos.ts
 │   ├── formulario/                         # Formulário do professor (com seus .module.css)
 │   │   ├── AssistenteFormulario.tsx        # Preenchimento em etapas
 │   │   ├── CartaoSituacaoFormulario.tsx

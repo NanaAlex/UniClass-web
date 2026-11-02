@@ -1,0 +1,62 @@
+.rolagem {
+  overflow-x: auto;
+}
+
+.tabela {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+  font-size: var(--texto-tamanho-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.tabela thead th {
+  padding: var(--espaco-2) var(--espaco-3);
+  border-bottom: 1px solid var(--cor-borda);
+  font-size: var(--texto-tamanho-xs);
+  font-weight: var(--peso-medio);
+  color: var(--cor-texto-secundario);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.tabela tbody th,
+.tabela tbody td {
+  padding: var(--espaco-2) var(--espaco-3);
+  border-bottom: 1px solid var(--cor-borda);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.tabela tbody tr {
+  transition: background-color var(--transicao-padrao);
+}
+
+.tabela tbody tr:hover {
+  background: var(--cor-primaria-suave);
+}
+
+.nome {
+  font-weight: var(--peso-medio);
+}
+
+.cor {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: var(--espaco-3);
+  border-radius: var(--raio-total);
+  background: var(--disciplina-destaque);
+  vertical-align: middle;
+}
+
+.tabela .numero {
+  width: 112px;
+  text-align: right;
+}
+
+.tabela .acao {
+  width: 56px;
+  text-align: right;
+}
+
