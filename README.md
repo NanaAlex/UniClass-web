@@ -63,6 +63,7 @@ src/
 │   │   ├── layout.tsx                      # Menu lateral + conteúdo
 │   │   └── admin/
 │   │       ├── dados/page.tsx              # Dias e horários, semestres, turmas e disciplinas
+│   │       ├── formulario/page.tsx         # Lançar o formulário e acompanhar as respostas
 │   │       ├── horarios/
 │   │       │   ├── page.tsx                # Gerar, revisar e oficializar o horário das turmas
 │   │       │   └── [gradeId]/page.tsx      # Grade de uma turma: edição e pedidos de alteração
@@ -118,6 +119,15 @@ src/
 │   │   ├── TelaRespostaFormulario.tsx
 │   │   ├── useRespostaFormulario.ts
 │   │   └── VisualizacaoResposta.tsx
+│   ├── gestaoFormulario/                   # Formulário do administrador (com seus .module.css)
+│   │   ├── CartaoLancarFormulario.tsx
+│   │   ├── CartaoResumoFormulario.tsx
+│   │   ├── EsqueletoGestaoFormulario.tsx
+│   │   ├── ItemRespostaFormulario.tsx
+│   │   ├── ListaRespostasFormulario.tsx
+│   │   ├── ModalEditarPrazo.tsx
+│   │   ├── PainelGestaoFormulario.tsx      # Lançamento, prazo, encerramento e respostas
+│   │   └── useGestaoFormulario.ts
 │   ├── gestaoHorario/                      # Horários do administrador (com seus .module.css)
 │   │   ├── AcoesGeracao.tsx
 │   │   ├── BarraEdicaoGrade.tsx
