@@ -51,7 +51,7 @@ function ItemNavegacao({ item, ativo }: { item: ItemMenu; ativo: boolean }) {
   );
 }
 
-export function MenuLateral({ itens, usuario, hrefConfiguracoes, hrefSair = "/login", caminhoAtivo }: MenuLateralProps) {
+export function MenuLateral({ itens, usuario, hrefConfiguracoes, hrefSair = "/sair", caminhoAtivo }: MenuLateralProps) {
   const caminhoAtual = usePathname();
   const caminho = caminhoAtivo ?? caminhoAtual ?? "";
 

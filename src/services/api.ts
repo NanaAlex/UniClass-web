@@ -1,25 +1,30 @@
-const URL_API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3333";
+export const URL_API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3333";
 
-const CHAVE_TOKEN = "staggy_token";
+export const CHAVE_TOKEN = "staggy_token";
 
 /* 
    Token da sessão
-   Fica no localStorage do navegador para continuar valendo
-   depois de recarregar a página. O "typeof window" evita erro
-   quando o Next.js monta a página no servidor, onde não existe
-   localStorage.
+   Fica num cookie, e não no localStorage, porque os layouts
+   rodam no servidor do Next, onde não existe localStorage.
+   O navegador manda o cookie junto com cada página, então o
+   servidor (services/usuarios.ts) e a página (aqui) conseguem
+   ler o mesmo token. O "typeof document" evita erro quando o
+   código roda no servidor. Validade: 1 dia (quem decide se a
+   sessão ainda vale é o back, RF 1.11).
 */
 export function salvarToken(token: string) {
-    localStorage.setItem(CHAVE_TOKEN, token);
+    document.cookie = `${CHAVE_TOKEN}=${token}; path=/; max-age=86400; SameSite=Lax`;
 }
 
 export function obterToken(): string | null {
-    if (typeof window === "undefined") return null;
-    return localStorage.getItem(CHAVE_TOKEN);
+    if (typeof document === "undefined") return null;
+    // document.cookie vem como "nome1=valor1; nome2=valor2"
+    const par = document.cookie.split("; ").find((item) => item.startsWith(`${CHAVE_TOKEN}=`));
+    return par ? par.split("=")[1] : null;
 }
 
 export function apagarToken() {
-    localStorage.removeItem(CHAVE_TOKEN);
+    document.cookie = `${CHAVE_TOKEN}=; path=/; max-age=0; SameSite=Lax`;
 }
 
 /* 
@@ -34,14 +39,11 @@ export class ErroApi extends Error {
     }
 }
 
-/* 
-   Faz uma requisição para o back-end
- */
+// Faz uma requisição para o back-end
 export async function chamarApi<T>(
     caminho: string,
     opcoes: { method?: string; body?: unknown } = {},
 ): Promise<T> {
-    // Cabeçalhos: JSON sempre, token quando existir
     const cabecalhos: Record<string, string> = { "Content-Type": "application/json" };
     const token = obterToken();
     if (token) cabecalhos.Authorization = `Bearer ${token}`;

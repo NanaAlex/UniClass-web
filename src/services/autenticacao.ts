@@ -29,8 +29,37 @@ type RespostaLogin = {
 };
 
 /* 
+   Usuário como o back devolve
+   Mesmo formato no POST /auth/login e no GET /auth/eu
+*/
+export type UsuarioApi = RespostaLogin["usuario"];
+
+/* 
+   Converte o usuário do back para o formato do front
+   Usado pelo services/usuarios.ts (layouts no servidor)
+*/
+export function converterUsuario(usuario: UsuarioApi): UsuarioLogado {
+  const ehAdministrador = usuario.tipoUsuario === "ADMINISTRADOR";
+
+  return {
+    id: String(usuario.id), // no front os ids são texto
+    nome: usuario.nome,
+    email: usuario.email,
+    perfil: ehAdministrador ? "administrador" : "professor",
+    descricao: ehAdministrador ? "Coordenação" : "Professor",
+  };
+}
+
+/* 
+   Página inicial de cada perfil (RF 1.2)
+*/
+export function destinoDoPerfil(perfil: UsuarioLogado["perfil"]): string {
+  return perfil === "administrador" ? "/admin/horarios" : "/professor/horario";
+}
+
+/* 
    Login (RF 1.1, CU-001)
- */
+*/
 export async function entrar(email: string, senha: string): Promise<ResultadoLogin> {
   try {
     const resposta = await chamarApi<RespostaLogin>("/auth/login", {
@@ -64,7 +93,7 @@ export async function entrar(email: string, senha: string): Promise<ResultadoLog
 
 /* 
    Logout (RF 1.3, CU-002)
- */
+*/
 export async function sair(): Promise<void> {
   try {
     await chamarApi("/auth/logout", { method: "POST" });
@@ -75,7 +104,7 @@ export async function sair(): Promise<void> {
 
 /* 
    Recuperação de senha (RF 1.4, CU-003)
- */
+*/
 export async function solicitarRecuperacaoSenha(email: string): Promise<{ enviadoPara: string }> {
     return responder({ enviadoPara: email.trim().toLowerCase() }, 900);
 }
