@@ -1,0 +1,115 @@
+.cartao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-5);
+  padding: var(--espaco-6);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-grande);
+  box-shadow: var(--sombra-suave);
+}
+
+.topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--espaco-4);
+}
+
+.textos {
+  display: flex;
+  flex: 1 1 320px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--espaco-2);
+  min-width: 0;
+}
+
+.titulo {
+  font-size: var(--texto-tamanho-2xl);
+}
+
+.periodo {
+  font-size: var(--texto-tamanho-sm);
+  color: var(--cor-texto-secundario);
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-2);
+}
+
+.detalhes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.4fr);
+  gap: var(--espaco-5);
+  padding-top: var(--espaco-5);
+  border-top: 1px solid var(--cor-borda);
+}
+
+.detalhes dt {
+  font-size: var(--texto-tamanho-xs);
+  font-weight: var(--peso-medio);
+  color: var(--cor-texto-secundario);
+}
+
+.detalhes dd {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-1);
+  margin-top: var(--espaco-1);
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-medio);
+  font-variant-numeric: tabular-nums;
+}
+
+.urgente {
+  color: var(--cor-aviso);
+}
+
+.detalhes .respostas {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--espaco-2);
+}
+
+.numero {
+  font-size: var(--texto-tamanho-xl);
+  font-weight: var(--peso-semi);
+  color: var(--cor-primaria);
+}
+
+.secundario {
+  font-weight: var(--peso-normal);
+  color: var(--cor-texto-secundario);
+}
+
+.barra {
+  display: block;
+  height: 6px;
+  overflow: hidden;
+  border-radius: var(--raio-total);
+  background: var(--cor-superficie-alternativa);
+}
+
+.preenchimento {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--cor-primaria);
+  transition: width var(--transicao-padrao);
+}
+
+@container conteudo (max-width: 880px) {
+  .detalhes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container conteudo (max-width: 760px) {
+  .cartao {
+    padding: var(--espaco-5);
+  }
+}

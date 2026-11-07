@@ -59,8 +59,24 @@ src/
 │   │   ├── layout.module.css
 │   │   ├── login/page.tsx                  # Tela de login
 │   │   └── recuperar-senha/page.tsx        # Tela de recuperar senha
-│   ├── (admin)/admin/horarios/page.tsx     # Provisória: destino do login do administrador
-│   └── (professor)/professor/horario/page.tsx  # Provisória: destino do login do professor
+│   ├── (admin)/                            # Área do administrador
+│   │   ├── layout.tsx                      # Menu lateral + conteúdo
+│   │   └── admin/
+│   │       ├── dados/page.tsx              # Dias e horários, semestres, turmas e disciplinas
+│   │       ├── formulario/page.tsx         # Lançar o formulário e acompanhar as respostas
+│   │       ├── horarios/
+│   │       │   ├── page.tsx                # Gerar, revisar e oficializar o horário das turmas
+│   │       │   └── [gradeId]/page.tsx      # Grade de uma turma: edição e pedidos de alteração
+│   │       └── professores/
+│   │           ├── page.tsx                # Lista, busca, filtros e convite de professores
+│   │           └── [id]/page.tsx           # Perfil: formulário, horário e solicitações
+│   └── (professor)/                        # Área do professor
+│       ├── layout.tsx                      # Menu lateral + conteúdo
+│       └── professor/
+│           ├── horario/page.tsx            # Horário do professor e pedidos de alteração
+│           └── formulario/
+│               ├── page.tsx                # Situação do formulário e solicitações
+│               └── resposta/page.tsx       # Preencher, editar ou ver a resposta
 ├── components/
 │   ├── autenticacao/
 │   │   ├── Autenticacao.module.css
@@ -68,6 +84,108 @@ src/
 │   │   ├── FormularioRecuperarSenha.tsx
 │   │   ├── PainelMarca.tsx
 │   │   └── PainelMarca.module.css
+│   ├── compartilhados/                     # Usados por mais de uma área
+│   │   ├── FiltroSemestre.tsx
+│   │   ├── GradeDisponibilidade.tsx
+│   │   ├── GradeDisponibilidade.module.css
+│   │   └── TabelaDisponibilidade.tsx
+│   ├── dados/                              # Dados do curso do administrador (com seus .module.css)
+│   │   ├── AbaDiasHorarios.tsx
+│   │   ├── AbaDisciplinas.tsx
+│   │   ├── AbaSemestres.tsx
+│   │   ├── CartaoSemestre.tsx
+│   │   ├── EsqueletoDados.tsx
+│   │   ├── FiltroDias.tsx
+│   │   ├── FormularioDisciplina.tsx
+│   │   ├── GradeEstruturaTurno.tsx
+│   │   ├── ModalNovaTurma.tsx
+│   │   ├── PainelDados.tsx                 # Abas de dias e horários, semestres e disciplinas
+│   │   ├── TabelaDisciplinas.tsx
+│   │   └── useDadosAcademicos.ts
+│   ├── formulario/                         # Formulário do professor (com seus .module.css)
+│   │   ├── AssistenteFormulario.tsx        # Preenchimento em etapas
+│   │   ├── CartaoSituacaoFormulario.tsx
+│   │   ├── ConteudoEtapa.tsx
+│   │   ├── EscalaInteresse.tsx
+│   │   ├── IndicadorEtapas.tsx
+│   │   ├── ItemInteresseDisciplina.tsx
+│   │   ├── ListaInteresseDisciplinas.tsx
+│   │   ├── ModalConfirmarEnvio.tsx
+│   │   ├── ModalSolicitarAlteracao.tsx
+│   │   ├── PainelFormulario.tsx            # Situação do formulário e pedidos de alteração
+│   │   ├── ResumoResposta.tsx
+│   │   ├── SecaoSolicitacoesFormulario.tsx
+│   │   ├── TabelaPrioridadePeriodo.tsx
+│   │   ├── TelaRespostaFormulario.tsx
+│   │   ├── useRespostaFormulario.ts
+│   │   └── VisualizacaoResposta.tsx
+│   ├── gestaoFormulario/                   # Formulário do administrador (com seus .module.css)
+│   │   ├── CartaoLancarFormulario.tsx
+│   │   ├── CartaoResumoFormulario.tsx
+│   │   ├── EsqueletoGestaoFormulario.tsx
+│   │   ├── ItemRespostaFormulario.tsx
+│   │   ├── ListaRespostasFormulario.tsx
+│   │   ├── ModalEditarPrazo.tsx
+│   │   ├── PainelGestaoFormulario.tsx      # Lançamento, prazo, encerramento e respostas
+│   │   └── useGestaoFormulario.ts
+│   ├── gestaoHorario/                      # Horários do administrador (com seus .module.css)
+│   │   ├── AcoesGeracao.tsx
+│   │   ├── BarraEdicaoGrade.tsx
+│   │   ├── CabecalhoGradeTurma.tsx
+│   │   ├── CartaoGeracaoHorario.tsx
+│   │   ├── CartaoTurmaHorario.tsx
+│   │   ├── EsqueletoHorarios.tsx
+│   │   ├── EtapasGeracao.tsx
+│   │   ├── FiltrosHorario.tsx
+│   │   ├── ListaHorarios.tsx
+│   │   ├── ListaProfessoresHorario.tsx
+│   │   ├── ModalHistoricoVersoes.tsx
+│   │   ├── PainelGradeTurma.tsx            # Grade de uma turma, edição e pedidos de alteração
+│   │   ├── PainelHorarios.tsx              # Geração, prévia e oficialização
+│   │   ├── PendenciasHorario.tsx
+│   │   ├── ResumoFormularioGeracao.tsx
+│   │   ├── SecaoSolicitacoesGrade.tsx
+│   │   ├── useAcoesHorario.ts
+│   │   ├── useEdicaoGrade.ts
+│   │   ├── useGestaoHorario.ts
+│   │   └── useGradeTurma.ts
+│   ├── horario/                            # Horário do professor (com seus .module.css)
+│   │   ├── CelulaAula.tsx
+│   │   ├── FormularioSolicitacaoHorario.tsx
+│   │   ├── GradeHorario.tsx
+│   │   ├── PainelHorarioProfessor.tsx      # Grade, pedido de alteração e histórico
+│   │   ├── QuadroHorarioProfessor.tsx
+│   │   └── useHorarioProfessor.ts
+│   ├── layout/                             # Estrutura das telas logadas (com seus .module.css)
+│   │   ├── CabecalhoPagina.tsx
+│   │   ├── CabecalhoSecao.tsx
+│   │   ├── EstruturaPagina.tsx             # Menu lateral + área de conteúdo
+│   │   ├── IconeMenu.tsx
+│   │   ├── LinkVoltar.tsx
+│   │   └── MenuLateral.tsx
+│   ├── professores/                        # Professores do administrador (com seus .module.css)
+│   │   ├── AbaFormularioProfessor.tsx
+│   │   ├── AbaHorarioProfessor.tsx
+│   │   ├── AbaSolicitacoesProfessor.tsx
+│   │   ├── AcoesConta.tsx
+│   │   ├── AvatarProfessor.tsx
+│   │   ├── BotaoEditarFoto.tsx
+│   │   ├── CabecalhoPerfilProfessor.tsx
+│   │   ├── CampoEmails.tsx
+│   │   ├── FiltroProfessores.tsx
+│   │   ├── ItemProfessor.tsx
+│   │   ├── ListaProfessores.tsx
+│   │   ├── ModalAnalisarSolicitacao.tsx
+│   │   ├── ModalConvidarProfessores.tsx
+│   │   ├── PainelPerfilProfessor.tsx       # Perfil do professor com abas
+│   │   ├── PainelProfessores.tsx           # Lista, busca, filtros e convite
+│   │   ├── usePerfilProfessor.ts
+│   │   └── useProfessores.ts
+│   ├── solicitacoes/                       # Pedidos de alteração
+│   │   ├── EtiquetaStatusSolicitacao.tsx
+│   │   ├── ItemSolicitacao.tsx
+│   │   ├── ListaSolicitacoes.tsx
+│   │   └── ListaSolicitacoes.module.css
 │   └── ui/                                 # Componentes reutilizáveis (com seus .module.css)
 │       ├── Abas.tsx
 │       ├── AreaTexto.tsx
@@ -100,6 +218,7 @@ src/
 │   ├── gestaoFormulario.ts
 │   ├── gestaoHorario.ts
 │   ├── horario.ts
+│   ├── navegacao.ts                        # Itens do menu e links do formulário
 │   ├── professores.ts
 │   ├── solicitacao.ts
 │   └── validacao.ts

@@ -1,0 +1,115 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+}
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--espaco-4);
+}
+
+.filtroSemestre {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-2);
+}
+
+.filtros > :last-child {
+  flex: 0 1 280px;
+}
+
+.rotuloFiltro {
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-medio);
+}
+
+.resumo {
+  font-size: var(--texto-tamanho-sm);
+  color: var(--cor-texto-secundario);
+  font-variant-numeric: tabular-nums;
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-grande);
+  list-style: none;
+}
+
+.item {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espaco-3) var(--espaco-5);
+  min-height: 64px;
+  padding: var(--espaco-3) var(--espaco-4) var(--espaco-3) var(--espaco-5);
+  background: var(--cor-superficie);
+  transition: background-color var(--transicao-padrao);
+}
+
+.item + .item {
+  border-top: 1px solid var(--cor-borda);
+}
+
+.item:hover {
+  background: var(--cor-fundo);
+}
+
+/* Selecionada: fundo suave + faixa azul-marinho à esquerda */
+.item[data-selecionada] {
+  background: var(--cor-primaria-suave);
+}
+
+.item[data-selecionada]::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--cor-primaria);
+}
+
+.textos {
+  display: flex;
+  flex: 1 1 280px;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.nome {
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-semi);
+}
+
+.detalhes {
+  font-size: var(--texto-tamanho-xs);
+  color: var(--cor-texto-secundario);
+}
+
+.interesse {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Largura fixa: o botão não muda de tamanho ao alternar o texto */
+.alternar {
+  min-width: 132px;
+}
+
+.nivelLeitura {
+  font-size: var(--texto-tamanho-sm);
+  color: var(--cor-texto-secundario);
+}
+
+.nivelLeitura strong {
+  font-weight: var(--peso-semi);
+  color: var(--cor-primaria);
+}
+

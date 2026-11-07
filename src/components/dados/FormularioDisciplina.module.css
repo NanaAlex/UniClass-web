@@ -1,0 +1,29 @@
+.formulario {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--espaco-4) var(--espaco-4);
+  align-items: start;
+  padding: var(--espaco-5);
+  background: var(--cor-superficie-alternativa);
+  border-radius: var(--raio-grande);
+}
+
+.nome {
+  grid-column: span 2;
+}
+
+.acoes {
+  display: flex;
+  grid-column: 1 / -1;
+  justify-content: flex-end;
+}
+
+@container conteudo (max-width: 880px) {
+  .formulario {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .nome {
+    grid-column: 1 / -1;
+  }
+}

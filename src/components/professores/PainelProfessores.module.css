@@ -1,0 +1,21 @@
+.painel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+}
+
+.controles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-3);
+  padding: var(--espaco-4);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-grande);
+  background: var(--cor-superficie);
+}
+
+.total {
+  font-size: var(--texto-tamanho-sm);
+  color: var(--cor-texto-secundario);
+}
+

@@ -1,0 +1,112 @@
+.cabecalho {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--espaco-3);
+}
+
+.perfil {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--espaco-6);
+  width: 100%;
+  padding: var(--espaco-6);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-grande);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra-suave);
+}
+
+.foto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espaco-3);
+  flex-shrink: 0;
+}
+
+.dados {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--espaco-4);
+  min-width: 0;
+}
+
+.linhaTitulo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espaco-3);
+}
+
+.nome {
+  font-size: var(--texto-tamanho-3xl);
+  font-weight: var(--peso-negrito);
+  line-height: var(--altura-linha-justa);
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+}
+
+.lista {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, auto));
+  justify-content: start;
+  gap: var(--espaco-4) var(--espaco-6);
+}
+
+.lista dt {
+  font-size: var(--texto-tamanho-xs);
+  font-weight: var(--peso-medio);
+  color: var(--cor-texto-secundario);
+}
+
+.lista dd {
+  margin-top: 2px;
+  overflow-wrap: anywhere;
+}
+
+.lista a {
+  color: var(--cor-primaria);
+  text-underline-offset: 2px;
+}
+
+.lista a:hover {
+  color: var(--cor-primaria-hover);
+}
+
+.largo {
+  grid-column: 1 / -1;
+}
+
+.areas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-2);
+}
+
+.acoes {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--espaco-2);
+}
+
+/* Tablet: ações descem para baixo dos dados e a lista vira duas colunas */
+@container conteudo (max-width: 760px) {
+  .perfil {
+    flex-wrap: wrap;
+    gap: var(--espaco-5);
+    padding: var(--espaco-5);
+  }
+
+  .lista {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .acoes {
+    width: 100%;
+    justify-content: flex-end;
+    padding-top: var(--espaco-4);
+    border-top: 1px solid var(--cor-borda);
+  }
+}
