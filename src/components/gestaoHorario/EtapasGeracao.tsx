@@ -2,7 +2,7 @@ import { IconeCheck } from "@/components/ui/Icones";
 import { etapasGeracao } from "@/lib/gestaoHorario";
 import estilos from "./EtapasGeracao.module.css";
 
-/** Onde o processo está: coletar respostas → gerar → revisar a prévia → oficializar. */
+/** Onde o processo está: coletar respostas → gerar → revisar e travar → publicar. */
 export function EtapasGeracao({ atual }: { atual: number }) {
   return (
     <ol className={estilos.lista} aria-label="Etapas da geração do horário">

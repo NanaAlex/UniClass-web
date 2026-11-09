@@ -90,7 +90,7 @@ export function PainelGestaoFormulario() {
         <EstadoVazio
           contorno
           titulo="Nenhum formulário ativo"
-          descricao="Lance um formulário para coletar a disponibilidade e as preferências dos professores. Ele usa os dias, horários e disciplinas cadastrados em Dados."
+          descricao="Lance um formulário para coletar a disponibilidade e as preferências dos professores. Cada edição guarda as aulas por bloco, os dias, os blocos e as disciplinas cadastrados em Dados."
         />
       ) : (
         <>

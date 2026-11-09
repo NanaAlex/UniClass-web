@@ -94,6 +94,8 @@
 }
 
 .interesse {
+  align-items: center;
+  gap: var(--espaco-2);
   display: flex;
   justify-content: flex-end;
 }
@@ -113,3 +115,9 @@
   color: var(--cor-primaria);
 }
 
+
+.semNota {
+  font-size: var(--texto-tamanho-xs);
+  font-weight: var(--peso-medio);
+  color: var(--cor-aviso);
+}

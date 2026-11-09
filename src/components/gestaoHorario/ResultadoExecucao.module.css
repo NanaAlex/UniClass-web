@@ -1,0 +1,218 @@
+.resultado {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-5);
+  padding: var(--espaco-6);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-grande);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra-suave);
+}
+
+.topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--espaco-4);
+}
+
+.identificacao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-2);
+  min-width: 0;
+}
+
+.titulo {
+  font-size: var(--texto-tamanho-lg);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espaco-2) var(--espaco-3);
+  font-size: var(--texto-tamanho-sm);
+  color: var(--cor-texto-secundario);
+  font-variant-numeric: tabular-nums;
+}
+
+.publicar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--espaco-2);
+  max-width: 420px;
+}
+
+.motivo {
+  font-size: var(--texto-tamanho-xs);
+  color: var(--cor-texto-secundario);
+  text-align: right;
+}
+
+.indicadores {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: var(--espaco-3);
+}
+
+.indicadores > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--espaco-3) var(--espaco-4);
+  border-radius: var(--raio-medio);
+  background: var(--cor-superficie-alternativa);
+}
+
+.indicadores dt {
+  font-size: var(--texto-tamanho-xs);
+  font-weight: var(--peso-medio);
+  color: var(--cor-texto-secundario);
+}
+
+.indicadores dd {
+  font-size: var(--texto-tamanho-md);
+  font-weight: var(--peso-semi);
+  font-variant-numeric: tabular-nums;
+}
+
+.detalhe {
+  font-size: var(--texto-tamanho-xs);
+  font-weight: var(--peso-normal);
+  color: var(--cor-texto-secundario);
+}
+
+.subtitulo {
+  margin-bottom: var(--espaco-2);
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-semi);
+}
+
+.provas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--espaco-2);
+  list-style: none;
+}
+
+.prova {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--espaco-2);
+  padding: var(--espaco-3);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-medio);
+  font-size: var(--texto-tamanho-sm);
+}
+
+.prova[data-comprovado="true"] {
+  border-color: var(--cor-sucesso);
+}
+
+.marcaProva {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--raio-total);
+  background: var(--cor-superficie-alternativa);
+  font-size: var(--texto-tamanho-xs);
+  font-weight: var(--peso-semi);
+}
+
+.prova[data-comprovado="true"] .marcaProva {
+  background: var(--cor-sucesso);
+  color: var(--cor-texto-invertido);
+}
+
+.textoProva {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.estadoProva {
+  font-size: var(--texto-tamanho-xs);
+  color: var(--cor-texto-secundario);
+}
+
+.diagnosticos {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-medio);
+  list-style: none;
+}
+
+.diagnosticos li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-1);
+  padding: var(--espaco-3) var(--espaco-4);
+  font-size: var(--texto-tamanho-sm);
+}
+
+.diagnosticos li + li {
+  border-top: 1px solid var(--cor-borda);
+}
+
+.cabecalhoDiagnostico {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espaco-2);
+}
+
+.codigo {
+  font-family: var(--fonte-mono, monospace);
+  font-size: var(--texto-tamanho-xs);
+  color: var(--cor-texto-secundario);
+}
+
+.entidades {
+  font-family: var(--fonte-mono, monospace);
+  font-size: var(--texto-tamanho-xs);
+  color: var(--cor-texto-secundario);
+  word-break: break-word;
+}
+
+.processando {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-3);
+}
+
+.barra {
+  flex: 1;
+  height: 6px;
+  overflow: hidden;
+  border-radius: var(--raio-total);
+  background: var(--cor-superficie-alternativa);
+}
+
+.barra span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--cor-primaria);
+  transition: width 1s linear;
+}
+
+@container conteudo (max-width: 760px) {
+  .resultado {
+    padding: var(--espaco-5);
+  }
+
+  .publicar {
+    align-items: flex-start;
+    max-width: none;
+  }
+
+  .motivo {
+    text-align: left;
+  }
+}

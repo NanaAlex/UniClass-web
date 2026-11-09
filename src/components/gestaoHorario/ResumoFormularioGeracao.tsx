@@ -16,12 +16,12 @@ type ResumoFormularioGeracaoProps = {
 
 const hrefFormulario = "/admin/formulario";
 
-/** O formulário de onde saem os dados da geração (RF 2.9). Prazo e reabertura ficam na aba Formulário. */
+/** A edição vigente do formulário, de onde saem os dados da geração (RN-36, RN-38). */
 export function ResumoFormularioGeracao({ formulario, situacao, respondidos, total, aoEncerrar }: ResumoFormularioGeracaoProps) {
   if (situacao === "sem_formulario") {
     return (
       <div className={estilos.blocoFormulario}>
-        <p className={estilos.textoSecundario}>Nenhum formulário lançado. O horário é gerado com as respostas dos professores.</p>
+        <p className={estilos.textoSecundario}>Nenhum formulário lançado. A grade é gerada com as respostas dos professores.</p>
         <LinkBotao href={hrefFormulario} variante="secundario">
           Lançar formulário
         </LinkBotao>
@@ -36,7 +36,7 @@ export function ResumoFormularioGeracao({ formulario, situacao, respondidos, tot
   return (
     <div className={estilos.blocoFormulario}>
       <div className={estilos.formularioTitulo}>
-        <span className={estilos.rotuloPequeno}>Formulário</span>
+        <span className={estilos.rotuloPequeno}>Formulário · edição {formulario.edicao}</span>
         <span className={estilos.nomeFormulario}>
           {formulario.nome}
           <Etiqueta variante={etiqueta.variante} ponto>
@@ -51,6 +51,10 @@ export function ResumoFormularioGeracao({ formulario, situacao, respondidos, tot
           <dd>
             <strong>{respondidos}</strong> de {total}
           </dd>
+        </div>
+        <div>
+          <dt>Aulas por bloco (K)</dt>
+          <dd>{formulario.aulasPorBloco}</dd>
         </div>
         <div>
           <dt>{encerrado ? "Encerrado em" : "Término"}</dt>
@@ -68,7 +72,7 @@ export function ResumoFormularioGeracao({ formulario, situacao, respondidos, tot
 
       <div className={estilos.acoesFormulario}>
         <LinkBotao href={hrefFormulario} variante="fantasma">
-          {encerrado ? "Reabrir no Formulário" : "Ver respostas"}
+          Ver respostas
         </LinkBotao>
         {situacao === "aberto" && (
           <Botao variante="secundario" onClick={aoEncerrar}>

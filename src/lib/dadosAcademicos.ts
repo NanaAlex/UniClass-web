@@ -1,43 +1,67 @@
-import type { BlocoAula, DadosAcademicos, DiaSemana, Disciplina, EstruturaTurno, Turma, Turno } from "@/types";
+import type { DadosAcademicos, DiaSemana, Disciplina, EstruturaTurno, Turma, Turno } from "@/types";
+import { rotulosTurno } from "./horario";
 
 // Transformações puras da aba Dados (RF 7). A tela só chama estas funções e guarda o resultado.
 
 export const ordemDias: DiaSemana[] = ["seg", "ter", "qua", "qui", "sex", "sab"];
 export const MAXIMO_SEMESTRES = 8;
 export const MAXIMO_AULAS_BLOCO = 4;
+export const MAXIMO_BLOCOS_TURNO = 6;
+export const MAXIMO_AULAS_DISCIPLINA = 12;
 
-/** Posições contínuas no turno (1, 2, 3...) depois de mudar blocos. Horários das aulas novas ficam vazios. */
-function renumerar(blocos: { quantidade: number; base?: BlocoAula }[]): BlocoAula[] {
-  let posicao = 1;
-  return blocos.map(({ quantidade, base }) => ({
-    aulas: Array.from({ length: quantidade }, (_, i) => ({ ...base?.aulas[i], posicao: posicao++ })),
-  }));
+/** RN-09: K é global, igual em todos os turnos e dias. */
+export function definirAulasPorBloco(dados: DadosAcademicos, K: number): DadosAcademicos {
+  return { ...dados, aulasPorBloco: K };
 }
 
-export function aulasPorBloco(estrutura: EstruturaTurno) {
-  return estrutura.blocos[0]?.aulas.length ?? 2;
-}
-
-/** RF 7.2: muda o tamanho de todos os blocos do turno. */
-export function definirAulasPorBloco(estrutura: EstruturaTurno, quantidade: number): EstruturaTurno {
-  return { ...estrutura, blocos: renumerar(estrutura.blocos.map((base) => ({ quantidade, base }))) };
-}
-
-/** RF 7.3: novo bloco no fim, separado do anterior por um intervalo. */
+/** RN-10: blocos ordinais; um novo bloco entra no fim do turno. Não há horário de relógio (RN-35). */
 export function adicionarBloco(estrutura: EstruturaTurno): EstruturaTurno {
-  const atuais = estrutura.blocos.map((base) => ({ quantidade: base.aulas.length, base }));
-  return { ...estrutura, blocos: renumerar([...atuais, { quantidade: aulasPorBloco(estrutura) }]) };
+  return { ...estrutura, blocos: Math.min(MAXIMO_BLOCOS_TURNO, estrutura.blocos + 1) };
 }
 
-export function removerBloco(estrutura: EstruturaTurno, indice: number): EstruturaTurno {
-  const restantes = estrutura.blocos.filter((_, i) => i !== indice);
-  return { ...estrutura, blocos: renumerar(restantes.map((base) => ({ quantidade: base.aulas.length, base }))) };
+/** Remove o último bloco: os índices restantes continuam 1..B. */
+export function removerUltimoBloco(estrutura: EstruturaTurno): EstruturaTurno {
+  return { ...estrutura, blocos: Math.max(0, estrutura.blocos - 1) };
 }
 
 /** RF 7.1: dias sempre na ordem da semana. */
 export function alternarDia(estrutura: EstruturaTurno, dia: DiaSemana, incluir: boolean): EstruturaTurno {
   const dias = incluir ? [...estrutura.dias, dia] : estrutura.dias.filter((d) => d !== dia);
   return { ...estrutura, dias: ordemDias.filter((d) => dias.includes(d)) };
+}
+
+/** RN-13, CA-16: cargas possíveis são múltiplos de K. */
+export function opcoesCarga(K: number) {
+  return Array.from({ length: Math.floor(MAXIMO_AULAS_DISCIPLINA / K) }, (_, i) => (i + 1) * K);
+}
+
+/** Disciplinas cuja carga não é múltipla de K: impedem salvar (a geração as rejeitaria na pré-validação). */
+export function cargasIncompativeis(dados: DadosAcademicos) {
+  return dados.disciplinas.filter((d) => d.aulasPorSemana % dados.aulasPorBloco !== 0);
+}
+
+const assinaturaTurma = (t: Turma) => `${t.id}|${t.semestre}|${t.turno}`;
+const assinaturaDisciplina = (d: Disciplina) => `${d.id}|${d.semestre}|${d.aulasPorSemana}`;
+
+/**
+ * RN-38: o que muda a estrutura da edição do formulário (K, dias, blocos, turmas, disciplinas e
+ * cargas). Nome e cor não são estruturais.
+ */
+export function alteracoesEstruturais(antes: DadosAcademicos, depois: DadosAcademicos): string[] {
+  const mudancas: string[] = [];
+  if (antes.aulasPorBloco !== depois.aulasPorBloco) mudancas.push(`Aulas por bloco: ${antes.aulasPorBloco} → ${depois.aulasPorBloco}`);
+  for (const e of depois.estruturas) {
+    const a = antes.estruturas.find((x) => x.turno === e.turno);
+    if (!a || a.dias.join() !== e.dias.join()) mudancas.push(`Dias letivos da ${rotulosTurno[e.turno].toLowerCase()}`);
+    if (!a || a.blocos !== e.blocos) mudancas.push(`Blocos da ${rotulosTurno[e.turno].toLowerCase()}: ${a?.blocos ?? 0} → ${e.blocos}`);
+  }
+  const turmasAntes = new Set(antes.turmas.map(assinaturaTurma));
+  const turmasDepois = new Set(depois.turmas.map(assinaturaTurma));
+  if (turmasAntes.size !== turmasDepois.size || Array.from(turmasDepois).some((t) => !turmasAntes.has(t))) mudancas.push("Turmas");
+  const discAntes = new Set(antes.disciplinas.map(assinaturaDisciplina));
+  const discDepois = new Set(depois.disciplinas.map(assinaturaDisciplina));
+  if (discAntes.size !== discDepois.size || Array.from(discDepois).some((d) => !discAntes.has(d))) mudancas.push("Disciplinas ou cargas");
+  return mudancas;
 }
 
 export function substituirEstrutura(dados: DadosAcademicos, nova: EstruturaTurno): DadosAcademicos {

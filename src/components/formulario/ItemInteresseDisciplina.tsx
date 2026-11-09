@@ -9,8 +9,8 @@ export type ModoInteresse = "selecao" | "prioridade" | "leitura";
 
 type ItemInteresseDisciplinaProps = {
   disciplina: Disciplina;
-  /** Ausente = matéria não selecionada. */
-  nivel?: NivelInteresse;
+  /** undefined = não selecionada · null = selecionada, ainda sem nota. */
+  nivel?: NivelInteresse | null;
   aoAlternar?: () => void;
   aoMudarNivel?: (nivel: NivelInteresse) => void;
   modo: ModoInteresse;
@@ -42,16 +42,21 @@ export function ItemInteresseDisciplina({ disciplina, nivel, aoAlternar, aoMudar
             {selecionada ? "Selecionada" : "Selecionar"}
           </Botao>
         ) : nivel === undefined ? null : modo === "leitura" ? (
-          <span className={estilos.nivelLeitura}>
-            Interesse <strong>{nivel}</strong> · {rotulosNivel[nivel]}
-          </span>
+          nivel === null ? null : (
+            <span className={estilos.nivelLeitura}>
+              Interesse <strong>{nivel}</strong> · {rotulosNivel[nivel]}
+            </span>
+          )
         ) : (
-          <EscalaInteresse
-            nome={`interesse-${disciplina.id}`}
-            rotulo={`Interesse em ${disciplina.nome}`}
-            valor={nivel}
-            aoMudar={(novo) => aoMudarNivel?.(novo)}
-          />
+          <>
+            {nivel === null && <span className={estilos.semNota}>Nota obrigatória</span>}
+            <EscalaInteresse
+              nome={`interesse-${disciplina.id}`}
+              rotulo={`Interesse em ${disciplina.nome}`}
+              valor={nivel}
+              aoMudar={(novo) => aoMudarNivel?.(novo)}
+            />
+          </>
         )}
       </div>
     </li>

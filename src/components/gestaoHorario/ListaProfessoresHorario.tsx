@@ -3,32 +3,31 @@ import { AvatarProfessor } from "@/components/professores/AvatarProfessor";
 import estilosLista from "@/components/professores/ListaProfessores.module.css";
 import { EstadoVazio } from "@/components/ui/EstadoVazio";
 import { IconeChevronDireita } from "@/components/ui/Icones";
-import type { ProfessorNoHorario } from "@/lib/gestaoHorario";
-import { hrefPerfilProfessor } from "@/lib/professores";
+import { hrefGradeProfessor, type ProfessorNoHorario } from "@/lib/gestaoHorario";
 import estilos from "./GestaoHorario.module.css";
 
-/** Horário por professor: cada linha abre a aba Horário do perfil (RF 8.8), com volta para cá. */
-export function ListaProfessoresHorario({ professores }: { professores: ProfessorNoHorario[] }) {
+/** Visão por professor da execução: cada linha abre a grade do professor com todas as coordenadas (RN-69). */
+export function ListaProfessoresHorario({ execucaoId, professores }: { execucaoId: string; professores: ProfessorNoHorario[] }) {
   if (professores.length === 0) {
-    return (
-      <EstadoVazio contorno titulo="Nenhum professor alocado" descricao="O horário atual ainda não tem aulas com professor." />
-    );
+    return <EstadoVazio contorno titulo="Nenhum professor na grade" descricao="Esta execução não atribuiu aulas a professores." />;
   }
 
   return (
-    <ul className={estilosLista.lista} aria-label="Professores no horário">
-      {professores.map(({ professor, aulas, turmas }) => (
+    <ul className={estilosLista.lista} aria-label="Professores na grade">
+      {professores.map(({ professor, blocos, aulas, turmas }) => (
         <li key={professor.id}>
-          <Link href={hrefPerfilProfessor(professor.id, "horario", "horarios")} className={estilosLista.item}>
+          <Link href={hrefGradeProfessor(execucaoId, professor.id)} className={estilosLista.item}>
             <AvatarProfessor professor={{ ...professor, email: "" }} />
             <span className={estilosLista.identificacao}>
               <span className={estilosLista.nome}>{professor.nome}</span>
               <span className={estilosLista.meta}>
-                <span>{aulas === 1 ? "1 aula" : `${aulas} aulas`} por semana</span>
+                <span>
+                  {aulas} aulas por semana ({blocos === 1 ? "1 bloco" : `${blocos} blocos`})
+                </span>
                 <span>{turmas.join(", ")}</span>
               </span>
             </span>
-            <span className={estilos.acaoLinha}>Ver horário</span>
+            <span className={estilos.acaoLinha}>Ver grade</span>
             <IconeChevronDireita className={estilosLista.seta} />
           </Link>
         </li>

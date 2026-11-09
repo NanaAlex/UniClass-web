@@ -1,23 +1,25 @@
 import type { DiaSemana, EstruturaTurno, Turno } from "./academico";
-import type { ChaveHorario } from "./horario";
+import type { ChaveBloco } from "./horario";
 
-/** rascunho: em criação · aberto: recebendo respostas · encerrado: manual ou por data (RF 2.7, RF 2.8). */
+/** rascunho: em criação · aberto: recebendo respostas · encerrado: manual ou por data. */
 export type StatusFormulario = "rascunho" | "aberto" | "encerrado";
 
 export type Formulario = {
   id: string;
   nome: string; // "Disponibilidade 2027.1"
   periodoLetivo: string; // "2027.1"
+  /** Edição do formulário: uma alteração estrutural encerra a edição e exige outra (RN-38). */
+  edicao: number;
   status: StatusFormulario;
   inicio: string; // ISO 8601
   fim: string; // ISO 8601
-  /** Dias, turnos e blocos que o professor verá no formulário (RF 2.3). */
+  /** K e blocos de cada turno que o professor verá (RN-09, RN-10). */
+  aulasPorBloco: number;
   estruturas: EstruturaTurno[];
-  /** Apenas disciplinas cadastradas para os semestres do formulário (RF 2.5). */
   disciplinaIds: string[];
 };
 
-/** Interesse em lecionar, de 1 (baixo) a 5 (alto) — RF 2.6. */
+/** Nota de 1 (menor prioridade) a 5 (maior). Nota 1 continua permitindo a alocação (RN-18). */
 export type NivelInteresse = 1 | 2 | 3 | 4 | 5;
 
 export type InteresseDisciplina = {
@@ -32,11 +34,13 @@ export type RespostaFormulario = {
   id: string;
   formularioId: string;
   professorId: string;
-  enviadaEm: string; // ISO 8601 — RF 2.10
-  disponibilidade: ChaveHorario[]; // RF 2.2
-  interesses: InteresseDisciplina[]; // RF 2.4, RF 2.6
-  /** Preferência por período (1 baixa a 5 alta), apenas nos períodos com disponibilidade. */
+  enviadaEm: string; // ISO 8601
+  /** Blocos selecionados um a um; os demais ficam proibidos (RN-16). */
+  disponibilidade: ChaveBloco[];
+  /** Disciplinas selecionadas, cada uma com nota obrigatória (RN-15, RN-22). */
+  interesses: InteresseDisciplina[];
+  /** Uma nota por dia/turno com ao menos um bloco selecionado (RN-17). */
   prioridadesPeriodo: Partial<Record<ChavePeriodo, NivelInteresse>>;
-  /** Reaberta após o admin aceitar uma solicitação (RF 2.18). */
+  /** Reaberta após o admin aceitar uma solicitação. */
   edicaoLiberada: boolean;
 };

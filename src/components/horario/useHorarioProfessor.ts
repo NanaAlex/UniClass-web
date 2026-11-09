@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { listarEstruturasTurno } from "@/services/academico";
+import { criarNomes, type Nomes } from "@/lib/gestaoHorario";
+import { listarDisciplinas, listarEstruturasTurno, listarTurmas } from "@/services/academico";
 import { obterHorarioDoProfessor } from "@/services/horarios";
 import { listarSolicitacoes } from "@/services/solicitacoes";
 import type { EstruturaTurno, HorarioProfessor, Solicitacao } from "@/types";
@@ -9,10 +10,11 @@ import type { EstruturaTurno, HorarioProfessor, Solicitacao } from "@/types";
 type Dados = {
   horario: HorarioProfessor;
   estruturas: EstruturaTurno[];
+  nomes: Nomes;
   solicitacoes: Solicitacao[];
 };
 
-/** Carrega o horário do professor, a estrutura dos turnos e os pedidos de alteração de horário. */
+/** Horário publicado do professor (grade vigente), a estrutura dos turnos e os pedidos de alteração. */
 export function useHorarioProfessor(professorId: string) {
   const [dados, setDados] = useState<Dados | null>(null);
   const [falhou, setFalhou] = useState(false);
@@ -21,12 +23,14 @@ export function useHorarioProfessor(professorId: string) {
     setFalhou(false);
     setDados(null);
     try {
-      const [horario, estruturas, solicitacoes] = await Promise.all([
+      const [horario, estruturas, disciplinas, turmas, solicitacoes] = await Promise.all([
         obterHorarioDoProfessor(professorId),
         listarEstruturasTurno(),
+        listarDisciplinas(),
+        listarTurmas(),
         listarSolicitacoes({ professorId, tipo: "horario" }),
       ]);
-      setDados({ horario, estruturas, solicitacoes });
+      setDados({ horario, estruturas, nomes: criarNomes(disciplinas, [], turmas), solicitacoes });
     } catch {
       setFalhou(true);
     }

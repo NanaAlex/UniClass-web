@@ -112,16 +112,6 @@
   opacity: 0.6;
 }
 
-.intervalo td {
-  padding: var(--espaco-1);
-  border-radius: var(--raio-pequeno);
-  background: var(--cor-superficie-alternativa);
-  font-size: var(--texto-tamanho-xs);
-  font-weight: var(--peso-semi);
-  letter-spacing: 0.04em;
-  color: var(--cor-texto-secundario);
-  text-align: center;
-}
 
 .ajuda {
   font-size: var(--texto-tamanho-xs);
