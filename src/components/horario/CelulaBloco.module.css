@@ -185,3 +185,34 @@
   font-size: var(--texto-tamanho-sm);
   color: var(--disciplina-destaque);
 }
+
+/* Trava registrada nesta edição, ainda não confirmada */
+.pendente {
+  border-color: var(--cor-primaria);
+  border-style: dashed;
+  border-left-style: solid;
+}
+
+.livre.travada {
+  border-style: solid;
+  background: var(--cor-superficie-alternativa);
+}
+
+.livre.pendente {
+  border-color: var(--cor-primaria);
+  border-style: dashed;
+}
+
+.livreConteudo {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 64px;
+}
+
+.rotuloTrava {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espaco-1);
+}

@@ -1,12 +1,16 @@
 import { PainelHorarios } from "@/components/gestaoHorario/PainelHorarios";
 import { CabecalhoPagina } from "@/components/layout/CabecalhoPagina";
 
-/** RF 3.1–3.19: gerar, revisar e oficializar a grade de horários das turmas. */
-export default function PaginaHorariosAdmin() {
+type PaginaHorariosAdminProps = {
+  searchParams: { execucao?: string };
+};
+
+/** Geração pelo motor, resultado da execução (RN-59, RN-60), travas e publicação (RN-29). */
+export default function PaginaHorariosAdmin({ searchParams }: PaginaHorariosAdminProps) {
   return (
     <>
-      <CabecalhoPagina titulo="Horários" subtitulo="Gere o horário das turmas, revise a prévia e oficialize." />
-      <PainelHorarios />
+      <CabecalhoPagina titulo="Horários" subtitulo="Gere a grade com o motor, revise o resultado, trave o que deve ser mantido e publique a grade ótima." />
+      <PainelHorarios execucaoId={searchParams.execucao} />
     </>
   );
 }

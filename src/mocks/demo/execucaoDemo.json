@@ -1,0 +1,5482 @@
+{
+ "painel": {
+  "run_id": "5f0c2a1e-7d43-4c1b-9a8e-2027a0000001",
+  "curso_id": "es",
+  "periodo_letivo_id": "2027/1",
+  "snapshot_hash": "499bccf1188f2e31ed62185a9bea7f396a3108556b87a70037f0de4cab30ca5f",
+  "versao_do_modelo": "staggy-clpfd-2.7.0",
+  "policy_version": "staggy-preferencias-v2.7",
+  "status": "VALIDA_NAO_OTIMA",
+  "status_final": "VALIDA_NAO_OTIMA",
+  "motivo_termino": "LIMITE_TEMPO",
+  "duracao_execucao_segundos": 598.122,
+  "tempo_primeira_grade_segundos": 0.112,
+  "limite_execucao_segundos": 600,
+  "total_turmas_abrangidas": 8,
+  "turmas_com_grade_validada": 8,
+  "professores_distintos_com_aulas_atribuidas": 9,
+  "total_professores_participantes": 9,
+  "professores_ativos": 10,
+  "respostas_enviadas": 9,
+  "pendentes_de_formulario": 1,
+  "geracao_antecipada_confirmada": true,
+  "custo_primario_total": 694,
+  "parcelas_penalidade": {
+   "dia_turno": 474,
+   "disciplina": 220
+  },
+  "max_media_docente": "29/3",
+  "amplitude_medias": "70/9",
+  "chave_canonica": "staggy.chave.v1|1.1.1.6573.323032372f31.743161.6d6174.7031.1;1.1.1.6573.323032372f31.743261.626431.7037.1;1.1.1.6573.323032372f31.743361.696e6732.7034.1;1.1.1.6573.323032372f31.743461.736567.7038.1;1.1.2.6573.323032372f31.743161.696e6731.7034.1;1.1.2.6573.323032372f31.743261.657374.7031.1;1.1.2.6573.323032372f31.743361.726564.7036.1;1.1.2.6573.323032372f31.743461.6770.7035.1;1.3.1.6573.323032372f31.743162.6d6174.7031.1;1.3.1.6573.323032372f31.743262.6564.703130.1;1.3.1.6573.323032372f31.743561.6e7576.7036.1;1.3.1.6573.323032372f31.743661.6574696361.7039.1;1.3.2.6573.323032372f31.743162.6d6174.7031.1;1.3.2.6573.323032372f31.743262.6564.703130.1;1.3.2.6573.323032372f31.743561.656d70.7039.1;1.3.2.6573.323032372f31.743661...0;2.1.1.6573.323032372f31.743161.667369.7038.1;2.1.1.6573.323032372f31.743261.626431.7037.1;2.1.1.6573.323032372f31.743361.726564.7036.1;2.1.1.6573.323032372f31.743461.657332.7035.1;2.1.2.6573.323032372f31.743161.636f6d.7034.1;2.1.2.6573.323032372f31.743261.657331.7035.1;2.1.2.6573.323032372f31.743361.696863.7033.1;2.1.2.6573.323032372f31.743461.736f.7036.1;2.3.1.6573.323032372f31.743162.696e6731.7034.1;2.3.1.6573.323032372f31.743262.657331.7035.1;2.3.1.6573.323032372f31.743561.77656232.7033.1;2.3.1.6573.323032372f31.743661.7467.703130.1;2.3.2.6573.323032372f31.743162.636f6d.7039.1;2.3.2.6573.323032372f31.743262.657331.7035.1;2.3.2.6573.323032372f31.743561.6e7576.7036.1;2.3.2.6573.323032372f31.743661.7467.703130.1;3.1.1.6573.323032372f31.743161.6d6174.7031.1;3.1.1.6573.323032372f31.743261.77656231.7033.1;3.1.1.6573.323032372f31.743361.706f6f.703130.1;3.1.1.6573.323032372f31.743461.736f.7036.1;3.1.2.6573.323032372f31.743161.616c67.7031.1;3.1.2.6573.323032372f31.743261.77656231.7033.1;3.1.2.6573.323032372f31.743361.706f6f.703130.1;3.1.2.6573.323032372f31.743461.657332.7035.1;3.3.1.6573.323032372f31.743162.617271.7038.1;3.3.1.6573.323032372f31.743262.657374.7037.1;3.3.1.6573.323032372f31.743561.6961.703130.1;3.3.1.6573.323032372f31.743661.7173.7035.1;3.3.2.6573.323032372f31.743162.617271.7038.1;3.3.2.6573.323032372f31.743262.626431.7037.1;3.3.2.6573.323032372f31.743561.6961.703130.1;3.3.2.6573.323032372f31.743661.7173.7035.1;4.1.1.6573.323032372f31.743161.617271.7038.1;4.1.1.6573.323032372f31.743261.6564.7031.1;4.1.1.6573.323032372f31.743361.626432.7037.1;4.1.1.6573.323032372f31.743461.6d6f62.7033.1;4.1.2.6573.323032372f31.743161.616c67.7031.1;4.1.2.6573.323032372f31.743261.657331.7035.1;4.1.2.6573.323032372f31.743361.626432.7037.1;4.1.2.6573.323032372f31.743461.6d6f62.7033.1;4.3.1.6573.323032372f31.743162.616c67.703130.1;4.3.1.6573.323032372f31.743262.77656231.7033.1;4.3.1.6573.323032372f31.743561...0;4.3.1.6573.323032372f31.743661.6461646f73.7037.1;4.3.2.6573.323032372f31.743162.616c67.703130.1;4.3.2.6573.323032372f31.743262.626431.7037.1;4.3.2.6573.323032372f31.743561.77656232.7033.1;4.3.2.6573.323032372f31.743661...0;5.1.1.6573.323032372f31.743161...0;5.1.1.6573.323032372f31.743261...0;5.1.1.6573.323032372f31.743361...0;5.1.1.6573.323032372f31.743461...0;5.1.2.6573.323032372f31.743161.617271.7038.1;5.1.2.6573.323032372f31.743261.6564.7031.1;5.1.2.6573.323032372f31.743361...0;5.1.2.6573.323032372f31.743461...0;5.3.1.6573.323032372f31.743162...0;5.3.1.6573.323032372f31.743262...0;5.3.1.6573.323032372f31.743561...0;5.3.1.6573.323032372f31.743661...0;5.3.2.6573.323032372f31.743162.667369.7038.1;5.3.2.6573.323032372f31.743262.77656231.7033.1;5.3.2.6573.323032372f31.743561...0;5.3.2.6573.323032372f31.743661.6461646f73.7037.1;6.3.1.6573.323032372f31.743162...0;6.3.1.6573.323032372f31.743262...0;6.3.1.6573.323032372f31.743561...0;6.3.1.6573.323032372f31.743661...0;6.3.2.6573.323032372f31.743162...0;6.3.2.6573.323032372f31.743262...0;6.3.2.6573.323032372f31.743561...0;6.3.2.6573.323032372f31.743661...0",
+  "prova_por_nivel": [
+   {
+    "comprovado": false,
+    "estado": "NAO_COMPROVADO_LIMITE_TEMPO",
+    "metodo": "branch_and_bound_profundidade_completo",
+    "nivel": 1,
+    "objetivo": "custo_primario",
+    "valor": 694
+   },
+   {
+    "comprovado": false,
+    "estado": "NAO_EXECUTADO",
+    "metodo": "reinicios_com_melhoria_estrita_busca_completa",
+    "nivel": 2,
+    "objetivo": "max_media_docente",
+    "valor": {
+     "den": 3,
+     "num": 29
+    }
+   },
+   {
+    "comprovado": false,
+    "estado": "NAO_EXECUTADO",
+    "metodo": "reinicios_com_melhoria_estrita_busca_completa",
+    "nivel": 3,
+    "objetivo": "amplitude_medias",
+    "valor": {
+     "den": 9,
+     "num": 70
+    }
+   },
+   {
+    "comprovado": false,
+    "estado": "NAO_EXECUTADO",
+    "metodo": "rotulacao_lexicografica_canonica_completa",
+    "nivel": 4,
+    "objetivo": "chave_canonica",
+    "valor": "staggy.chave.v1|1.1.1.6573.323032372f31.743161.6d6174.7031.1;1.1.1.6573.323032372f31.743261.626431.7037.1;1.1.1.6573.323032372f31.743361.696e6732.7034.1;1.1.1.6573.323032372f31.743461.736567.7038.1;1.1.2.6573.323032372f31.743161.696e6731.7034.1;1.1.2.6573.323032372f31.743261.657374.7031.1;1.1.2.6573.323032372f31.743361.726564.7036.1;1.1.2.6573.323032372f31.743461.6770.7035.1;1.3.1.6573.323032372f31.743162.6d6174.7031.1;1.3.1.6573.323032372f31.743262.6564.703130.1;1.3.1.6573.323032372f31.743561.6e7576.7036.1;1.3.1.6573.323032372f31.743661.6574696361.7039.1;1.3.2.6573.323032372f31.743162.6d6174.7031.1;1.3.2.6573.323032372f31.743262.6564.703130.1;1.3.2.6573.323032372f31.743561.656d70.7039.1;1.3.2.6573.323032372f31.743661...0;2.1.1.6573.323032372f31.743161.667369.7038.1;2.1.1.6573.323032372f31.743261.626431.7037.1;2.1.1.6573.323032372f31.743361.726564.7036.1;2.1.1.6573.323032372f31.743461.657332.7035.1;2.1.2.6573.323032372f31.743161.636f6d.7034.1;2.1.2.6573.323032372f31.743261.657331.7035.1;2.1.2.6573.323032372f31.743361.696863.7033.1;2.1.2.6573.323032372f31.743461.736f.7036.1;2.3.1.6573.323032372f31.743162.696e6731.7034.1;2.3.1.6573.323032372f31.743262.657331.7035.1;2.3.1.6573.323032372f31.743561.77656232.7033.1;2.3.1.6573.323032372f31.743661.7467.703130.1;2.3.2.6573.323032372f31.743162.636f6d.7039.1;2.3.2.6573.323032372f31.743262.657331.7035.1;2.3.2.6573.323032372f31.743561.6e7576.7036.1;2.3.2.6573.323032372f31.743661.7467.703130.1;3.1.1.6573.323032372f31.743161.6d6174.7031.1;3.1.1.6573.323032372f31.743261.77656231.7033.1;3.1.1.6573.323032372f31.743361.706f6f.703130.1;3.1.1.6573.323032372f31.743461.736f.7036.1;3.1.2.6573.323032372f31.743161.616c67.7031.1;3.1.2.6573.323032372f31.743261.77656231.7033.1;3.1.2.6573.323032372f31.743361.706f6f.703130.1;3.1.2.6573.323032372f31.743461.657332.7035.1;3.3.1.6573.323032372f31.743162.617271.7038.1;3.3.1.6573.323032372f31.743262.657374.7037.1;3.3.1.6573.323032372f31.743561.6961.703130.1;3.3.1.6573.323032372f31.743661.7173.7035.1;3.3.2.6573.323032372f31.743162.617271.7038.1;3.3.2.6573.323032372f31.743262.626431.7037.1;3.3.2.6573.323032372f31.743561.6961.703130.1;3.3.2.6573.323032372f31.743661.7173.7035.1;4.1.1.6573.323032372f31.743161.617271.7038.1;4.1.1.6573.323032372f31.743261.6564.7031.1;4.1.1.6573.323032372f31.743361.626432.7037.1;4.1.1.6573.323032372f31.743461.6d6f62.7033.1;4.1.2.6573.323032372f31.743161.616c67.7031.1;4.1.2.6573.323032372f31.743261.657331.7035.1;4.1.2.6573.323032372f31.743361.626432.7037.1;4.1.2.6573.323032372f31.743461.6d6f62.7033.1;4.3.1.6573.323032372f31.743162.616c67.703130.1;4.3.1.6573.323032372f31.743262.77656231.7033.1;4.3.1.6573.323032372f31.743561...0;4.3.1.6573.323032372f31.743661.6461646f73.7037.1;4.3.2.6573.323032372f31.743162.616c67.703130.1;4.3.2.6573.323032372f31.743262.626431.7037.1;4.3.2.6573.323032372f31.743561.77656232.7033.1;4.3.2.6573.323032372f31.743661...0;5.1.1.6573.323032372f31.743161...0;5.1.1.6573.323032372f31.743261...0;5.1.1.6573.323032372f31.743361...0;5.1.1.6573.323032372f31.743461...0;5.1.2.6573.323032372f31.743161.617271.7038.1;5.1.2.6573.323032372f31.743261.6564.7031.1;5.1.2.6573.323032372f31.743361...0;5.1.2.6573.323032372f31.743461...0;5.3.1.6573.323032372f31.743162...0;5.3.1.6573.323032372f31.743262...0;5.3.1.6573.323032372f31.743561...0;5.3.1.6573.323032372f31.743661...0;5.3.2.6573.323032372f31.743162.667369.7038.1;5.3.2.6573.323032372f31.743262.77656231.7033.1;5.3.2.6573.323032372f31.743561...0;5.3.2.6573.323032372f31.743661.6461646f73.7037.1;6.3.1.6573.323032372f31.743162...0;6.3.1.6573.323032372f31.743262...0;6.3.1.6573.323032372f31.743561...0;6.3.1.6573.323032372f31.743661...0;6.3.2.6573.323032372f31.743162...0;6.3.2.6573.323032372f31.743262...0;6.3.2.6573.323032372f31.743561...0;6.3.2.6573.323032372f31.743661...0"
+   }
+  ],
+  "fonte_metricas": "grade canônica validada pelo backend",
+  "justificativa": {
+   "titulo": "Grade completa e válida, sem prova de ótimo",
+   "texto": "A grade é utilizável: cumpre todas as obrigações e foi aprovada pela validação independente. O limite de 600 segundos foi atingido antes de concluir as provas. Nenhum nível da hierarquia foi comprovado. Não comprovados: custo primário de preferências; maior média de penalidade por aula entre professores; amplitude entre as médias dos professores; desempate canônico. A publicação de grade não ótima depende de autorização institucional ainda não homologada.",
+   "niveis_comprovados": [],
+   "niveis_nao_comprovados": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  "diagnosticos": [
+   {
+    "categoria": "resultado",
+    "codigo": "NIVEIS_NAO_COMPROVADOS",
+    "entidades": {
+     "niveis_comprovados": [],
+     "niveis_nao_comprovados": [
+      1,
+      2,
+      3,
+      4
+     ]
+    },
+    "etapa": "otimizacao",
+    "mensagem": "Grade completa e válida, mas sem prova de todos os níveis da hierarquia (CA-52, CA-74)",
+    "natureza_evidencia": "comprovada",
+    "severidade": "aviso"
+   }
+  ],
+  "candidato_recuperavel_disponivel": false,
+  "publicavel": false
+ },
+ "grade_base_run_id": null,
+ "publicada_em": null,
+ "iniciada_em": "2026-11-06T13:40:00.000Z",
+ "concluida_em": "2026-11-06T13:49:58.122Z",
+ "travas_aplicadas": [],
+ "grade": {
+  "K": 2,
+  "por_turma": [
+   {
+    "turma_id": "t1a",
+    "semestre_id": "S1",
+    "turno": "MANHA",
+    "posicoes": [
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t1a",
+      "disciplina_id": "mat",
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t1a",
+      "disciplina_id": "ing1",
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t1a",
+      "disciplina_id": "fsi",
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t1a",
+      "disciplina_id": "com",
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t1a",
+      "disciplina_id": "mat",
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t1a",
+      "disciplina_id": "alg",
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t1a",
+      "disciplina_id": "arq",
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t1a",
+      "disciplina_id": "alg",
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": "t1a",
+      "disciplina_id": null,
+      "professor_id": null,
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t1a",
+      "disciplina_id": "arq",
+      "professor_id": "p8",
+      "travas": []
+     }
+    ]
+   },
+   {
+    "turma_id": "t1b",
+    "semestre_id": "S1",
+    "turno": "NOITE",
+    "posicoes": [
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t1b",
+      "disciplina_id": "mat",
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t1b",
+      "disciplina_id": "mat",
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t1b",
+      "disciplina_id": "ing1",
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t1b",
+      "disciplina_id": "com",
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t1b",
+      "disciplina_id": "arq",
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t1b",
+      "disciplina_id": "arq",
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t1b",
+      "disciplina_id": "alg",
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t1b",
+      "disciplina_id": "alg",
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": "t1b",
+      "disciplina_id": null,
+      "professor_id": null,
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t1b",
+      "disciplina_id": "fsi",
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": "t1b",
+      "disciplina_id": null,
+      "professor_id": null,
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": "t1b",
+      "disciplina_id": null,
+      "professor_id": null,
+      "travas": []
+     }
+    ]
+   },
+   {
+    "turma_id": "t2a",
+    "semestre_id": "S2",
+    "turno": "MANHA",
+    "posicoes": [
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t2a",
+      "disciplina_id": "bd1",
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t2a",
+      "disciplina_id": "est",
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t2a",
+      "disciplina_id": "bd1",
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t2a",
+      "disciplina_id": "es1",
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t2a",
+      "disciplina_id": "web1",
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t2a",
+      "disciplina_id": "web1",
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t2a",
+      "disciplina_id": "ed",
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t2a",
+      "disciplina_id": "es1",
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": "t2a",
+      "disciplina_id": null,
+      "professor_id": null,
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t2a",
+      "disciplina_id": "ed",
+      "professor_id": "p1",
+      "travas": []
+     }
+    ]
+   },
+   {
+    "turma_id": "t2b",
+    "semestre_id": "S2",
+    "turno": "NOITE",
+    "posicoes": [
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t2b",
+      "disciplina_id": "ed",
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t2b",
+      "disciplina_id": "ed",
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t2b",
+      "disciplina_id": "es1",
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t2b",
+      "disciplina_id": "es1",
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t2b",
+      "disciplina_id": "est",
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t2b",
+      "disciplina_id": "bd1",
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t2b",
+      "disciplina_id": "web1",
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t2b",
+      "disciplina_id": "bd1",
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": "t2b",
+      "disciplina_id": null,
+      "professor_id": null,
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t2b",
+      "disciplina_id": "web1",
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": "t2b",
+      "disciplina_id": null,
+      "professor_id": null,
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": "t2b",
+      "disciplina_id": null,
+      "professor_id": null,
+      "travas": []
+     }
+    ]
+   },
+   {
+    "turma_id": "t3a",
+    "semestre_id": "S3",
+    "turno": "MANHA",
+    "posicoes": [
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t3a",
+      "disciplina_id": "ing2",
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t3a",
+      "disciplina_id": "red",
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t3a",
+      "disciplina_id": "red",
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t3a",
+      "disciplina_id": "ihc",
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t3a",
+      "disciplina_id": "poo",
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t3a",
+      "disciplina_id": "poo",
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t3a",
+      "disciplina_id": "bd2",
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t3a",
+      "disciplina_id": "bd2",
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": "t3a",
+      "disciplina_id": null,
+      "professor_id": null,
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": "t3a",
+      "disciplina_id": null,
+      "professor_id": null,
+      "travas": []
+     }
+    ]
+   },
+   {
+    "turma_id": "t4a",
+    "semestre_id": "S4",
+    "turno": "MANHA",
+    "posicoes": [
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t4a",
+      "disciplina_id": "seg",
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t4a",
+      "disciplina_id": "gp",
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t4a",
+      "disciplina_id": "es2",
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t4a",
+      "disciplina_id": "so",
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t4a",
+      "disciplina_id": "so",
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t4a",
+      "disciplina_id": "es2",
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t4a",
+      "disciplina_id": "mob",
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t4a",
+      "disciplina_id": "mob",
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": "t4a",
+      "disciplina_id": null,
+      "professor_id": null,
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": "t4a",
+      "disciplina_id": null,
+      "professor_id": null,
+      "travas": []
+     }
+    ]
+   },
+   {
+    "turma_id": "t5a",
+    "semestre_id": "S5",
+    "turno": "NOITE",
+    "posicoes": [
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t5a",
+      "disciplina_id": "nuv",
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t5a",
+      "disciplina_id": "emp",
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t5a",
+      "disciplina_id": "web2",
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t5a",
+      "disciplina_id": "nuv",
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t5a",
+      "disciplina_id": "ia",
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t5a",
+      "disciplina_id": "ia",
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": "t5a",
+      "disciplina_id": null,
+      "professor_id": null,
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t5a",
+      "disciplina_id": "web2",
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": "t5a",
+      "disciplina_id": null,
+      "professor_id": null,
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": "t5a",
+      "disciplina_id": null,
+      "professor_id": null,
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": "t5a",
+      "disciplina_id": null,
+      "professor_id": null,
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": "t5a",
+      "disciplina_id": null,
+      "professor_id": null,
+      "travas": []
+     }
+    ]
+   },
+   {
+    "turma_id": "t6a",
+    "semestre_id": "S6",
+    "turno": "NOITE",
+    "posicoes": [
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t6a",
+      "disciplina_id": "etica",
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": "t6a",
+      "disciplina_id": null,
+      "professor_id": null,
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t6a",
+      "disciplina_id": "tg",
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t6a",
+      "disciplina_id": "tg",
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t6a",
+      "disciplina_id": "qs",
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t6a",
+      "disciplina_id": "qs",
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t6a",
+      "disciplina_id": "dados",
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": "t6a",
+      "disciplina_id": null,
+      "professor_id": null,
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": "t6a",
+      "disciplina_id": null,
+      "professor_id": null,
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t6a",
+      "disciplina_id": "dados",
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": "t6a",
+      "disciplina_id": null,
+      "professor_id": null,
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": "t6a",
+      "disciplina_id": null,
+      "professor_id": null,
+      "travas": []
+     }
+    ]
+   }
+  ],
+  "por_professor": [
+   {
+    "professor_id": "p1",
+    "posicoes": [
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t1a",
+      "disciplina_id": "mat",
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t2a",
+      "disciplina_id": "est",
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t1b",
+      "disciplina_id": "mat",
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t1b",
+      "disciplina_id": "mat",
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t1a",
+      "disciplina_id": "mat",
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t1a",
+      "disciplina_id": "alg",
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t2a",
+      "disciplina_id": "ed",
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t1a",
+      "disciplina_id": "alg",
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t2a",
+      "disciplina_id": "ed",
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p1",
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p1",
+      "travas": []
+     }
+    ]
+   },
+   {
+    "professor_id": "p10",
+    "posicoes": [
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t2b",
+      "disciplina_id": "ed",
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t2b",
+      "disciplina_id": "ed",
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t6a",
+      "disciplina_id": "tg",
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t6a",
+      "disciplina_id": "tg",
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t3a",
+      "disciplina_id": "poo",
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t3a",
+      "disciplina_id": "poo",
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t5a",
+      "disciplina_id": "ia",
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t5a",
+      "disciplina_id": "ia",
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t1b",
+      "disciplina_id": "alg",
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t1b",
+      "disciplina_id": "alg",
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p10",
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p10",
+      "travas": []
+     }
+    ]
+   },
+   {
+    "professor_id": "p3",
+    "posicoes": [
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t3a",
+      "disciplina_id": "ihc",
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t5a",
+      "disciplina_id": "web2",
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t2a",
+      "disciplina_id": "web1",
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t2a",
+      "disciplina_id": "web1",
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t4a",
+      "disciplina_id": "mob",
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t4a",
+      "disciplina_id": "mob",
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t2b",
+      "disciplina_id": "web1",
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t5a",
+      "disciplina_id": "web2",
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t2b",
+      "disciplina_id": "web1",
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p3",
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p3",
+      "travas": []
+     }
+    ]
+   },
+   {
+    "professor_id": "p4",
+    "posicoes": [
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t3a",
+      "disciplina_id": "ing2",
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t1a",
+      "disciplina_id": "ing1",
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t1a",
+      "disciplina_id": "com",
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t1b",
+      "disciplina_id": "ing1",
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p4",
+      "travas": []
+     }
+    ]
+   },
+   {
+    "professor_id": "p5",
+    "posicoes": [
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t4a",
+      "disciplina_id": "gp",
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t4a",
+      "disciplina_id": "es2",
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t2a",
+      "disciplina_id": "es1",
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t2b",
+      "disciplina_id": "es1",
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t2b",
+      "disciplina_id": "es1",
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t4a",
+      "disciplina_id": "es2",
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t6a",
+      "disciplina_id": "qs",
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t6a",
+      "disciplina_id": "qs",
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t2a",
+      "disciplina_id": "es1",
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p5",
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p5",
+      "travas": []
+     }
+    ]
+   },
+   {
+    "professor_id": "p6",
+    "posicoes": [
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t3a",
+      "disciplina_id": "red",
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t5a",
+      "disciplina_id": "nuv",
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t3a",
+      "disciplina_id": "red",
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t4a",
+      "disciplina_id": "so",
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t5a",
+      "disciplina_id": "nuv",
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t4a",
+      "disciplina_id": "so",
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p6",
+      "travas": []
+     }
+    ]
+   },
+   {
+    "professor_id": "p7",
+    "posicoes": [
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t2a",
+      "disciplina_id": "bd1",
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t2a",
+      "disciplina_id": "bd1",
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t2b",
+      "disciplina_id": "est",
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t2b",
+      "disciplina_id": "bd1",
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t3a",
+      "disciplina_id": "bd2",
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t3a",
+      "disciplina_id": "bd2",
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t6a",
+      "disciplina_id": "dados",
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t2b",
+      "disciplina_id": "bd1",
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t6a",
+      "disciplina_id": "dados",
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p7",
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p7",
+      "travas": []
+     }
+    ]
+   },
+   {
+    "professor_id": "p8",
+    "posicoes": [
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t4a",
+      "disciplina_id": "seg",
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t1a",
+      "disciplina_id": "fsi",
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t1b",
+      "disciplina_id": "arq",
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t1b",
+      "disciplina_id": "arq",
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t1a",
+      "disciplina_id": "arq",
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t1a",
+      "disciplina_id": "arq",
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t1b",
+      "disciplina_id": "fsi",
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p8",
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p8",
+      "travas": []
+     }
+    ]
+   },
+   {
+    "professor_id": "p9",
+    "posicoes": [
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": true,
+      "turma_id": "t6a",
+      "disciplina_id": "etica",
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "SEGUNDA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t5a",
+      "disciplina_id": "emp",
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "TERCA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": true,
+      "turma_id": "t1b",
+      "disciplina_id": "com",
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "QUARTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "QUINTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "MANHA",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "TARDE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "TARDE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "SEXTA",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 1,
+      "aulas": [
+       1,
+       2
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     },
+     {
+      "dia": "SABADO",
+      "turno": "NOITE",
+      "indice": 2,
+      "aulas": [
+       3,
+       4
+      ],
+      "ocupado": false,
+      "turma_id": null,
+      "disciplina_id": null,
+      "professor_id": "p9",
+      "travas": []
+     }
+    ]
+   }
+  ]
+ }
+}

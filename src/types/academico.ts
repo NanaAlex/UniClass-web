@@ -2,23 +2,14 @@ export type DiaSemana = "seg" | "ter" | "qua" | "qui" | "sex" | "sab";
 
 export type Turno = "manha" | "tarde" | "noite";
 
-/** Uma aula dentro de um bloco. `posicao` é contínua no turno (1, 2, 3...). */
-export type HorarioAula = {
-  posicao: number;
-  inicio?: string; // "07:30"
-  fim?: string; // "08:20"
-};
-
-/** Aulas seguidas; entre um bloco e o próximo existe um intervalo (RF 7.2, RF 7.3). */
-export type BlocoAula = {
-  aulas: HorarioAula[];
-};
-
-/** Dias e blocos de um turno, definidos pelo administrador (RF 7.1–7.3). */
+/**
+ * Dias letivos e quantidade de blocos ordinais do turno (RN-10, RN-35). O bloco i reúne as aulas
+ * ((i−1)·K+1) até i·K, onde K é a quantidade global de aulas por bloco. Não há horário de relógio.
+ */
 export type EstruturaTurno = {
   turno: Turno;
   dias: DiaSemana[];
-  blocos: BlocoAula[];
+  blocos: number;
 };
 
 export type Semestre = {
@@ -27,6 +18,7 @@ export type Semestre = {
   turmaIds: string[];
 };
 
+/** RN-04, RN-05: identificador único no semestre e turno obrigatório. */
 export type Turma = {
   id: string;
   nome: string; // "A", "B"...
@@ -34,20 +26,23 @@ export type Turma = {
   turno: Turno;
 };
 
-/** RF 7.6: nome, aulas por semana, semestre, quantidade de professores e turno. */
+/**
+ * RN-06, RN-07: carga semanal em aulas (múltipla de K) e vínculo com o semestre; a demanda vale para
+ * cada turma ativa do semestre. Uma turma–disciplina tem um único responsável (RN-19).
+ */
 export type Disciplina = {
   id: string;
   nome: string;
   semestre: number;
   aulasPorSemana: number;
-  quantidadeProfessores: number;
-  turno: Turno;
   /** 1–8: força a cor na grade; sem valor, a cor é derivada do id. */
   cor?: number;
 };
 
-/** Tudo o que o administrador cadastra na aba Dados (RF 7). */
+/** Tudo o que o administrador cadastra na aba Dados (RN-01). */
 export type DadosAcademicos = {
+  /** K: quantidade global de aulas por bloco, igual em todos os turnos e dias (RN-09). */
+  aulasPorBloco: number;
   estruturas: EstruturaTurno[];
   semestres: Semestre[];
   turmas: Turma[];

@@ -1,31 +1,24 @@
 import { Seletor } from "@/components/ui/Seletor";
-import { NIVEIS, NIVEL_PADRAO, periodosDisponiveis, rotulosNivel } from "@/lib/formulario";
-import { rotulosDia, rotulosTurno } from "@/lib/horario";
-import type { ChaveHorario, ChavePeriodo, DiaSemana, EstruturaTurno, NivelInteresse, RespostaFormulario } from "@/types";
+import { NIVEIS, periodosDisponiveis, rotulosNivel } from "@/lib/formulario";
+import { ordemDias, rotulosDia, rotulosTurno } from "@/lib/horario";
+import type { ChaveBloco, ChavePeriodo, DiaSemana, EstruturaTurno, NivelInteresse, RespostaFormulario } from "@/types";
 import estilos from "./TabelaPrioridadePeriodo.module.css";
 
 type Prioridades = RespostaFormulario["prioridadesPeriodo"];
 
 type TabelaPrioridadePeriodoProps = {
   estruturas: EstruturaTurno[];
-  /** Só os períodos com algum horário disponível recebem prioridade. */
-  disponibilidade: ChaveHorario[];
+  /** Só os dias/turnos com algum bloco selecionado recebem nota (RN-17). */
+  disponibilidade: ChaveBloco[];
   valor: Prioridades;
   aoMudar?: (valor: Prioridades) => void;
   somenteLeitura?: boolean;
 };
 
-const ordemDias: DiaSemana[] = ["seg", "ter", "qua", "qui", "sex", "sab"];
 const opcoes = NIVEIS.map((n) => ({ valor: String(n), rotulo: `${n} · ${rotulosNivel[n]}` }));
 
-/** RF 2.2: prioridade de 1 a 5 por turno e dia — uma faixa da marca para cada turno. */
-export function TabelaPrioridadePeriodo({
-  estruturas,
-  disponibilidade,
-  valor,
-  aoMudar,
-  somenteLeitura = false,
-}: TabelaPrioridadePeriodoProps) {
+/** RN-17: nota de 1 a 5 por dia e turno, obrigatória e sem valor pré-preenchido (RN-22, CA-27). */
+export function TabelaPrioridadePeriodo({ estruturas, disponibilidade, valor, aoMudar, somenteLeitura = false }: TabelaPrioridadePeriodoProps) {
   const dias = ordemDias.filter((dia) => estruturas.some((e) => e.dias.includes(dia)));
   const disponiveis = periodosDisponiveis(disponibilidade);
 
@@ -34,14 +27,16 @@ export function TabelaPrioridadePeriodo({
     if (!estrutura.dias.includes(dia)) return <span className={estilos.semAula}>Sem aulas</span>;
     if (!disponiveis.has(chave)) {
       return (
-        <span className={estilos.semAula} title="Você não marcou horários neste período">
+        <span className={estilos.semAula} title="Você não selecionou blocos neste dia e turno">
           Indisponível
         </span>
       );
     }
-    const nivel = valor[chave] ?? NIVEL_PADRAO;
+    const nivel = valor[chave];
     if (somenteLeitura) {
-      return (
+      return nivel === undefined ? (
+        <span className={estilos.semAula}>Sem nota</span>
+      ) : (
         <span className={estilos.leitura}>
           <strong>{nivel}</strong> {rotulosNivel[nivel]}
         </span>
@@ -51,8 +46,10 @@ export function TabelaPrioridadePeriodo({
       <Seletor
         rotulo={`Prioridade: ${rotulosDia[dia].longo}, ${rotulosTurno[estrutura.turno]}`}
         ocultarRotulo
+        placeholder="Escolha a nota"
         opcoes={opcoes}
-        value={String(nivel)}
+        value={nivel === undefined ? "" : String(nivel)}
+        aria-invalid={nivel === undefined || undefined}
         onChange={(e) => aoMudar?.({ ...valor, [chave]: Number(e.target.value) as NivelInteresse })}
       />
     );

@@ -3,7 +3,7 @@
 import { Aviso } from "@/components/ui/Aviso";
 import { Botao } from "@/components/ui/Botao";
 import { Modal } from "@/components/ui/Modal";
-import type { ChaveHorario, EstruturaTurno, InteresseDisciplina } from "@/types";
+import type { ChaveBloco, EstruturaTurno, InteresseDisciplina } from "@/types";
 import { ResumoResposta } from "./ResumoResposta";
 import estilos from "./ResumoResposta.module.css";
 
@@ -13,7 +13,7 @@ type ModalConfirmarEnvioProps = {
   aoConfirmar: () => void;
   enviando: boolean;
   estruturas: EstruturaTurno[];
-  disponibilidade: ChaveHorario[];
+  disponibilidade: ChaveBloco[];
   interesses: InteresseDisciplina[];
 };
 

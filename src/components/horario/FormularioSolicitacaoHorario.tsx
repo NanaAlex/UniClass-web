@@ -4,14 +4,17 @@ import { useState, type FormEvent } from "react";
 import { AreaTexto } from "@/components/ui/AreaTexto";
 import { Aviso } from "@/components/ui/Aviso";
 import { Botao } from "@/components/ui/Botao";
-import { corDaDisciplina, rotuloAula, rotulosDia, rotuloTurma } from "@/lib/horario";
+import type { Nomes } from "@/lib/gestaoHorario";
+import { corDaDisciplina, rotuloBloco, rotulosDia, rotulosTurno } from "@/lib/horario";
 import { LIMITES_DESCRICAO } from "@/lib/solicitacao";
-import type { Aula } from "@/types";
+import type { BlocoGrade } from "@/types";
 import estilos from "./FormularioSolicitacaoHorario.module.css";
 
 type FormularioSolicitacaoHorarioProps = {
-  /** null: o professor ainda não escolheu a aula na grade. */
-  aula: Aula | null;
+  /** null: o professor ainda não escolheu o bloco na grade. */
+  bloco: BlocoGrade | null;
+  nomes: Nomes;
+  aulasPorBloco: number;
   aoCancelar: () => void;
   /** Rejeita a promessa em caso de falha; o texto digitado é mantido. */
   aoEnviar: (descricao: string) => Promise<void>;
@@ -19,20 +22,18 @@ type FormularioSolicitacaoHorarioProps = {
 
 const { minimo, maximo } = LIMITES_DESCRICAO;
 
-/** RF 3.4, RF 9.3: descrição do pedido de alteração da aula escolhida. */
-export function FormularioSolicitacaoHorario({ aula, aoCancelar, aoEnviar }: FormularioSolicitacaoHorarioProps) {
+/** RF 3.4, RF 9.3: descrição do pedido de alteração do bloco escolhido (o bloco inteiro, RN-58). */
+export function FormularioSolicitacaoHorario({ bloco, nomes, aulasPorBloco, aoCancelar, aoEnviar }: FormularioSolicitacaoHorarioProps) {
   const [texto, setTexto] = useState("");
   const [erroCampo, setErroCampo] = useState<string>();
   const [falhaEnvio, setFalhaEnvio] = useState(false);
   const [enviando, setEnviando] = useState(false);
 
-  if (!aula) {
-    return (
-      <p className={estilos.espera}>
-        Nenhuma aula selecionada. Escolha uma aula na grade acima para descrever o pedido.
-      </p>
-    );
+  if (!bloco?.disciplinaId) {
+    return <p className={estilos.espera}>Nenhum bloco selecionado. Escolha uma aula na grade acima para descrever o pedido.</p>;
   }
+
+  const disciplina = nomes.disciplina(bloco.disciplinaId);
 
   async function enviar(evento: FormEvent<HTMLFormElement>) {
     evento.preventDefault();
@@ -54,13 +55,14 @@ export function FormularioSolicitacaoHorario({ aula, aoCancelar, aoEnviar }: For
 
   return (
     <form className={estilos.formulario} onSubmit={enviar} noValidate aria-labelledby="titulo-pedido-horario">
-      <div className={estilos.aula} data-cor-disciplina={corDaDisciplina(aula.disciplina)}>
+      <div className={estilos.aula} data-cor-disciplina={corDaDisciplina(disciplina ?? { id: bloco.disciplinaId })}>
         <span id="titulo-pedido-horario" className={estilos.rotuloAula}>
-          Aula selecionada
+          Bloco selecionado
         </span>
-        <strong className={estilos.nomeAula}>{aula.disciplina.nome}</strong>
+        <strong className={estilos.nomeAula}>{disciplina?.nome ?? bloco.disciplinaId}</strong>
         <span className={estilos.detalhesAula}>
-          {rotulosDia[aula.dia].longo} · {rotuloAula(aula.posicao)} · {rotuloTurma(aula.turma)}
+          {rotulosDia[bloco.dia].longo} · {rotulosTurno[bloco.turno]} · {rotuloBloco(aulasPorBloco, bloco.indice)}
+          {bloco.turmaId && ` · ${nomes.turma(bloco.turmaId)}`}
         </span>
       </div>
 
@@ -76,7 +78,7 @@ export function FormularioSolicitacaoHorario({ aula, aoCancelar, aoEnviar }: For
 
       <AreaTexto
         rotulo="Descreva a sua solicitação"
-        placeholder="Ex.: Tenho outro compromisso fixo neste horário. Seria possível trocar esta aula por quinta, 1ª aula?"
+        placeholder="Ex.: Tenho outro compromisso fixo neste bloco. Seria possível trocá-lo pelo Bloco 1 de quinta?"
         value={texto}
         onChange={(e) => {
           setTexto(e.target.value);
@@ -85,7 +87,7 @@ export function FormularioSolicitacaoHorario({ aula, aoCancelar, aoEnviar }: For
         maxLength={maximo}
         mostrarContador
         erro={erroCampo}
-        dica={`Mínimo de ${minimo} caracteres. A coordenação lê o pedido e ajusta o horário se for possível.`}
+        dica={`Mínimo de ${minimo} caracteres. A coordenação lê o pedido e, se possível, ajusta a grade numa nova geração.`}
         required
         autoFocus
       />

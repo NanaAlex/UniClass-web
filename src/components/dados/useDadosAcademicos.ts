@@ -31,12 +31,15 @@ export function useDadosAcademicos() {
     setAlterado(true);
   }, []);
 
-  async function salvar() {
-    if (!dados) return;
+  /** Rejeita com ConfirmacaoEstruturalNecessaria quando a mudança encerra a edição do formulário (RN-38). */
+  async function salvar(confirmarAlteracaoEstrutural = false) {
+    if (!dados) return null;
     setSalvando(true);
     try {
-      setDados(await salvarDadosAcademicos(dados));
+      const resultado = await salvarDadosAcademicos(dados, { confirmarAlteracaoEstrutural });
+      setDados(resultado.dados);
       setAlterado(false);
+      return resultado;
     } finally {
       setSalvando(false);
     }

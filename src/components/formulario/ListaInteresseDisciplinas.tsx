@@ -6,16 +6,16 @@ import { BarraPesquisa } from "@/components/ui/BarraPesquisa";
 import { Botao } from "@/components/ui/Botao";
 import { EstadoVazio } from "@/components/ui/EstadoVazio";
 import { semAcento } from "@/lib/formatacao";
-import { NIVEL_PADRAO } from "@/lib/formulario";
-import type { Disciplina, InteresseDisciplina, NivelInteresse } from "@/types";
+import type { InteresseRascunho } from "@/lib/formulario";
+import type { Disciplina, NivelInteresse } from "@/types";
 import { ItemInteresseDisciplina, type ModoInteresse } from "./ItemInteresseDisciplina";
 import estilos from "./ListaInteresseDisciplinas.module.css";
 
 type ListaInteresseDisciplinasProps = {
   /** Só as disciplinas cadastradas no formulário (RF 2.5). */
   disciplinas: Disciplina[];
-  valor: InteresseDisciplina[];
-  aoMudar?: (valor: InteresseDisciplina[]) => void;
+  valor: InteresseRascunho[];
+  aoMudar?: (valor: InteresseRascunho[]) => void;
   /**
    * selecao: filtros + escolha das matérias (RF 2.4); prioridade: nota de 1 a 5 das escolhidas (RF 2.6);
    * leitura: só as escolhidas, sem edição (RF 2.14).
@@ -53,7 +53,7 @@ export function ListaInteresseDisciplinas({ disciplinas, valor, aoMudar, modo = 
     aoMudar?.(
       niveis.has(disciplina.id)
         ? valor.filter((i) => i.disciplinaId !== disciplina.id)
-        : [...valor, { disciplinaId: disciplina.id, nivel: NIVEL_PADRAO }],
+        : [...valor, { disciplinaId: disciplina.id, nivel: null }],
     );
   }
 
