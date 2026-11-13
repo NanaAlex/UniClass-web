@@ -4,8 +4,7 @@ import { useState, type FormEvent } from "react";
 import { Botao } from "@/components/ui/Botao";
 import { CampoTexto } from "@/components/ui/CampoTexto";
 import { Seletor } from "@/components/ui/Seletor";
-import { rotulosTurno } from "@/lib/horario";
-import type { Disciplina, Semestre, Turno } from "@/types";
+import type { Disciplina, Semestre } from "@/types";
 import estilos from "./FormularioDisciplina.module.css";
 
 type FormularioDisciplinaProps = {
@@ -17,15 +16,12 @@ type FormularioDisciplinaProps = {
 const numeros = (ate: number) => Array.from({ length: ate }, (_, i) => String(i + 1));
 const opcoesAulas = numeros(8).map((n) => ({ valor: n, rotulo: n }));
 const opcoesProfessores = numeros(3).map((n) => ({ valor: n, rotulo: n }));
-const opcoesTurno = (Object.keys(rotulosTurno) as Turno[]).map((t) => ({ valor: t, rotulo: rotulosTurno[t] }));
-
-/** RF 7.6: nome, aulas por semana, semestre, quantidade de professores e turno. */
+/** RF 7.6: nome, aulas por semana, semestre e quantidade de professores. O turno é da turma. */
 export function FormularioDisciplina({ semestres, disciplinas, aoCriar }: FormularioDisciplinaProps) {
   const [nome, setNome] = useState("");
   const [aulas, setAulas] = useState("2");
   const [semestre, setSemestre] = useState(String(semestres[0]?.numero ?? ""));
   const [professores, setProfessores] = useState("1");
-  const [turno, setTurno] = useState<Turno>("manha");
   const [erro, setErro] = useState<string>();
 
   const semestreValido = semestres.some((s) => String(s.numero) === semestre) ? semestre : String(semestres[0]?.numero ?? "");
@@ -44,7 +40,6 @@ export function FormularioDisciplina({ semestres, disciplinas, aoCriar }: Formul
       semestre: Number(semestreValido),
       aulasPorSemana: Number(aulas),
       quantidadeProfessores: Number(professores),
-      turno,
     });
     setNome("");
     setErro(undefined);
@@ -78,7 +73,6 @@ export function FormularioDisciplina({ semestres, disciplinas, aoCriar }: Formul
         value={professores}
         onChange={(e) => setProfessores(e.target.value)}
       />
-      <Seletor rotulo="Turno" opcoes={opcoesTurno} value={turno} onChange={(e) => setTurno(e.target.value as Turno)} />
       <div className={estilos.acoes}>
         <Botao type="submit">Criar disciplina</Botao>
       </div>

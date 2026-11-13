@@ -1,10 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { obterDadosAcademicos, salvarDadosAcademicos } from "@/services/academico";
+import { obterDadosAcademicos, salvarDadosAcademicos } from "@/services/administrador";
 import type { DadosAcademicos } from "@/types";
 
-/** Carrega os dados da aba Dados e guarda as edições locais até o administrador salvar. */
+/** Carrega os dados da aba Dados e guarda as edições locais até o administrador salvar (o back grava tudo ou nada). */
 export function useDadosAcademicos() {
   const [dados, setDados] = useState<DadosAcademicos | null>(null);
   const [falhou, setFalhou] = useState(false);

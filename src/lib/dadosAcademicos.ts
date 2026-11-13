@@ -6,12 +6,50 @@ export const ordemDias: DiaSemana[] = ["seg", "ter", "qua", "qui", "sex", "sab"]
 export const MAXIMO_SEMESTRES = 8;
 export const MAXIMO_AULAS_BLOCO = 4;
 
-/** Posições contínuas no turno (1, 2, 3...) depois de mudar blocos. Horários das aulas novas ficam vazios. */
-function renumerar(blocos: { quantidade: number; base?: BlocoAula }[]): BlocoAula[] {
+/** Início da primeira aula (HH:MM) e duração de cada aula do bloco, em minutos (RF 7.3). */
+export type HorarioBloco = { horaInicio: string; duracaoAula: number };
+
+export const MINUTOS_NO_DIA = 24 * 60;
+
+// "07:30" <-> minutos desde 00:00
+export function paraMinutos(hora: string) {
+  const [h, m] = hora.split(":").map(Number);
+  return h * 60 + m;
+}
+
+export function paraHora(minutos: number) {
+  return `${String(Math.floor(minutos / 60)).padStart(2, "0")}:${String(minutos % 60).padStart(2, "0")}`;
+}
+
+/** Horário do bloco pela primeira aula; null se ainda não tem horário. */
+export function horarioDoBloco(bloco: BlocoAula): HorarioBloco | null {
+  const aula = bloco.aulas[0];
+  if (!aula?.inicio || !aula.fim) return null;
+  return { horaInicio: aula.inicio, duracaoAula: paraMinutos(aula.fim) - paraMinutos(aula.inicio) };
+}
+
+/** Minuto em que o bloco termina (fim da última aula); null se não tem horário. */
+export function fimDoBloco(bloco: BlocoAula) {
+  const fim = bloco.aulas[bloco.aulas.length - 1]?.fim;
+  return fim ? paraMinutos(fim) : null;
+}
+
+/**
+ * Posições contínuas no turno (1, 2, 3...) depois de mudar blocos. Com horário, as aulas
+ * vêm em sequência a partir do início do bloco (como o back calcula); sem horário, ficam vazias.
+ */
+function renumerar(blocos: { quantidade: number; base?: BlocoAula; horario?: HorarioBloco }[]): BlocoAula[] {
   let posicao = 1;
-  return blocos.map(({ quantidade, base }) => ({
-    aulas: Array.from({ length: quantidade }, (_, i) => ({ ...base?.aulas[i], posicao: posicao++ })),
-  }));
+  return blocos.map(({ quantidade, base, horario }) => {
+    const usado = horario ?? (base ? horarioDoBloco(base) : null);
+    return {
+      aulas: Array.from({ length: quantidade }, (_, i) => {
+        if (!usado) return { ...base?.aulas[i], posicao: posicao++ };
+        const inicio = paraMinutos(usado.horaInicio) + i * usado.duracaoAula;
+        return { posicao: posicao++, inicio: paraHora(inicio), fim: paraHora(inicio + usado.duracaoAula) };
+      }),
+    };
+  });
 }
 
 export function aulasPorBloco(estrutura: EstruturaTurno) {
@@ -23,10 +61,47 @@ export function definirAulasPorBloco(estrutura: EstruturaTurno, quantidade: numb
   return { ...estrutura, blocos: renumerar(estrutura.blocos.map((base) => ({ quantidade, base }))) };
 }
 
+/**
+ * Tamanho único dos blocos no curso: o escalonador usa a mesma quantidade de aulas por bloco
+ * em todos os turnos (o back recusa tamanhos diferentes). Vem do primeiro turno com blocos.
+ */
+export function aulasPorBlocoDoCurso(dados: DadosAcademicos) {
+  const comBlocos = dados.estruturas.find((e) => e.blocos.length > 0);
+  return comBlocos ? aulasPorBloco(comBlocos) : 2;
+}
+
+/** RF 7.2: muda o tamanho dos blocos de todos os turnos (tamanho único). */
+export function definirAulasPorBlocoDoCurso(dados: DadosAcademicos, quantidade: number): DadosAcademicos {
+  return { ...dados, estruturas: dados.estruturas.map((e) => definirAulasPorBloco(e, quantidade)) };
+}
+
 /** RF 7.3: novo bloco no fim, separado do anterior por um intervalo. */
-export function adicionarBloco(estrutura: EstruturaTurno): EstruturaTurno {
+export function adicionarBloco(estrutura: EstruturaTurno, horario: HorarioBloco, quantidade = aulasPorBloco(estrutura)): EstruturaTurno {
   const atuais = estrutura.blocos.map((base) => ({ quantidade: base.aulas.length, base }));
-  return { ...estrutura, blocos: renumerar([...atuais, { quantidade: aulasPorBloco(estrutura) }]) };
+  return { ...estrutura, blocos: renumerar([...atuais, { quantidade, horario }]) };
+}
+
+/** RF 7.3: muda o início e a duração das aulas de um bloco (a fileira inteira, todos os dias). */
+export function editarHorarioBloco(estrutura: EstruturaTurno, indice: number, horario: HorarioBloco): EstruturaTurno {
+  return {
+    ...estrutura,
+    blocos: renumerar(
+      estrutura.blocos.map((base, i) => ({ quantidade: base.aulas.length, base, horario: i === indice ? horario : undefined })),
+    ),
+  };
+}
+
+const INICIO_SUGERIDO: Record<Turno, string> = { manha: "07:30", tarde: "13:30", noite: "19:00" };
+const INTERVALO_SUGERIDO = 20;
+
+/** Sugestão para o novo bloco: 20 min depois do anterior, com a mesma duração das aulas. */
+export function sugestaoNovoBloco(estrutura: EstruturaTurno): HorarioBloco {
+  const ultimo = estrutura.blocos[estrutura.blocos.length - 1];
+  const fim = ultimo ? fimDoBloco(ultimo) : null;
+  return {
+    horaInicio: fim === null ? INICIO_SUGERIDO[estrutura.turno] : paraHora(Math.min(fim + INTERVALO_SUGERIDO, MINUTOS_NO_DIA - 1)),
+    duracaoAula: (ultimo && horarioDoBloco(ultimo)?.duracaoAula) || 50,
+  };
 }
 
 export function removerBloco(estrutura: EstruturaTurno, indice: number): EstruturaTurno {
