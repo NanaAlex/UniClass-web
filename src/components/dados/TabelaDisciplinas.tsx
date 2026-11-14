@@ -1,7 +1,6 @@
 import { BotaoIcone } from "@/components/ui/BotaoIcone";
-import { Etiqueta } from "@/components/ui/Etiqueta";
 import { IconeLixeira } from "@/components/ui/Icones";
-import { corDaDisciplina, rotulosTurno } from "@/lib/horario";
+import { corDaDisciplina } from "@/lib/horario";
 import type { Disciplina } from "@/types";
 import estilos from "./TabelaDisciplinas.module.css";
 
@@ -22,7 +21,6 @@ export function TabelaDisciplinas({ disciplinas, aoRemover }: TabelaDisciplinasP
             <th scope="col">Semestre</th>
             <th scope="col" className={estilos.numero}>Aulas/semana</th>
             <th scope="col" className={estilos.numero}>Professores</th>
-            <th scope="col">Turno</th>
             <th scope="col" className={estilos.acao}>
               <span className="apenas-leitor">Ações</span>
             </th>
@@ -38,9 +36,6 @@ export function TabelaDisciplinas({ disciplinas, aoRemover }: TabelaDisciplinasP
               <td>{disciplina.semestre}º</td>
               <td className={estilos.numero}>{disciplina.aulasPorSemana}</td>
               <td className={estilos.numero}>{disciplina.quantidadeProfessores}</td>
-              <td>
-                <Etiqueta>{rotulosTurno[disciplina.turno]}</Etiqueta>
-              </td>
               <td className={estilos.acao}>
                 <BotaoIcone rotulo={`Excluir ${disciplina.nome}`} icone={<IconeLixeira />} variante="perigo" onClick={() => aoRemover(disciplina)} />
               </td>

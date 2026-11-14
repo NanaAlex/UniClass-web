@@ -32,7 +32,7 @@ export function PainelGestaoFormulario() {
     );
   }
 
-  if (!formulario || !professores) return <EsqueletoGestaoFormulario />;
+  if (formulario === undefined || !professores) return <EsqueletoGestaoFormulario />;
 
   const situacao = situacaoDaGestao(formulario);
   const { responderam, pendentes } = separarPorResposta(professores);
@@ -86,7 +86,7 @@ export function PainelGestaoFormulario() {
     <div className={estilos.painel}>
       {(situacao === "sem_formulario" || situacao === "encerrado") && <CartaoLancarFormulario aoLancar={aoLancar} />}
 
-      {situacao === "sem_formulario" ? (
+      {situacao === "sem_formulario" || !formulario ? (
         <EstadoVazio
           contorno
           titulo="Nenhum formulário ativo"
@@ -107,7 +107,7 @@ export function PainelGestaoFormulario() {
         </>
       )}
 
-      {editandoPrazo && (
+      {editandoPrazo && formulario && (
         <ModalEditarPrazo
           formulario={formulario}
           inicioBloqueado={situacao !== "agendado"}

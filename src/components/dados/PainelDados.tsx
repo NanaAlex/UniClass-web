@@ -36,9 +36,11 @@ export function PainelDados({ abaInicial }: { abaInicial: AbaDados }) {
   async function aoSalvar() {
     try {
       await salvar();
-      mostrarAviso({ tipo: "sucesso", titulo: "Dados salvos", descricao: "Por enquanto, eles valem só nesta tela e se perdem ao sair dela." });
-    } catch {
-      mostrarAviso({ tipo: "perigo", titulo: "Não foi possível salvar", descricao: "Suas alterações continuam aqui. Tente novamente." });
+      mostrarAviso({ tipo: "sucesso", titulo: "Dados salvos", descricao: "Eles já valem para o formulário dos professores." });
+    } catch (erro) {
+      // O back grava tudo ou nada: o motivo vem dele (ex.: dia já usado em respostas)
+      const motivo = erro instanceof Error ? `${erro.message} ` : "";
+      mostrarAviso({ tipo: "perigo", titulo: "Não foi possível salvar", descricao: `${motivo}Suas alterações continuam aqui.` });
     }
   }
 

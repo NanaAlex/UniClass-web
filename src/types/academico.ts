@@ -34,14 +34,15 @@ export type Turma = {
   turno: Turno;
 };
 
-/** RF 7.6: nome, aulas por semana, semestre, quantidade de professores e turno. */
+/** RF 7.6: nome, aulas por semana, semestre e quantidade de professores. */
 export type Disciplina = {
   id: string;
   nome: string;
   semestre: number;
   aulasPorSemana: number;
   quantidadeProfessores: number;
-  turno: Turno;
+  /** A disciplina não tem turno no back (migration 003): o turno é da turma. */
+  turno?: Turno;
   /** 1–8: força a cor na grade; sem valor, a cor é derivada do id. */
   cor?: number;
 };
