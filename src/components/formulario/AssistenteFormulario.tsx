@@ -8,7 +8,7 @@ import { LinkBotao } from "@/components/ui/LinkBotao";
 import { useAvisos } from "@/components/ui/ProvedorAvisos";
 import { normalizarPrioridades } from "@/lib/formulario";
 import { hrefsFormularioProfessor } from "@/lib/navegacao";
-import { enviarResposta } from "@/services/formularios";
+import { enviarMinhaResposta } from "@/services/professor";
 import type { ChaveHorario, InteresseDisciplina, RespostaFormulario } from "@/types";
 import { ConteudoEtapa, etapas } from "./ConteudoEtapa";
 import { IndicadorEtapas } from "./IndicadorEtapas";
@@ -23,7 +23,7 @@ type AssistenteFormularioProps = {
 
 
 /** RF 2.1–2.6: preenchimento em etapas. Também usado para editar após reabertura (RF 2.18). */
-export function AssistenteFormulario({ dados, professorId }: AssistenteFormularioProps) {
+export function AssistenteFormulario({ dados }: AssistenteFormularioProps) {
   const { formulario, resposta, disciplinas } = dados;
   const router = useRouter();
   const { mostrarAviso } = useAvisos();
@@ -57,9 +57,8 @@ export function AssistenteFormulario({ dados, professorId }: AssistenteFormulari
     setEnviando(true);
     setErroEnvio(null);
     try {
-      await enviarResposta({
+      await enviarMinhaResposta({
         formularioId: formulario.id,
-        professorId,
         disponibilidade,
         interesses,
         prioridadesPeriodo: normalizarPrioridades(prioridades, disponibilidade),

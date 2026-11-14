@@ -5,8 +5,7 @@ import { ErroCarregamento } from "@/components/ui/ErroCarregamento";
 import { Esqueleto } from "@/components/ui/Esqueleto";
 import { useAvisos } from "@/components/ui/ProvedorAvisos";
 import { motivoBloqueioSolicitacao, situacaoDoFormulario } from "@/lib/formulario";
-import { obterFormularioAtual, obterRespostaDoProfessor } from "@/services/formularios";
-import { criarSolicitacao, listarSolicitacoes } from "@/services/solicitacoes";
+import { carregarMeuFormulario, listarMinhasSolicitacoesFormulario, solicitarAlteracaoFormulario } from "@/services/professor";
 import type { Formulario, RespostaFormulario, Solicitacao, UsuarioLogado } from "@/types";
 import { CartaoSituacaoFormulario } from "./CartaoSituacaoFormulario";
 import { ModalSolicitarAlteracao } from "./ModalSolicitarAlteracao";
@@ -14,12 +13,12 @@ import { SecaoSolicitacoesFormulario } from "./SecaoSolicitacoesFormulario";
 import estilos from "./PainelFormulario.module.css";
 
 type Dados = {
-  formulario: Formulario;
+  formulario: Formulario | null; // null: a coordenação ainda não lançou nenhum formulário
   resposta: RespostaFormulario | null;
   solicitacoes: Solicitacao[];
 };
 
-/** Aba Formulário do professor: situação do formulário atual e pedidos de alteração. */
+/** Aba Formulário do professor: situação do formulário atual e pedidos de alteração (do back). */
 export function PainelFormulario({ usuario }: { usuario: UsuarioLogado }) {
   const { mostrarAviso } = useAvisos();
   const [dados, setDados] = useState<Dados | null>(null);
@@ -30,10 +29,9 @@ export function PainelFormulario({ usuario }: { usuario: UsuarioLogado }) {
     setFalhou(false);
     setDados(null);
     try {
-      const formulario = await obterFormularioAtual();
-      const [resposta, solicitacoes] = await Promise.all([
-        obterRespostaDoProfessor(formulario.id, usuario.id),
-        listarSolicitacoes({ professorId: usuario.id, tipo: "formulario" }),
+      const [{ formulario, resposta }, solicitacoes] = await Promise.all([
+        carregarMeuFormulario(usuario.id),
+        listarMinhasSolicitacoesFormulario(usuario.id),
       ]);
       setDados({ formulario, resposta, solicitacoes });
     } catch {
@@ -46,8 +44,9 @@ export function PainelFormulario({ usuario }: { usuario: UsuarioLogado }) {
   }, [carregar]);
 
   async function solicitar(descricao: string) {
-    const nova = await criarSolicitacao({
-      tipo: "formulario",
+    if (!dados?.formulario) return;
+    const nova = await solicitarAlteracaoFormulario({
+      formularioId: dados.formulario.id,
       professor: { id: usuario.id, nome: usuario.nome },
       descricao,
     });

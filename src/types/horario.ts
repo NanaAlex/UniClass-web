@@ -61,4 +61,6 @@ export type HorarioProfessor = {
   previa: boolean;
   /** Data da grade mais recente exibida; null quando não há aulas. */
   atualizadoEm: string | null;
+  /** id da aula -> id da geração (vindo do back); o pedido de alteração precisa dele. */
+  geracaoDaAula?: Record<string, string>;
 };

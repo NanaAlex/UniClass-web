@@ -1,9 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { listarEstruturasTurno } from "@/services/academico";
-import { obterHorarioDoProfessor } from "@/services/horarios";
-import { listarSolicitacoes } from "@/services/solicitacoes";
+import { listarMinhasEstruturas, listarMinhasSolicitacoesHorario, obterMeuHorario } from "@/services/professor";
 import type { EstruturaTurno, HorarioProfessor, Solicitacao } from "@/types";
 
 type Dados = {
@@ -12,7 +10,7 @@ type Dados = {
   solicitacoes: Solicitacao[];
 };
 
-/** Carrega o horário do professor, a estrutura dos turnos e os pedidos de alteração de horário. */
+/** Carrega o horário do professor, a estrutura dos turnos e os pedidos de alteração de horário (do back). */
 export function useHorarioProfessor(professorId: string) {
   const [dados, setDados] = useState<Dados | null>(null);
   const [falhou, setFalhou] = useState(false);
@@ -21,10 +19,11 @@ export function useHorarioProfessor(professorId: string) {
     setFalhou(false);
     setDados(null);
     try {
+      // O back identifica o professor pelo token; o professorId só preenche as solicitações
       const [horario, estruturas, solicitacoes] = await Promise.all([
-        obterHorarioDoProfessor(professorId),
-        listarEstruturasTurno(),
-        listarSolicitacoes({ professorId, tipo: "horario" }),
+        obterMeuHorario(),
+        listarMinhasEstruturas(),
+        listarMinhasSolicitacoesHorario(professorId),
       ]);
       setDados({ horario, estruturas, solicitacoes });
     } catch {
