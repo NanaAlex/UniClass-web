@@ -5,8 +5,12 @@ import { Botao } from "@/components/ui/Botao";
 import { ModalConfirmacao, type PedidoConfirmacao } from "@/components/ui/ModalConfirmacao";
 import { useAvisos } from "@/components/ui/ProvedorAvisos";
 import { nomeExibido } from "@/lib/professores";
-import { alterarStatusConta, reenviarConvite } from "@/services/professores";
+import { ErroApi } from "@/services/api";
+import { alterarStatusConta, reenviarConvite } from "@/services/gestaoProfessores";
 import type { ProfessorComSituacao } from "@/types";
+
+/** Mostra o motivo que o back devolveu; sem ele, a mensagem genérica. */
+const mensagemDeErro = (erro: unknown) => (erro instanceof ErroApi ? erro.message : "Tente novamente.");
 
 type AcoesContaProps = {
   professor: ProfessorComSituacao;
@@ -33,7 +37,7 @@ export function AcoesConta({ professor, aoAtualizar }: AcoesContaProps) {
           aoAtualizar(await alterarStatusConta(professor.id, ativar));
           mostrarAviso({ tipo: "sucesso", titulo: ativar ? "Conta reativada" : "Conta desativada", descricao: nome });
         } catch (erro) {
-          mostrarAviso({ tipo: "perigo", titulo: "Não foi possível alterar a conta", descricao: "Tente novamente." });
+          mostrarAviso({ tipo: "perigo", titulo: "Não foi possível alterar a conta", descricao: mensagemDeErro(erro) });
           throw erro;
         }
       },
@@ -45,8 +49,8 @@ export function AcoesConta({ professor, aoAtualizar }: AcoesContaProps) {
     try {
       await reenviarConvite(professor.id);
       mostrarAviso({ tipo: "sucesso", titulo: "Convite reenviado", descricao: professor.email });
-    } catch {
-      mostrarAviso({ tipo: "perigo", titulo: "Não foi possível reenviar o convite", descricao: "Tente novamente." });
+    } catch (erro) {
+      mostrarAviso({ tipo: "perigo", titulo: "Não foi possível reenviar o convite", descricao: mensagemDeErro(erro) });
     } finally {
       setReenviando(false);
     }

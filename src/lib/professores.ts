@@ -17,9 +17,12 @@ export const rotulosFiltro: Record<FiltroProfessores, string> = {
 
 export const filtrosProfessores = Object.keys(rotulosFiltro) as FiltroProfessores[];
 
-/** Só conta ativa pode estar devendo resposta: convidado ainda não entrou e desativado não participa. */
+/**
+ * Só conta ativa pode estar devendo resposta: convidado ainda não entrou e desativado não participa.
+ * Usa o indicador do back quando ele vem; sem ele (dados simulados), a data da resposta.
+ */
 export function respostaPendente(professor: ProfessorComSituacao) {
-  return professor.statusConta === "ativa" && !professor.formularioRespondidoEm;
+  return professor.statusConta === "ativa" && (professor.respostaPendente ?? !professor.formularioRespondidoEm);
 }
 
 function atendeFiltro(professor: ProfessorComSituacao, filtro: FiltroProfessores) {

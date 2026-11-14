@@ -6,12 +6,11 @@ import { ErroCarregamento } from "@/components/ui/ErroCarregamento";
 import { Esqueleto } from "@/components/ui/Esqueleto";
 import { EstadoVazio } from "@/components/ui/EstadoVazio";
 import { nomeExibido } from "@/lib/professores";
-import { listarEstruturasTurno } from "@/services/academico";
-import { obterHorarioDoProfessor } from "@/services/horarios";
-import type { EstruturaTurno, HorarioProfessor, ProfessorComSituacao } from "@/types";
+import { obterHorarioDoProfessor, type HorarioDoProfessor } from "@/services/gestaoProfessores";
+import type { ProfessorComSituacao } from "@/types";
 import estilos from "./PainelPerfilProfessor.module.css";
 
-type Dados = { horario: HorarioProfessor; estruturas: EstruturaTurno[] };
+type Dados = HorarioDoProfessor;
 
 /** RF 8.8: aulas do professor na grade mais recente de cada turma, inclusive prévias ainda ocultas. */
 export function AbaHorarioProfessor({ professor }: { professor: ProfessorComSituacao }) {
@@ -22,11 +21,7 @@ export function AbaHorarioProfessor({ professor }: { professor: ProfessorComSitu
     setFalhou(false);
     setDados(null);
     try {
-      const [horario, estruturas] = await Promise.all([
-        obterHorarioDoProfessor(professor.id, "administrador"),
-        listarEstruturasTurno(),
-      ]);
-      setDados({ horario, estruturas });
+      setDados(await obterHorarioDoProfessor(professor.id));
     } catch {
       setFalhou(true);
     }

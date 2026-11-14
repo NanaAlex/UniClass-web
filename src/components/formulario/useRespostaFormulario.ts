@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { listarDisciplinasDoFormulario, obterFormularioAtual, obterRespostaDoProfessor } from "@/services/formularios";
+import { obterRespostaDoProfessor } from "@/services/gestaoProfessores";
 import type { Disciplina, Formulario, RespostaFormulario } from "@/types";
 
 export type DadosResposta = {
@@ -12,19 +12,14 @@ export type DadosResposta = {
 
 type Estado = { tipo: "carregando" } | { tipo: "erro" } | { tipo: "pronto"; dados: DadosResposta };
 
-/** Formulário atual, resposta do professor e disciplinas disponíveis, carregados pelos services. */
+/** Formulário mais recente do admin, resposta do professor e disciplinas, vindos do back (CU-012). */
 export function useRespostaFormulario(professorId: string) {
   const [estado, setEstado] = useState<Estado>({ tipo: "carregando" });
 
   const carregar = useCallback(async () => {
     setEstado({ tipo: "carregando" });
     try {
-      const formulario = await obterFormularioAtual();
-      const [resposta, disciplinas] = await Promise.all([
-        obterRespostaDoProfessor(formulario.id, professorId),
-        listarDisciplinasDoFormulario(formulario),
-      ]);
-      setEstado({ tipo: "pronto", dados: { formulario, resposta, disciplinas } });
+      setEstado({ tipo: "pronto", dados: await obterRespostaDoProfessor(professorId) });
     } catch {
       setEstado({ tipo: "erro" });
     }

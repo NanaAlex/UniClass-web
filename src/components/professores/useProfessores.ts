@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { listarProfessores } from "@/services/professores";
+import { listarProfessores } from "@/services/gestaoProfessores";
 import type { ProfessorComSituacao } from "@/types";
 
 /** Carrega os professores do curso uma vez; busca e filtros são aplicados na tela. */

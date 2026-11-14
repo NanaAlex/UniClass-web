@@ -4,7 +4,8 @@ import { useState } from "react";
 import { ListaSolicitacoes } from "@/components/solicitacoes/ListaSolicitacoes";
 import { useAvisos } from "@/components/ui/ProvedorAvisos";
 import { aguardandoAdministrador } from "@/lib/solicitacao";
-import { marcarComoLida, responderSolicitacao } from "@/services/solicitacoes";
+import { ErroApi } from "@/services/api";
+import { marcarComoLida, responderSolicitacao } from "@/services/gestaoProfessores";
 import type { Solicitacao } from "@/types";
 import { ModalAnalisarSolicitacao } from "./ModalAnalisarSolicitacao";
 
@@ -27,8 +28,15 @@ export function AbaSolicitacoesProfessor({ solicitacoes, aoAtualizar, aoVerFormu
   const ordenadas = [...solicitacoes].sort((a, b) => Number(aguardandoAdministrador(b)) - Number(aguardandoAdministrador(a)));
 
   async function decidir(solicitacao: Solicitacao, decisao: keyof typeof mensagensSucesso, resposta: string) {
-    const atualizada =
-      decisao === "lida" ? await marcarComoLida(solicitacao.id, resposta) : await responderSolicitacao(solicitacao.id, decisao, resposta);
+    let atualizada: Solicitacao;
+    try {
+      atualizada =
+        decisao === "lida" ? await marcarComoLida(solicitacao, resposta) : await responderSolicitacao(solicitacao, decisao, resposta);
+    } catch (erro) {
+      // O motivo do back (ex.: "Informe o motivo da recusa"); o modal mantém o texto digitado
+      if (erro instanceof ErroApi) mostrarAviso({ tipo: "perigo", titulo: "Não foi possível concluir", descricao: erro.message });
+      throw erro;
+    }
     aoAtualizar(atualizada);
     setAberta(null);
     mostrarAviso({ tipo: "sucesso", ...mensagensSucesso[decisao] });

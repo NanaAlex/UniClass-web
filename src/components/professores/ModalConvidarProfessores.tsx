@@ -5,7 +5,8 @@ import { Aviso } from "@/components/ui/Aviso";
 import { Botao } from "@/components/ui/Botao";
 import { Modal } from "@/components/ui/Modal";
 import { analisarEmails } from "@/lib/professores";
-import { convidarProfessores, type ResultadoConvite } from "@/services/professores";
+import { ErroApi } from "@/services/api";
+import { convidarProfessores, type ResultadoConvites } from "@/services/gestaoProfessores";
 import type { Professor } from "@/types";
 import { CampoEmails } from "./CampoEmails";
 
@@ -14,7 +15,7 @@ type ModalConvidarProfessoresProps = {
   aoFechar: () => void;
   /** Para avisar quem já está na lista. */
   professoresDoCurso: Pick<Professor, "email">[];
-  aoConvidar: (resultados: ResultadoConvite[]) => void;
+  aoConvidar: (resultados: ResultadoConvites) => void;
 };
 
 /** RF 8.1, RF 1.13: convida um ou mais professores pelo e-mail. */
@@ -22,13 +23,14 @@ export function ModalConvidarProfessores({ aberto, aoFechar, professoresDoCurso,
   const [emails, setEmails] = useState<string[]>([]);
   const [erro, setErro] = useState<string>();
   const [enviando, setEnviando] = useState(false);
-  const [falhou, setFalhou] = useState(false);
+  /** Motivo da falha; string vazia quando o back não disse qual. */
+  const [falhou, setFalhou] = useState<string | null>(null);
 
   useEffect(() => {
     if (!aberto) return;
     setEmails([]);
     setErro(undefined);
-    setFalhou(false);
+    setFalhou(null);
   }, [aberto]);
 
   const analisados = analisarEmails(emails, professoresDoCurso);
@@ -39,11 +41,11 @@ export function ModalConvidarProfessores({ aberto, aoFechar, professoresDoCurso,
     if (emails.length === 0) return setErro("Adicione pelo menos um e-mail.");
     if (comProblema > 0) return setErro("Corrija ou remova os e-mails destacados em vermelho.");
     setEnviando(true);
-    setFalhou(false);
+    setFalhou(null);
     try {
       aoConvidar(await convidarProfessores(emails));
-    } catch {
-      setFalhou(true);
+    } catch (erroEnvio) {
+      setFalhou(erroEnvio instanceof ErroApi ? erroEnvio.message : "");
     } finally {
       setEnviando(false);
     }
@@ -66,8 +68,13 @@ export function ModalConvidarProfessores({ aberto, aoFechar, professoresDoCurso,
         </>
       }
     >
-      {falhou && (
-        <Aviso tipo="perigo" embutido titulo="Os convites não foram enviados" descricao="Os e-mails continuam aqui. Tente novamente." />
+      {falhou !== null && (
+        <Aviso
+          tipo="perigo"
+          embutido
+          titulo="Os convites não foram enviados"
+          descricao={`${falhou ? `${falhou}. ` : ""}Os e-mails continuam aqui. Tente novamente.`}
+        />
       )}
       <CampoEmails
         emails={analisados}
