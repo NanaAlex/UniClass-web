@@ -161,6 +161,28 @@
   font-weight: var(--peso-semi);
 }
 
+.avatar {
+  overflow: hidden;
+}
+
+.fotoAvatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Professor: o bloco do usuário abre o perfil */
+.usuarioLink {
+  color: inherit;
+  text-decoration: none;
+  outline-offset: 2px;
+}
+
+.usuarioLink:hover,
+.usuarioLink[aria-current="page"] {
+  box-shadow: inset 0 0 0 1px var(--cor-primaria);
+}
+
 .dadosUsuario {
   display: flex;
   flex-direction: column;

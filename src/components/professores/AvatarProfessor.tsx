@@ -1,3 +1,4 @@
+import { ImagemApi } from "@/components/ui/ImagemApi";
 import { iniciais } from "@/lib/formatacao";
 import { nomeExibido } from "@/lib/professores";
 import type { Professor } from "@/types";
@@ -10,14 +11,14 @@ type AvatarProfessorProps = {
 
 /** Foto do professor ou, sem foto, as iniciais. Decorativo: o nome sempre aparece ao lado. */
 export function AvatarProfessor({ professor, tamanho = "m" }: AvatarProfessorProps) {
+  const textoIniciais = iniciais(nomeExibido(professor));
+
   return (
     <span className={`${estilos.avatar} ${estilos[tamanho]}`} aria-hidden="true">
       {professor.fotoUrl ? (
-        // Foto local (blob) escolhida pelo admin: next/image não otimiza esse tipo de endereço
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={professor.fotoUrl} alt="" className={estilos.foto} />
+        <ImagemApi src={professor.fotoUrl} alt="" className={estilos.foto} reserva={textoIniciais} />
       ) : (
-        iniciais(nomeExibido(professor))
+        textoIniciais
       )}
     </span>
   );
