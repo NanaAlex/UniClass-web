@@ -5,26 +5,33 @@ import {
   atualizarPrazo,
   encerrarFormulario,
   lancarFormulario,
+  listarProfessoresDoFormulario,
   obterFormularioAtual,
-  type DadosLancamento,
-} from "@/services/formularios";
-import { listarProfessores } from "@/services/professores";
+} from "@/services/administrador";
+import type { DadosLancamento } from "@/services/formularios";
 import type { Formulario, ProfessorComSituacao } from "@/types";
 
-/** Formulário atual + professores do curso (quem respondeu sai de `formularioRespondidoEm`). */
+// Sem formulário lançado não há quem tenha respondido
+const listarProfessores = (formulario: Formulario | null) =>
+  formulario ? listarProfessoresDoFormulario(formulario.id) : Promise.resolve([]);
+
+/**
+ * Formulário atual + professores do curso (quem respondeu sai de `formularioRespondidoEm`).
+ * `formulario`: undefined enquanto carrega · null quando nenhum foi lançado.
+ */
 export function useGestaoFormulario() {
-  const [formulario, setFormulario] = useState<Formulario | null>(null);
+  const [formulario, setFormulario] = useState<Formulario | null | undefined>(undefined);
   const [professores, setProfessores] = useState<ProfessorComSituacao[] | null>(null);
   const [falhou, setFalhou] = useState(false);
 
   const carregar = useCallback(async () => {
     setFalhou(false);
-    setFormulario(null);
+    setFormulario(undefined);
     setProfessores(null);
     try {
-      const [atual, lista] = await Promise.all([obterFormularioAtual(), listarProfessores()]);
+      const atual = await obterFormularioAtual();
+      setProfessores(await listarProfessores(atual));
       setFormulario(atual);
-      setProfessores(lista);
     } catch {
       setFalhou(true);
     }
@@ -37,7 +44,7 @@ export function useGestaoFormulario() {
   async function lancar(dados: DadosLancamento) {
     const novo = await lancarFormulario(dados);
     // As respostas são do formulário anterior: a situação de cada professor muda
-    setProfessores(await listarProfessores());
+    setProfessores(await listarProfessores(novo));
     setFormulario(novo);
   }
 

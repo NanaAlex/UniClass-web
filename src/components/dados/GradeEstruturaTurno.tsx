@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { Botao } from "@/components/ui/Botao";
 import { BotaoIcone } from "@/components/ui/BotaoIcone";
 import { EstadoVazio } from "@/components/ui/EstadoVazio";
-import { IconeLixeira, IconeMais } from "@/components/ui/Icones";
+import { IconeLapis, IconeLixeira, IconeMais } from "@/components/ui/Icones";
 import { rotuloAula, rotulosDia } from "@/lib/horario";
 import type { EstruturaTurno } from "@/types";
 import estilos from "./GradeEstruturaTurno.module.css";
@@ -10,11 +10,12 @@ import estilos from "./GradeEstruturaTurno.module.css";
 type GradeEstruturaTurnoProps = {
   estrutura: EstruturaTurno;
   aoRemoverBloco: (indice: number) => void;
+  aoEditarBloco: (indice: number) => void;
   aoAdicionarBloco: () => void;
 };
 
 /** Prévia dos horários do turno: dias nas colunas, aulas nas linhas, intervalo entre blocos. */
-export function GradeEstruturaTurno({ estrutura, aoRemoverBloco, aoAdicionarBloco }: GradeEstruturaTurnoProps) {
+export function GradeEstruturaTurno({ estrutura, aoRemoverBloco, aoEditarBloco, aoAdicionarBloco }: GradeEstruturaTurnoProps) {
   const { dias, blocos } = estrutura;
   const botaoAdicionar = (
     <Botao variante="secundario" icone={<IconeMais />} onClick={aoAdicionarBloco}>
@@ -82,6 +83,11 @@ export function GradeEstruturaTurno({ estrutura, aoRemoverBloco, aoAdicionarBloc
                     ))}
                     {i === 0 && (
                       <td rowSpan={bloco.aulas.length} className={estilos.colunaAcao}>
+                        <BotaoIcone
+                          rotulo={`Editar horário do bloco ${indice + 1}`}
+                          icone={<IconeLapis />}
+                          onClick={() => aoEditarBloco(indice)}
+                        />
                         <BotaoIcone
                           rotulo={`Remover bloco ${indice + 1}`}
                           icone={<IconeLixeira />}
