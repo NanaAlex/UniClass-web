@@ -33,7 +33,7 @@ export function AbaSolicitacoesProfessor({ solicitacoes, aoAtualizar, aoVerFormu
       atualizada =
         decisao === "lida" ? await marcarComoLida(solicitacao, resposta) : await responderSolicitacao(solicitacao, decisao, resposta);
     } catch (erro) {
-      // O motivo do back (ex.: "Informe o motivo da recusa"); o modal mantém o texto digitado
+      // O motivo do back (ex.: "Esta solicitação já foi lida"); o modal mantém o texto digitado
       if (erro instanceof ErroApi) mostrarAviso({ tipo: "perigo", titulo: "Não foi possível concluir", descricao: erro.message });
       throw erro;
     }

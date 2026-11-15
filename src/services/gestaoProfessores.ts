@@ -349,7 +349,7 @@ export async function listarSolicitacoesDoProfessor(professorId: string): Promis
   ];
 }
 
-/** RF 9.6 (CU-037): aprovar libera a resposta para um novo envio; recusar exige o motivo (o back avisa). */
+/** RF 9.6 (CU-037): aprovar libera a resposta para um novo envio; a resposta é opcional nas duas decisões (sem ela, o back manda a mensagem padrão). */
 export async function responderSolicitacao(
   solicitacao: Solicitacao,
   decisao: "aprovada" | "rejeitada",
