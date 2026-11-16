@@ -53,13 +53,14 @@ type DadosApi = {
       id: number;
       ordem: number;
       qtdAulas: number;
+      emUso: boolean;
       aulas: { id: number; aula: number; inicio: string; fim: string }[];
     }[];
   }[];
   semestres: {
     id: number;
     numero: number;
-    turmas: { id: number; nome: string; turno: string }[];
+    turmas: { id: number; nome: string; turno: string; emUso: boolean }[];
   }[];
   materias: {
     id: number;
@@ -67,6 +68,7 @@ type DadosApi = {
     qtdAulasSemana: number;
     qtdProfessores: number;
     semestre: { numero: number };
+    emUso: boolean;
   }[];
 };
 
@@ -104,7 +106,9 @@ function converterDados(dados: DadosApi): DadosAcademicos {
       return {
         turno,
         dias: (doBack?.dias ?? []).map((dia) => DIAS[dia.diaSemana]),
+        diasEmUso: (doBack?.dias ?? []).filter((dia) => dia.emUso).map((dia) => DIAS[dia.diaSemana]),
         blocos: (doBack?.blocos ?? []).map((bloco) => ({
+          emUso: bloco.emUso,
           aulas: bloco.aulas.map((aula) => ({
             posicao: posicao++,
             inicio: horaCurta(aula.inicio),
@@ -124,6 +128,7 @@ function converterDados(dados: DadosApi): DadosAcademicos {
         nome: turma.nome,
         semestre: semestre.numero,
         turno: TURNOS[turma.turno],
+        emUso: turma.emUso,
       })),
     ),
     disciplinas: dados.materias.map(
@@ -133,6 +138,7 @@ function converterDados(dados: DadosApi): DadosAcademicos {
         semestre: materia.semestre.numero,
         aulasPorSemana: materia.qtdAulasSemana,
         quantidadeProfessores: materia.qtdProfessores,
+        emUso: materia.emUso,
       }),
     ),
   };

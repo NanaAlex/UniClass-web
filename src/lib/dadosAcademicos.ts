@@ -43,6 +43,7 @@ function renumerar(blocos: { quantidade: number; base?: BlocoAula; horario?: Hor
   return blocos.map(({ quantidade, base, horario }) => {
     const usado = horario ?? (base ? horarioDoBloco(base) : null);
     return {
+      ...(base?.emUso && { emUso: true }), // a marca de uso acompanha o bloco ao renumerar
       aulas: Array.from({ length: quantidade }, (_, i) => {
         if (!usado) return { ...base?.aulas[i], posicao: posicao++ };
         const inicio = paraMinutos(usado.horaInicio) + i * usado.duracaoAula;

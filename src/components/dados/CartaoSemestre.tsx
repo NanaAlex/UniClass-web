@@ -10,6 +10,8 @@ type CartaoSemestreProps = {
   numero: number;
   turmas: Turma[];
   quantidadeDisciplinas: number;
+  /** Alguma turma ou disciplina dele está em uso: o back recusa a exclusão. */
+  emUso?: boolean;
   aoAdicionarTurma: () => void;
   aoRemoverTurma: (turma: Turma) => void;
   aoRemoverSemestre: () => void;
@@ -24,6 +26,7 @@ export function CartaoSemestre({
   numero,
   turmas,
   quantidadeDisciplinas,
+  emUso,
   aoAdicionarTurma,
   aoRemoverTurma,
   aoRemoverSemestre,
@@ -41,7 +44,13 @@ export function CartaoSemestre({
             {plural(turmas.length, "turma", "turmas")} · {plural(quantidadeDisciplinas, "disciplina", "disciplinas")}
           </p>
         </div>
-        <BotaoIcone rotulo={`Excluir ${numero}º semestre`} icone={<IconeLixeira />} variante="perigo" onClick={aoRemoverSemestre} />
+        <BotaoIcone
+          rotulo={emUso ? `O ${numero}º semestre está em uso e não pode ser excluído` : `Excluir ${numero}º semestre`}
+          icone={<IconeLixeira />}
+          variante="perigo"
+          disabled={emUso}
+          onClick={aoRemoverSemestre}
+        />
       </header>
 
       {turmas.length === 0 ? (
@@ -53,10 +62,15 @@ export function CartaoSemestre({
               <span className={estilos.nomeTurma}>Turma {turma.nome}</span>
               <Etiqueta>{rotulosTurno[turma.turno]}</Etiqueta>
               <BotaoIcone
-                rotulo={`Excluir turma ${turma.nome} do ${numero}º semestre`}
+                rotulo={
+                  turma.emUso
+                    ? `A turma ${turma.nome} tem horário gerado e não pode ser excluída`
+                    : `Excluir turma ${turma.nome} do ${numero}º semestre`
+                }
                 icone={<IconeLixeira />}
                 variante="perigo"
                 tamanho="p"
+                disabled={turma.emUso}
                 onClick={() => aoRemoverTurma(turma)}
               />
             </li>
