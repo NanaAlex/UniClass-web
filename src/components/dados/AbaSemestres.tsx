@@ -110,11 +110,6 @@ export function AbaSemestres({ dados, atualizar }: AbaSemestresProps) {
             <CartaoSemestre
               key={numero}
               numero={numero}
-              // Ao salvar, o back apaga em cascata o que não está em uso: o semestre só trava pelo que está
-              emUso={
-                turmasDoSemestre(dados, numero).some((t) => t.emUso) ||
-                dados.disciplinas.some((d) => d.semestre === numero && d.emUso)
-              }
               turmas={turmasDoSemestre(dados, numero)}
               quantidadeDisciplinas={dados.disciplinas.filter((d) => d.semestre === numero).length}
               aoAdicionarTurma={() => setSemestreNovaTurma(numero)}

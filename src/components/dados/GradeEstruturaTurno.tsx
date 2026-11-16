@@ -84,20 +84,14 @@ export function GradeEstruturaTurno({ estrutura, aoRemoverBloco, aoEditarBloco, 
                     {i === 0 && (
                       <td rowSpan={bloco.aulas.length} className={estilos.colunaAcao}>
                         <BotaoIcone
-                          rotulo={
-                            bloco.emUso
-                              ? `O bloco ${indice + 1} está em uso e o horário dele não pode mudar`
-                              : `Editar horário do bloco ${indice + 1}`
-                          }
+                          rotulo={`Editar horário do bloco ${indice + 1}`}
                           icone={<IconeLapis />}
-                          disabled={bloco.emUso}
                           onClick={() => aoEditarBloco(indice)}
                         />
                         <BotaoIcone
-                          rotulo={bloco.emUso ? `O bloco ${indice + 1} está em uso e não pode ser removido` : `Remover bloco ${indice + 1}`}
+                          rotulo={`Remover bloco ${indice + 1}`}
                           icone={<IconeLixeira />}
                           variante="perigo"
-                          disabled={bloco.emUso}
                           onClick={() => aoRemoverBloco(indice)}
                         />
                       </td>

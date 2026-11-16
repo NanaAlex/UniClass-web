@@ -6,13 +6,11 @@ import estilos from "./Dados.module.css";
 
 type FiltroDiasProps = {
   dias: DiaSemana[];
-  /** Dias em uso: continuam marcados e não podem ser desligados. */
-  diasEmUso?: DiaSemana[];
   aoAlternar: (dia: DiaSemana, incluir: boolean) => void;
 };
 
 /** RF 7.1: liga e desliga os dias letivos do turno. */
-export function FiltroDias({ dias, diasEmUso = [], aoAlternar }: FiltroDiasProps) {
+export function FiltroDias({ dias, aoAlternar }: FiltroDiasProps) {
   return (
     <div className={estilos.grupoControle}>
       <span id="rotulo-dias-letivos" className={estilos.rotuloControle}>
@@ -21,20 +19,12 @@ export function FiltroDias({ dias, diasEmUso = [], aoAlternar }: FiltroDiasProps
       <GrupoChips idRotulo="rotulo-dias-letivos">
         {ordemDias.map((dia) => {
           const ativo = dias.includes(dia);
-          const travado = ativo && diasEmUso.includes(dia);
           return (
             <Chip
               key={dia}
               selecionado={ativo}
-              disabled={travado}
               aria-label={rotulosDia[dia].longo}
-              title={
-                travado
-                  ? `${rotulosDia[dia].longo} está em uso e não pode ser removido`
-                  : ativo
-                    ? `Remover ${rotulosDia[dia].longo}`
-                    : `Adicionar ${rotulosDia[dia].longo}`
-              }
+              title={ativo ? `Remover ${rotulosDia[dia].longo}` : `Adicionar ${rotulosDia[dia].longo}`}
               onClick={() => aoAlternar(dia, !ativo)}
             >
               {rotulosDia[dia].curto}

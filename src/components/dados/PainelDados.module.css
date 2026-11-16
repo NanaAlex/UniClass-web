@@ -17,49 +17,14 @@
   bottom: var(--espaco-4);
   z-index: 1;
   display: flex;
-  flex-direction: column;
-  gap: var(--espaco-3);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espaco-4);
   padding: var(--espaco-3) var(--espaco-3) var(--espaco-3) var(--espaco-5);
   background: var(--cor-superficie);
   border: 1px solid var(--cor-borda);
   border-radius: var(--raio-grande);
   box-shadow: var(--sombra-elevada);
-}
-
-.barra {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--espaco-4);
-}
-
-/* O que o "Salvar dados" vai gravar; rola se a lista for grande */
-.resumo {
-  display: flex;
-  flex-direction: column;
-  gap: var(--espaco-1);
-  max-height: 40vh;
-  overflow-y: auto;
-  margin: 0;
-  padding: var(--espaco-1) var(--espaco-2) var(--espaco-3) var(--espaco-5);
-  border-bottom: 1px solid var(--cor-borda);
-  font-size: var(--texto-tamanho-sm);
-  list-style: disc;
-}
-
-.verResumo {
-  padding: 0;
-  border: 0;
-  background: none;
-  font: inherit;
-  color: var(--cor-primaria);
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.verResumo:focus-visible {
-  outline: 2px solid var(--cor-primaria);
-  outline-offset: 2px;
 }
 
 .situacao {

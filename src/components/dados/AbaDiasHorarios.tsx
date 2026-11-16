@@ -115,7 +115,7 @@ export function AbaDiasHorarios({ dados, atualizar }: AbaDiasHorariosProps) {
       {estrutura && (
         <>
           <div className={estilos.controles}>
-            <FiltroDias dias={estrutura.dias} diasEmUso={estrutura.diasEmUso} aoAlternar={alternar} />
+            <FiltroDias dias={estrutura.dias} aoAlternar={alternar} />
             <Seletor
               rotulo="Aulas por bloco"
               className={estilos.seletorCurto}
