@@ -5,7 +5,7 @@ import { Botao } from "@/components/ui/Botao";
 import { IconeCamera } from "@/components/ui/Icones";
 import { useAvisos } from "@/components/ui/ProvedorAvisos";
 import { TAMANHO_MAXIMO_FOTO_MB } from "@/lib/professores";
-import { atualizarFotoProfessor } from "@/services/professores";
+import { atualizarFotoProfessor } from "@/services/gestaoProfessores";
 import type { ProfessorComSituacao } from "@/types";
 
 type BotaoEditarFotoProps = {

@@ -7,8 +7,8 @@ import { ErroCarregamento } from "@/components/ui/ErroCarregamento";
 import { Esqueleto } from "@/components/ui/Esqueleto";
 import { EstadoVazio } from "@/components/ui/EstadoVazio";
 import { useAvisos } from "@/components/ui/ProvedorAvisos";
-import { rotuloTurma } from "@/lib/horario";
-import { criarSolicitacao } from "@/services/solicitacoes";
+import { ErroApi } from "@/services/api";
+import { solicitarAlteracaoHorario } from "@/services/professor";
 import type { Aula, UsuarioLogado } from "@/types";
 import { FormularioSolicitacaoHorario } from "./FormularioSolicitacaoHorario";
 import { QuadroHorarioProfessor } from "./QuadroHorarioProfessor";
@@ -27,15 +27,22 @@ export function PainelHorarioProfessor({ usuario }: { usuario: UsuarioLogado }) 
     setAulaSelecionada(null);
   }
 
+  // RF 3.4 (CU-053): o pedido vai para o back, ligado à geração (prévia) da aula escolhida
   async function enviar(descricao: string) {
-    if (!aulaSelecionada) return;
-    const { dia, posicao, disciplina, turma } = aulaSelecionada;
-    const nova = await criarSolicitacao({
-      tipo: "horario",
-      professor: { id: usuario.id, nome: usuario.nome },
-      descricao,
-      aula: { dia, posicao, disciplina: disciplina.nome, turma: rotuloTurma(turma) },
-    });
+    if (!aulaSelecionada || !dados) return;
+    let nova;
+    try {
+      nova = await solicitarAlteracaoHorario({
+        professor: { id: usuario.id, nome: usuario.nome },
+        aula: aulaSelecionada,
+        idGeracao: dados.horario.geracaoDaAula?.[aulaSelecionada.id] ?? "",
+        descricao,
+      });
+    } catch (erro) {
+      // O motivo do back (ex.: pedido igual já pendente); o formulário mantém o texto digitado
+      if (erro instanceof ErroApi) mostrarAviso({ tipo: "perigo", titulo: "Não foi possível enviar a solicitação", descricao: erro.message });
+      throw erro;
+    }
     adicionarSolicitacao(nova);
     cancelar();
     mostrarAviso({

@@ -1,9 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { obterProfessor } from "@/services/professores";
+import { listarSolicitacoesDoProfessor, obterProfessor } from "@/services/gestaoProfessores";
 import { ErroNaoEncontrado } from "@/services/simulacao";
-import { listarSolicitacoes } from "@/services/solicitacoes";
 import type { ProfessorComSituacao, Solicitacao } from "@/types";
 
 type Estado =
@@ -19,7 +18,7 @@ export function usePerfilProfessor(id: string) {
   const carregar = useCallback(async () => {
     setEstado({ tipo: "carregando" });
     try {
-      const [professor, solicitacoes] = await Promise.all([obterProfessor(id), listarSolicitacoes({ professorId: id })]);
+      const [professor, solicitacoes] = await Promise.all([obterProfessor(id), listarSolicitacoesDoProfessor(id)]);
       setEstado({ tipo: "pronto", professor, solicitacoes });
     } catch (erro) {
       setEstado({ tipo: erro instanceof ErroNaoEncontrado ? "nao_encontrado" : "erro" });

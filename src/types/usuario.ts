@@ -31,6 +31,8 @@ export type ProfessorResumo = Pick<Professor, "id" | "nome" | "fotoUrl">;
 export type ProfessorComSituacao = Professor & {
   /** Data de envio da resposta do formulário atual; null = ainda não respondeu (RF 2.10). */
   formularioRespondidoEm: string | null;
+  /** Calculado pelo back (não respondeu algum formulário aberto); ausente nos dados simulados. */
+  respostaPendente?: boolean;
   /** Pedidos que ainda dependem do administrador (RF 4.4). */
   pedidosAbertos: { horario: number; formulario: number };
 };

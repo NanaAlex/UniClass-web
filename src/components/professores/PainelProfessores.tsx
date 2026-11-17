@@ -9,7 +9,7 @@ import { EstadoVazio } from "@/components/ui/EstadoVazio";
 import { IconeMais } from "@/components/ui/Icones";
 import { useAvisos } from "@/components/ui/ProvedorAvisos";
 import { contarPorFiltro, filtrarProfessores, ordenarPorNome, type FiltroProfessores as Filtro } from "@/lib/professores";
-import type { ResultadoConvite } from "@/services/professores";
+import type { ResultadoConvites } from "@/services/gestaoProfessores";
 import { FiltroProfessores } from "./FiltroProfessores";
 import { ListaProfessores } from "./ListaProfessores";
 import { ModalConvidarProfessores } from "./ModalConvidarProfessores";
@@ -28,7 +28,7 @@ export function PainelProfessores() {
   const contadores = contarPorFiltro(professores ?? []);
   const comFiltro = busca.trim() !== "" || filtro !== "todos";
 
-  function aoConvidar(resultados: ResultadoConvite[]) {
+  function aoConvidar({ enviados: resultados, recusados }: ResultadoConvites) {
     adicionar(resultados.map((r) => r.professor));
     setConvidando(false);
     setBusca("");
@@ -42,6 +42,13 @@ export function PainelProfessores() {
           ? `${vinculos === 1 ? "Um professor já tinha" : `${vinculos} professores já tinham`} conta no Staggy e vai receber um convite de vínculo.`
           : "Os professores aparecem na lista como \"Convite enviado\" até criarem a conta.",
     });
+    if (recusados.length > 0) {
+      mostrarAviso({
+        tipo: "perigo",
+        titulo: recusados.length === 1 ? "Um convite não foi enviado" : `${recusados.length} convites não foram enviados`,
+        descricao: recusados.map((r) => `${r.email}: ${r.motivo}`).join("; "),
+      });
+    }
   }
 
   function limparFiltros() {
