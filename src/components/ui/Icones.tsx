@@ -144,6 +144,14 @@ export function IconeMais(props: IconeProps) {
   );
 }
 
+export function IconeLapis(props: IconeProps) {
+  return (
+    <Base {...props}>
+      <path d="M12.5 4.5l3 3M4 16l.75-3.5L13.5 3.75a1.06 1.06 0 0 1 1.5 0l1.25 1.25a1.06 1.06 0 0 1 0 1.5L7.5 15.25 4 16z" />
+    </Base>
+  );
+}
+
 export function IconeLixeira(props: IconeProps) {
   return (
     <Base {...props}>

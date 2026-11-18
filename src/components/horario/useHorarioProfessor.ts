@@ -2,9 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { criarNomes, type Nomes } from "@/lib/gestaoHorario";
-import { listarDisciplinas, listarEstruturasTurno, listarTurmas } from "@/services/academico";
-import { obterHorarioDoProfessor } from "@/services/horarios";
-import { listarSolicitacoes } from "@/services/solicitacoes";
+import { listarMinhasSolicitacoesHorario, obterMeuHorario } from "@/services/professor";
 import type { EstruturaTurno, HorarioProfessor, Solicitacao } from "@/types";
 
 type Dados = {
@@ -14,7 +12,7 @@ type Dados = {
   solicitacoes: Solicitacao[];
 };
 
-/** Horário publicado do professor (grade vigente), a estrutura dos turnos e os pedidos de alteração. */
+/** Horário do professor por blocos, a estrutura dos turnos e os pedidos de alteração de horário (do back). */
 export function useHorarioProfessor(professorId: string) {
   const [dados, setDados] = useState<Dados | null>(null);
   const [falhou, setFalhou] = useState(false);
@@ -23,14 +21,11 @@ export function useHorarioProfessor(professorId: string) {
     setFalhou(false);
     setDados(null);
     try {
-      const [horario, estruturas, disciplinas, turmas, solicitacoes] = await Promise.all([
-        obterHorarioDoProfessor(professorId),
-        listarEstruturasTurno(),
-        listarDisciplinas(),
-        listarTurmas(),
-        listarSolicitacoes({ professorId, tipo: "horario" }),
-      ]);
-      setDados({ horario, estruturas, nomes: criarNomes(disciplinas, [], turmas), solicitacoes });
+      // O back identifica o professor pelo token; o professorId só preenche o responsável e as solicitações
+      const meu = await obterMeuHorario(professorId);
+      // Os pedidos citam aulas; o bloco de cada aula vem do horário carregado
+      const solicitacoes = await listarMinhasSolicitacoesHorario(professorId, meu.blocoDaAula);
+      setDados({ horario: meu.horario, estruturas: meu.estruturas, nomes: criarNomes(meu.disciplinas, [], meu.turmas), solicitacoes });
     } catch {
       setFalhou(true);
     }

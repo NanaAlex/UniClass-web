@@ -10,7 +10,7 @@ import { LinkBotao } from "@/components/ui/LinkBotao";
 import { podeEditarResposta, situacaoDoFormulario } from "@/lib/formulario";
 import { hrefsFormularioProfessor } from "@/lib/navegacao";
 import { AssistenteFormulario } from "./AssistenteFormulario";
-import { useRespostaFormulario } from "./useRespostaFormulario";
+import { useMeuFormulario } from "./useMeuFormulario";
 import { VisualizacaoResposta } from "./VisualizacaoResposta";
 import estilos from "./AssistenteFormulario.module.css";
 
@@ -25,7 +25,7 @@ const titulos = {
  * editar (reabertura aprovada) ou só visualizar (já enviada ou prazo encerrado).
  */
 export function TelaRespostaFormulario({ professorId }: { professorId: string }) {
-  const { estado, recarregar } = useRespostaFormulario(professorId);
+  const { estado, recarregar } = useMeuFormulario(professorId);
   const voltar = { href: hrefsFormularioProfessor.inicio, rotulo: "Formulário" };
 
   if (estado.tipo === "carregando") {
@@ -47,6 +47,21 @@ export function TelaRespostaFormulario({ professorId }: { professorId: string })
       <>
         <LinkVoltar {...voltar} />
         <ErroCarregamento titulo="Não foi possível carregar o formulário" aoTentarNovamente={recarregar} />
+      </>
+    );
+  }
+
+  if (estado.tipo === "indisponivel") {
+    return (
+      <>
+        <LinkVoltar {...voltar} />
+        <Cartao>
+          <EstadoVazio
+            titulo="Formulário indisponível"
+            descricao="A coordenação ainda não abriu o formulário de disponibilidade."
+            acao={<LinkBotao href={hrefsFormularioProfessor.inicio}>Voltar ao formulário</LinkBotao>}
+          />
+        </Cartao>
       </>
     );
   }

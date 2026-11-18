@@ -1,8 +1,8 @@
 import { Botao } from "@/components/ui/Botao";
 import { BotaoIcone } from "@/components/ui/BotaoIcone";
 import { EstadoVazio } from "@/components/ui/EstadoVazio";
-import { IconeLixeira, IconeMais } from "@/components/ui/Icones";
-import { MAXIMO_BLOCOS_TURNO } from "@/lib/dadosAcademicos";
+import { IconeLapis, IconeLixeira, IconeMais } from "@/components/ui/Icones";
+import { MAXIMO_BLOCOS_TURNO, fimDoBloco, horarioDoBloco, paraHora } from "@/lib/dadosAcademicos";
 import { aulasDoBloco, rotulosDia } from "@/lib/horario";
 import type { EstruturaTurno } from "@/types";
 import estilos from "./GradeEstruturaTurno.module.css";
@@ -11,11 +11,16 @@ type GradeEstruturaTurnoProps = {
   estrutura: EstruturaTurno;
   aulasPorBloco: number;
   aoRemoverUltimoBloco: () => void;
+  /** RF 7.3: edita o horário de relógio do bloco de índice ordinal `indice` (1..B). */
+  aoEditarBloco: (indice: number) => void;
   aoAdicionarBloco: () => void;
 };
 
-/** Visão do turno: dias nas colunas e blocos ordinais nas linhas, cada um com as K aulas que reúne. */
-export function GradeEstruturaTurno({ estrutura, aulasPorBloco: K, aoRemoverUltimoBloco, aoAdicionarBloco }: GradeEstruturaTurnoProps) {
+/**
+ * Visão do turno: dias nas colunas e blocos ordinais nas linhas, cada um com as K aulas que reúne e o
+ * horário cadastrado para ele (só informativo: o bloco é identificado pelo índice).
+ */
+export function GradeEstruturaTurno({ estrutura, aulasPorBloco: K, aoRemoverUltimoBloco, aoEditarBloco, aoAdicionarBloco }: GradeEstruturaTurnoProps) {
   const { dias, blocos } = estrutura;
   const indices = Array.from({ length: blocos }, (_, i) => i + 1);
   const botaoAdicionar = (
@@ -58,11 +63,14 @@ export function GradeEstruturaTurno({ estrutura, aulasPorBloco: K, aoRemoverUlti
           <tbody>
             {indices.map((indice) => {
               const aulas = aulasDoBloco(K, indice);
+              const horario = horarioDoBloco(estrutura, indice);
+              const fim = fimDoBloco(estrutura, indice, K);
               return (
                 <tr key={indice} className={estilos.inicioBloco}>
                   <th scope="row" className={estilos.colunaAula}>
                     <span className={estilos.numeroAula}>Bloco {indice}</span>
                     <span className={estilos.horas}>{aulas.length === 1 ? `aula ${aulas[0]}` : `aulas ${aulas[0]}–${aulas[aulas.length - 1]}`}</span>
+                    <span className={estilos.horas}>{horario && fim !== null ? `${horario.horaInicio} – ${paraHora(fim)}` : "Horário a definir"}</span>
                   </th>
                   {dias.map((dia) => (
                     <td key={dia}>
@@ -70,6 +78,7 @@ export function GradeEstruturaTurno({ estrutura, aulasPorBloco: K, aoRemoverUlti
                     </td>
                   ))}
                   <td className={estilos.colunaAcao}>
+                    <BotaoIcone rotulo={`Editar horário do Bloco ${indice}`} icone={<IconeLapis />} onClick={() => aoEditarBloco(indice)} />
                     {indice === blocos && (
                       <BotaoIcone rotulo={`Remover o Bloco ${indice}`} icone={<IconeLixeira />} variante="perigo" onClick={aoRemoverUltimoBloco} />
                     )}

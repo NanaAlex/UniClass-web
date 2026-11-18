@@ -19,6 +19,7 @@ type FormularioDisciplinaProps = {
 /**
  * RN-06, RN-07, RN-13: nome, semestre e carga semanal múltipla de K. O turno vem da turma (RN-05) e
  * cada turma–disciplina tem um único professor responsável (RN-19): não há turno nem co-docência aqui.
+ * A quantidade de professores segue no contrato do back (obrigatória), sempre 1.
  */
 export function FormularioDisciplina({ semestres, disciplinas, aulasPorBloco: K, aoCriar }: FormularioDisciplinaProps) {
   const cargas = opcoesCarga(K);
@@ -37,7 +38,8 @@ export function FormularioDisciplina({ semestres, disciplinas, aulasPorBloco: K,
     const repetida = disciplinas.some((d) => d.semestre === Number(semestreValido) && d.nome.toLowerCase() === nomeLimpo.toLowerCase());
     if (repetida) return setErro(`Já existe "${nomeLimpo}" no ${semestreValido}º semestre.`);
 
-    aoCriar({ nome: nomeLimpo, semestre: Number(semestreValido), aulasPorSemana: Number(cargaValida) });
+    // RN-19: um único responsável por turma–disciplina; o back exige qtdProfessores
+    aoCriar({ nome: nomeLimpo, semestre: Number(semestreValido), aulasPorSemana: Number(cargaValida), quantidadeProfessores: 1 });
     setNome("");
     setErro(undefined);
   }

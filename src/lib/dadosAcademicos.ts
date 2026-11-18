@@ -1,5 +1,7 @@
-import type { DadosAcademicos, DiaSemana, Disciplina, EstruturaTurno, Turma, Turno } from "@/types";
+import type { DadosAcademicos, DiaSemana, Disciplina, EstruturaTurno, HorarioBloco, Turma, Turno } from "@/types";
 import { rotulosTurno } from "./horario";
+
+export type { HorarioBloco };
 
 // Transformações puras da aba Dados (RF 7). A tela só chama estas funções e guarda o resultado.
 
@@ -9,19 +11,75 @@ export const MAXIMO_AULAS_BLOCO = 4;
 export const MAXIMO_BLOCOS_TURNO = 6;
 export const MAXIMO_AULAS_DISCIPLINA = 12;
 
+export const MINUTOS_NO_DIA = 24 * 60;
+
+// "07:30" <-> minutos desde 00:00
+export function paraMinutos(hora: string) {
+  const [h, m] = hora.split(":").map(Number);
+  return h * 60 + m;
+}
+
+export function paraHora(minutos: number) {
+  return `${String(Math.floor(minutos / 60)).padStart(2, "0")}:${String(minutos % 60).padStart(2, "0")}`;
+}
+
 /** RN-09: K é global, igual em todos os turnos e dias. */
 export function definirAulasPorBloco(dados: DadosAcademicos, K: number): DadosAcademicos {
   return { ...dados, aulasPorBloco: K };
 }
 
-/** RN-10: blocos ordinais; um novo bloco entra no fim do turno. Não há horário de relógio (RN-35). */
-export function adicionarBloco(estrutura: EstruturaTurno): EstruturaTurno {
-  return { ...estrutura, blocos: Math.min(MAXIMO_BLOCOS_TURNO, estrutura.blocos + 1) };
+/**
+ * Horários de relógio alinhados aos índices 1..B (posição i−1 = bloco i). Bloco sem horário fica null:
+ * o horário nunca é inventado, e a gravação no back o exige (services/administrador.ts).
+ */
+function horariosAlinhados(estrutura: EstruturaTurno): (HorarioBloco | null)[] {
+  return Array.from({ length: estrutura.blocos }, (_, i) => estrutura.horarios?.[i] ?? null);
+}
+
+/** Horário de relógio do bloco de índice ordinal `indice` (1..B); null se ainda não tem. */
+export function horarioDoBloco(estrutura: EstruturaTurno, indice: number): HorarioBloco | null {
+  return estrutura.horarios?.[indice - 1] ?? null;
+}
+
+/** Minuto em que o bloco `indice` termina (fim da K-ésima aula); null se o bloco não tem horário. */
+export function fimDoBloco(estrutura: EstruturaTurno, indice: number, K: number): number | null {
+  const horario = horarioDoBloco(estrutura, indice);
+  return horario ? paraMinutos(horario.horaInicio) + K * horario.duracaoAula : null;
+}
+
+/**
+ * RN-10: blocos ordinais; um novo bloco entra no fim do turno. O horário de relógio acompanha o bloco
+ * só para o cadastro (RF 7.3: o back exige início e duração das aulas); a identidade é o índice (RN-35).
+ */
+export function adicionarBloco(estrutura: EstruturaTurno, horario: HorarioBloco): EstruturaTurno {
+  if (estrutura.blocos >= MAXIMO_BLOCOS_TURNO) return estrutura;
+  return { ...estrutura, blocos: estrutura.blocos + 1, horarios: [...horariosAlinhados(estrutura), horario] };
+}
+
+/** RF 7.3: muda o início e a duração das aulas do bloco `indice` (a fileira inteira, todos os dias); o índice não muda. */
+export function editarHorarioBloco(estrutura: EstruturaTurno, indice: number, horario: HorarioBloco): EstruturaTurno {
+  const horarios = horariosAlinhados(estrutura);
+  horarios[indice - 1] = horario;
+  return { ...estrutura, horarios };
+}
+
+const INICIO_SUGERIDO: Record<Turno, string> = { manha: "07:30", tarde: "13:30", noite: "19:00" };
+const INTERVALO_SUGERIDO = 20;
+
+/** Sugestão para o novo bloco: 20 min depois do último, com a mesma duração das aulas. */
+export function sugestaoNovoBloco(estrutura: EstruturaTurno, K: number): HorarioBloco {
+  const fim = estrutura.blocos > 0 ? fimDoBloco(estrutura, estrutura.blocos, K) : null;
+  const ultimo = estrutura.blocos > 0 ? horarioDoBloco(estrutura, estrutura.blocos) : null;
+  return {
+    horaInicio: fim === null ? INICIO_SUGERIDO[estrutura.turno] : paraHora(Math.min(fim + INTERVALO_SUGERIDO, MINUTOS_NO_DIA - 1)),
+    duracaoAula: ultimo?.duracaoAula || 50,
+  };
 }
 
 /** Remove o último bloco: os índices restantes continuam 1..B. */
 export function removerUltimoBloco(estrutura: EstruturaTurno): EstruturaTurno {
-  return { ...estrutura, blocos: Math.max(0, estrutura.blocos - 1) };
+  const blocos = Math.max(0, estrutura.blocos - 1);
+  return { ...estrutura, blocos, horarios: estrutura.horarios?.slice(0, blocos) };
 }
 
 /** RF 7.1: dias sempre na ordem da semana. */

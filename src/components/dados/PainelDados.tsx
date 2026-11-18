@@ -1,13 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ModalConfirmacao, type PedidoConfirmacao } from "@/components/ui/ModalConfirmacao";
 import { Abas } from "@/components/ui/Abas";
 import { Botao } from "@/components/ui/Botao";
 import { ErroCarregamento } from "@/components/ui/ErroCarregamento";
 import { useAvisos } from "@/components/ui/ProvedorAvisos";
 import { cargasIncompativeis, type AbaDados } from "@/lib/dadosAcademicos";
-import { ConfirmacaoEstruturalNecessaria } from "@/services/academico";
 import { AbaDiasHorarios } from "./AbaDiasHorarios";
 import { AbaDisciplinas } from "./AbaDisciplinas";
 import { AbaSemestres } from "./AbaSemestres";
@@ -20,7 +18,6 @@ export function PainelDados({ abaInicial }: { abaInicial: AbaDados }) {
   const { mostrarAviso } = useAvisos();
   const { dados, falhou, alterado, salvando, recarregar, atualizar, salvar } = useDadosAcademicos();
   const [aba, setAba] = useState<AbaDados>(abaInicial);
-  const [confirmacao, setConfirmacao] = useState<PedidoConfirmacao | null>(null);
   const incompativeis = dados ? cargasIncompativeis(dados) : [];
 
   // Avisa o navegador antes de sair com alterações não salvas
@@ -37,46 +34,15 @@ export function PainelDados({ abaInicial }: { abaInicial: AbaDados }) {
     window.history.replaceState(null, "", `?aba=${valor}`);
   }
 
-  async function aoSalvar(confirmarAlteracaoEstrutural = false) {
+  async function aoSalvar() {
     try {
-      const resultado = await salvar(confirmarAlteracaoEstrutural);
-      mostrarAviso(
-        resultado?.edicaoEncerrada
-          ? {
-              tipo: "aviso",
-              titulo: "Dados salvos e edição do formulário encerrada",
-              descricao: `${resultado.respostasExcluidas === 1 ? "1 resposta foi excluída" : `${resultado.respostasExcluidas} respostas foram excluídas`}. Lance uma nova edição na aba Formulário.`,
-            }
-          : { tipo: "sucesso", titulo: "Dados salvos", descricao: "Valem para a próxima edição do formulário e as próximas gerações." },
-      );
+      await salvar();
+      mostrarAviso({ tipo: "sucesso", titulo: "Dados salvos", descricao: "Eles já valem para o formulário dos professores." });
     } catch (erro) {
-      if (erro instanceof ConfirmacaoEstruturalNecessaria) return pedirConfirmacaoEstrutural(erro);
-      mostrarAviso({ tipo: "perigo", titulo: "Não foi possível salvar", descricao: erro instanceof Error ? erro.message : "Tente novamente." });
-      throw erro;
+      // O back grava tudo ou nada: o motivo vem dele (ex.: dia já usado em respostas)
+      const motivo = erro instanceof Error ? `${erro.message} ` : "";
+      mostrarAviso({ tipo: "perigo", titulo: "Não foi possível salvar", descricao: `${motivo}Suas alterações continuam aqui.` });
     }
-  }
-
-  /** RN-38, CA-86 a CA-89: duas confirmações seguidas antes de encerrar a edição e excluir as respostas. */
-  function pedirConfirmacaoEstrutural({ mudancas, edicao, respostas }: ConfirmacaoEstruturalNecessaria) {
-    setConfirmacao({
-      titulo: "Esta alteração é estrutural",
-      descricao: `Mudou: ${mudancas.join("; ")}. A edição ${edicao} do formulário foi lançada com a estrutura anterior e deixará de valer.`,
-      rotuloAcao: "Continuar",
-      variante: "primario",
-      aoConfirmar: () =>
-        // O segundo pedido abre depois que o primeiro modal fecha
-        void setTimeout(
-          () =>
-            setConfirmacao({
-              titulo: "Confirmar de novo: encerrar a edição e excluir as respostas?",
-              descricao: `A edição ${edicao} será encerrada e ${respostas === 1 ? "1 resposta enviada será excluída" : `${respostas} respostas enviadas serão excluídas`}. Os professores precisarão responder a uma nova edição. Não é possível desfazer.`,
-              rotuloAcao: "Encerrar edição e salvar",
-              variante: "perigo",
-              aoConfirmar: () => aoSalvar(true),
-            }),
-          0,
-        ),
-    });
   }
 
   if (falhou) {
@@ -127,7 +93,7 @@ export function PainelDados({ abaInicial }: { abaInicial: AbaDados }) {
           )}
         </p>
         <Botao
-          onClick={() => aoSalvar().catch(() => {})}
+          onClick={aoSalvar}
           carregando={salvando}
           disabled={!dados || !alterado || incompativeis.length > 0}
           title={incompativeis.length ? "Há disciplinas com carga que não é múltipla das aulas por bloco." : undefined}
@@ -135,7 +101,6 @@ export function PainelDados({ abaInicial }: { abaInicial: AbaDados }) {
           Salvar dados
         </Botao>
       </footer>
-      <ModalConfirmacao pedido={confirmacao} aoFechar={() => setConfirmacao(null)} />
     </div>
   );
 }

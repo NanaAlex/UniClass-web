@@ -11,7 +11,7 @@ type TabelaDisciplinasProps = {
   aoRemover: (disciplina: Disciplina) => void;
 };
 
-/** RF 7.7: disciplinas cadastradas, com carga em aulas e em blocos (RN-13) e exclusão. */
+/** RF 7.7: disciplinas cadastradas, com carga em aulas e em blocos (RN-13), professores gravados e exclusão. */
 export function TabelaDisciplinas({ disciplinas, aulasPorBloco: K, aoRemover }: TabelaDisciplinasProps) {
   return (
     <div className={estilos.rolagem}>
@@ -26,6 +26,9 @@ export function TabelaDisciplinas({ disciplinas, aulasPorBloco: K, aoRemover }: 
             </th>
             <th scope="col" className={estilos.numero}>
               Blocos/semana
+            </th>
+            <th scope="col" className={estilos.numero}>
+              Professores
             </th>
             <th scope="col" className={estilos.acao}>
               <span className="apenas-leitor">Ações</span>
@@ -46,6 +49,7 @@ export function TabelaDisciplinas({ disciplinas, aulasPorBloco: K, aoRemover }: 
                 <td className={estilos.numero}>
                   {compativel ? disciplina.aulasPorSemana / K : <Etiqueta variante="perigo">Não é múltipla de {K}</Etiqueta>}
                 </td>
+                <td className={estilos.numero}>{disciplina.quantidadeProfessores ?? "—"}</td>
                 <td className={estilos.acao}>
                   <BotaoIcone rotulo={`Excluir ${disciplina.nome}`} icone={<IconeLixeira />} variante="perigo" onClick={() => aoRemover(disciplina)} />
                 </td>
