@@ -1,11 +1,10 @@
 import { LinkVoltar } from "@/components/layout/LinkVoltar";
 import { Etiqueta } from "@/components/ui/Etiqueta";
-import { formatarData } from "@/lib/formatacao";
+import { formatarData, formatarTelefone } from "@/lib/formatacao";
 import { etiquetasConta, nomeExibido } from "@/lib/professores";
 import type { ProfessorComSituacao } from "@/types";
 import { AcoesConta } from "./AcoesConta";
 import { AvatarProfessor } from "./AvatarProfessor";
-import { BotaoEditarFoto } from "./BotaoEditarFoto";
 import estilos from "./CabecalhoPerfilProfessor.module.css";
 
 type CabecalhoPerfilProfessorProps = {
@@ -26,7 +25,6 @@ export function CabecalhoPerfilProfessor({ professor, aoAtualizar, voltar }: Cab
       <div className={estilos.perfil}>
         <div className={estilos.foto}>
           <AvatarProfessor professor={professor} tamanho="g" />
-          <BotaoEditarFoto professorId={professor.id} aoAtualizar={aoAtualizar} />
         </div>
 
         <div className={estilos.dados}>
@@ -46,7 +44,7 @@ export function CabecalhoPerfilProfessor({ professor, aoAtualizar, voltar }: Cab
             </div>
             <div>
               <dt>Telefone</dt>
-              <dd>{professor.telefone ?? "Não informado"}</dd>
+              <dd>{professor.telefone ? formatarTelefone(professor.telefone) : "Não informado"}</dd>
             </div>
             <div>
               <dt>{professor.statusConta === "convidado" ? "Convidado em" : "No curso desde"}</dt>

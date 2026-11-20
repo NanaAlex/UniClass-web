@@ -12,18 +12,24 @@ export type HorarioAula = {
 /** Aulas seguidas; entre um bloco e o próximo existe um intervalo (RF 7.2, RF 7.3). */
 export type BlocoAula = {
   aulas: HorarioAula[];
+  /** Tem resposta de formulário ou aula alocada: não pode sair (vem do back). */
+  emUso?: boolean;
 };
 
 /** Dias e blocos de um turno, definidos pelo administrador (RF 7.1–7.3). */
 export type EstruturaTurno = {
   turno: Turno;
   dias: DiaSemana[];
+  /** Dias com resposta de formulário ou aula alocada: não podem ser removidos (vem do back). */
+  diasEmUso?: DiaSemana[];
   blocos: BlocoAula[];
 };
 
 export type Semestre = {
   id: string;
   numero: number; // 1 a 8
+  /** Tem formulário, geração de horário, turma ou disciplina em uso: o back recusa a exclusão (vem do back). */
+  exclusaoBloqueada?: boolean;
   turmaIds: string[];
 };
 
@@ -32,6 +38,8 @@ export type Turma = {
   nome: string; // "A", "B"...
   semestre: number;
   turno: Turno;
+  /** Tem horário gerado: não pode ser excluída (vem do back). */
+  emUso?: boolean;
 };
 
 /** RF 7.6: nome, aulas por semana, semestre e quantidade de professores. */
@@ -45,6 +53,8 @@ export type Disciplina = {
   turno?: Turno;
   /** 1–8: força a cor na grade; sem valor, a cor é derivada do id. */
   cor?: number;
+  /** Escolhida em resposta, alocada ou com pendência de geração: não pode ser excluída (vem do back). */
+  emUso?: boolean;
 };
 
 /** Tudo o que o administrador cadastra na aba Dados (RF 7). */
