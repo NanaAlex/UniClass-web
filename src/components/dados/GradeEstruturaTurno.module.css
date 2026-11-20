@@ -79,3 +79,9 @@
   text-align: center;
 }
 
+
+/* Marca do bloco em uso, abaixo do horário da primeira aula */
+.emUso {
+  display: block;
+  margin-top: var(--espaco-1);
+}

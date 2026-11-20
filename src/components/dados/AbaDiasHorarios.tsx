@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { CabecalhoSecao } from "@/components/layout/CabecalhoSecao";
 import { Abas } from "@/components/ui/Abas";
+import { Aviso } from "@/components/ui/Aviso";
 import { Seletor } from "@/components/ui/Seletor";
 import { useAvisos } from "@/components/ui/ProvedorAvisos";
 import {
@@ -46,6 +47,10 @@ export function AbaDiasHorarios({ dados, atualizar }: AbaDiasHorariosProps) {
   // null: modal fechado · indice null: novo bloco · indice: editar o horário desse bloco
   const [edicao, setEdicao] = useState<{ indice: number | null } | null>(null);
   const estrutura = dados.estruturas.find((e) => e.turno === turno);
+  const estruturasComUso = dados.estruturas.filter((e) => e.blocos.some((b) => b.emUso));
+  const blocoEmUso = estruturasComUso.length > 0;
+  const emUsoNoTurno = estruturasComUso.some((e) => e.turno === turno);
+  const turnosComUso = estruturasComUso.map((e) => rotulosTurno[e.turno].toLowerCase()).join(" e da ");
 
   function alterar(transformar: (atual: EstruturaTurno) => EstruturaTurno) {
     atualizar((atuais) => {
@@ -122,9 +127,21 @@ export function AbaDiasHorarios({ dados, atualizar }: AbaDiasHorariosProps) {
               opcoes={opcoesAulas}
               // Tamanho único: o escalonador usa a mesma quantidade em todos os turnos
               value={String(aulasPorBlocoDoCurso(dados))}
+              // Mudar o tamanho recria todos os blocos, de todos os turnos: um em uso trava o seletor
+              disabled={blocoEmUso}
+              title={blocoEmUso ? "Fixo: há blocos em uso" : undefined}
               onChange={(evento) => atualizar((atuais) => definirAulasPorBlocoDoCurso(atuais, Number(evento.target.value)))}
             />
           </div>
+          {blocoEmUso && (
+            <Aviso
+              tipo="info"
+              embutido
+              {...(emUsoNoTurno
+                ? { titulo: "Este turno tem blocos em uso", descricao: "Eles e os anteriores não podem ser removidos." }
+                : { titulo: "Tamanho dos blocos fixo", descricao: `Há blocos em uso no turno da ${turnosComUso}.` })}
+            />
+          )}
           <GradeEstruturaTurno
             estrutura={estrutura}
             aoRemoverBloco={excluirBloco}
