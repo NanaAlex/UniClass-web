@@ -60,6 +60,7 @@ type DadosApi = {
   semestres: {
     id: number;
     numero: number;
+    exclusaoBloqueada: boolean;
     turmas: { id: number; nome: string; turno: string; emUso: boolean }[];
   }[];
   materias: {
@@ -120,6 +121,7 @@ function converterDados(dados: DadosApi): DadosAcademicos {
     semestres: dados.semestres.map((semestre) => ({
       id: String(semestre.id),
       numero: semestre.numero,
+      exclusaoBloqueada: semestre.exclusaoBloqueada,
       turmaIds: semestre.turmas.map((turma) => String(turma.id)),
     })),
     turmas: dados.semestres.flatMap((semestre) =>

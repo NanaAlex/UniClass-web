@@ -28,6 +28,8 @@ export type EstruturaTurno = {
 export type Semestre = {
   id: string;
   numero: number; // 1 a 8
+  /** Tem formulário, geração de horário, turma ou disciplina em uso: o back recusa a exclusão (vem do back). */
+  exclusaoBloqueada?: boolean;
   turmaIds: string[];
 };
 

@@ -12,6 +12,8 @@ type CartaoSemestreProps = {
   quantidadeDisciplinas: number;
   /** Alguma turma ou disciplina dele está em uso: o back recusa a exclusão. */
   emUso?: boolean;
+  /** A numeração é a posição no back: só o último semestre pode ser excluído. */
+  ultimo?: boolean;
   aoAdicionarTurma: () => void;
   aoRemoverTurma: (turma: Turma) => void;
   aoRemoverSemestre: () => void;
@@ -27,6 +29,7 @@ export function CartaoSemestre({
   turmas,
   quantidadeDisciplinas,
   emUso,
+  ultimo = true,
   aoAdicionarTurma,
   aoRemoverTurma,
   aoRemoverSemestre,
@@ -45,10 +48,16 @@ export function CartaoSemestre({
           </p>
         </div>
         <BotaoIcone
-          rotulo={emUso ? `O ${numero}º semestre está em uso e não pode ser excluído` : `Excluir ${numero}º semestre`}
+          rotulo={
+            emUso
+              ? `O ${numero}º semestre está em uso e não pode ser excluído`
+              : !ultimo
+                ? `Só o último semestre pode ser excluído`
+                : `Excluir ${numero}º semestre`
+          }
           icone={<IconeLixeira />}
           variante="perigo"
-          disabled={emUso}
+          disabled={emUso || !ultimo}
           onClick={aoRemoverSemestre}
         />
       </header>
