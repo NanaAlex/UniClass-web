@@ -15,7 +15,7 @@ import type {
   Turno,
 } from "@/types";
 import { obterDadosAcademicos, obterFormularioAtual } from "./administrador";
-import { chamarApi, ErroApi } from "./api";
+import { chamarApi, ErroApi, URL_API } from "./api";
 import { ErroNaoEncontrado } from "./simulacao";
 
 /*
@@ -37,6 +37,10 @@ type ProfessorApi = {
   ativo: boolean;
   dataVinculo: string | null;
   dataResposta: string | null;
+  /** Informados pelo professor na tela de perfil (task 20); null se ele não informou. */
+  telefone: string | null;
+  /** Resumo da foto (muda quando ela muda); a imagem vem de /admin/professores/:id/foto. */
+  fotoVersao: string | null;
   respostaPendente: boolean;
   solicitouAlteracaoFormulario: boolean;
   solicitouAlteracaoHorario: boolean;
@@ -80,7 +84,9 @@ function emailDoConvite(id: string): string | null {
 
 /*
    Back -> front
-   Telefone, áreas e foto não existem no banco (fora desta task).
+   Áreas não existem no banco (fora desta task).
+   A versão da foto entra na URL: o back manda a imagem com cache longo,
+   então a URL muda quando o professor troca a foto.
    Os pedidos abertos vêm como indicadores; a tela só confere "> 0".
 */
 function deProfessor(professor: ProfessorApi): ProfessorComSituacao {
@@ -88,6 +94,10 @@ function deProfessor(professor: ProfessorApi): ProfessorComSituacao {
     id: String(professor.id),
     nome: professor.nome,
     email: professor.email,
+    telefone: professor.telefone ?? undefined,
+    fotoUrl: professor.fotoVersao
+      ? `${URL_API}/admin/professores/${professor.id}/foto?v=${professor.fotoVersao}`
+      : undefined,
     statusConta: professor.ativo ? "ativa" : "desativada",
     areas: [],
     criadoEm: professor.dataVinculo ? deBrasilia(professor.dataVinculo) : "",
@@ -178,11 +188,6 @@ export async function reenviarConvite(id: string): Promise<void> {
   const email = emailDoConvite(id);
   if (email === null) throw new ErroNaoEncontrado("Convite", id);
   await chamarApi("/admin/convites", { method: "POST", body: { emails: [email] } });
-}
-
-/** Protótipo "Editar foto": sem coluna no banco, a foto é um endereço local do navegador (some ao recarregar). */
-export async function atualizarFotoProfessor(id: string, fotoUrl: string): Promise<ProfessorComSituacao> {
-  return { ...(await obterProfessor(id)), fotoUrl };
 }
 
 /*
