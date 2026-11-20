@@ -106,10 +106,18 @@ export function AbaSemestres({ dados, atualizar }: AbaSemestresProps) {
         />
       ) : (
         <div className={estilos.gradeSemestres}>
-          {dados.semestres.map(({ numero }) => (
+          {dados.semestres.map(({ numero, exclusaoBloqueada }) => (
             <CartaoSemestre
               key={numero}
               numero={numero}
+              ultimo={numero === dados.semestres.length}
+              // Ao salvar, o back apaga em cascata o que não está em uso: o semestre só trava pelo que está
+              // (formulário e geração de horário só o back sabe)
+              emUso={
+                exclusaoBloqueada ||
+                turmasDoSemestre(dados, numero).some((t) => t.emUso) ||
+                dados.disciplinas.some((d) => d.semestre === numero && d.emUso)
+              }
               turmas={turmasDoSemestre(dados, numero)}
               quantidadeDisciplinas={dados.disciplinas.filter((d) => d.semestre === numero).length}
               aoAdicionarTurma={() => setSemestreNovaTurma(numero)}
