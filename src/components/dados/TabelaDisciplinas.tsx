@@ -37,7 +37,13 @@ export function TabelaDisciplinas({ disciplinas, aoRemover }: TabelaDisciplinasP
               <td className={estilos.numero}>{disciplina.aulasPorSemana}</td>
               <td className={estilos.numero}>{disciplina.quantidadeProfessores}</td>
               <td className={estilos.acao}>
-                <BotaoIcone rotulo={`Excluir ${disciplina.nome}`} icone={<IconeLixeira />} variante="perigo" onClick={() => aoRemover(disciplina)} />
+                <BotaoIcone
+                  rotulo={disciplina.emUso ? `${disciplina.nome} está em uso e não pode ser excluída` : `Excluir ${disciplina.nome}`}
+                  icone={<IconeLixeira />}
+                  variante="perigo"
+                  disabled={disciplina.emUso}
+                  onClick={() => aoRemover(disciplina)}
+                />
               </td>
             </tr>
           ))}
