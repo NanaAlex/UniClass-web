@@ -35,3 +35,11 @@ const formatoDataHora = new Intl.DateTimeFormat("pt-BR", {
 export function formatarDataHora(iso: string) {
   return formatoDataHora.format(new Date(iso));
 }
+
+/** "11987654321" -> "(11) 98765-4321"; "1133334444" -> "(11) 3333-4444". Outros tamanhos ficam como vieram. */
+export function formatarTelefone(digitos: string) {
+  const d = digitos.replace(/\D/g, "");
+  if (d.length === 11) return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
+  if (d.length === 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
+  return digitos;
+}
