@@ -1,100 +1,65 @@
 import { Aviso } from "@/components/ui/Aviso";
 import { Botao } from "@/components/ui/Botao";
 import { Etiqueta } from "@/components/ui/Etiqueta";
-import { IconeOlho, IconeOlhoFechado } from "@/components/ui/Icones";
+import type { ContextoGeracao } from "@/services/horarios";
+import type { AcaoGeracao } from "./useAcoesHorario";
 import estilos from "./GestaoHorario.module.css";
 
-export type AcaoGeracao = "gerar" | "oficializar" | "visibilidade";
-
 type AcoesGeracaoProps = {
-  /** O formulário ainda recebe respostas: gerar fica indisponível. */
-  aguardandoFormulario: boolean;
-  respostasPendentes: number;
-  temHorario: boolean;
-  temPrevia: boolean;
-  previasVisiveis: boolean;
+  contexto: ContextoGeracao;
+  /** Sem formulário lançado não há participantes (RN-20, RN-36). */
+  semFormulario: boolean;
+  travas: number;
+  temExecucao: boolean;
+  emProcessamento: boolean;
   emAndamento: AcaoGeracao | null;
   aoGerar: () => void;
-  aoOficializar: () => void;
-  aoAlternarVisibilidade: () => void;
-  aoAbrirHistorico: () => void;
 };
 
 const ID_MOTIVO = "motivo-gerar-indisponivel";
 
-/** RF 3.1, RF 3.18, RF 3.19, RF 8.11–8.12. Uma ação primária por vez, conforme a etapa. */
-export function AcoesGeracao({
-  aguardandoFormulario,
-  respostasPendentes,
-  temHorario,
-  temPrevia,
-  previasVisiveis,
-  emAndamento,
-  aoGerar,
-  aoOficializar,
-  aoAlternarVisibilidade,
-  aoAbrirHistorico,
-}: AcoesGeracaoProps) {
-  const ocupado = emAndamento !== null;
+/** POST /admin/geracoes: participantes, pendentes (RN-37) e as travas que entram como restrições (RN-41). */
+export function AcoesGeracao({ contexto, semFormulario, travas, temExecucao, emProcessamento, emAndamento, aoGerar }: AcoesGeracaoProps) {
+  const pendentes = contexto.pendentes.length;
+  const indisponivel = semFormulario || emProcessamento;
 
   return (
     <div className={estilos.blocoAcoes}>
-      {aguardandoFormulario && (
-        <div id={ID_MOTIVO} className={estilos.motivo}>
+      {indisponivel && (
+        <div id={ID_MOTIVO}>
           <Aviso
             tipo="info"
             embutido
-            titulo={`Encerre o formulário para ${temHorario ? "gerar uma nova versão" : "gerar o horário"}`}
+            titulo={emProcessamento ? "Há uma geração em processamento" : "Lance o formulário para gerar"}
             descricao={
-              respostasPendentes > 0
-                ? `${respostasPendentes === 1 ? "1 professor ainda não respondeu" : `${respostasPendentes} professores ainda não responderam`}. O escalonador usa as respostas recebidas até o encerramento.`
-                : "Todos já responderam. Encerre o formulário para usar as respostas na geração."
+              emProcessamento
+                ? "Aguarde a conclusão: cada execução tem prazo único de 600 segundos."
+                : "A geração usa as respostas enviadas à edição vigente do formulário."
             }
           />
         </div>
       )}
 
       <div className={estilos.linhaAcoes}>
-        {temPrevia ? (
-          <div className={estilos.visibilidade}>
-            <Etiqueta variante={previasVisiveis ? "info" : "neutra"}>
-              {previasVisiveis ? "Prévia visível para os professores" : "Prévia oculta dos professores"}
-            </Etiqueta>
-            <Botao
-              variante="fantasma"
-              tamanho="p"
-              icone={previasVisiveis ? <IconeOlhoFechado /> : <IconeOlho />}
-              carregando={emAndamento === "visibilidade"}
-              disabled={ocupado}
-              onClick={aoAlternarVisibilidade}
-            >
-              {previasVisiveis ? "Ocultar" : "Disponibilizar para visualização"}
-            </Botao>
-          </div>
-        ) : (
-          <span />
-        )}
+        <div className={estilos.visibilidade}>
+          <Etiqueta variante="neutra">
+            {contexto.enviados} de {contexto.ativos} professores ativos responderam
+          </Etiqueta>
+          {pendentes > 0 && (
+            <Etiqueta variante="aviso">{pendentes === 1 ? "1 pendente: geração antecipada" : `${pendentes} pendentes: geração antecipada`}</Etiqueta>
+          )}
+          <Etiqueta variante={travas > 0 ? "info" : "neutra"}>{travas === 1 ? "1 trava no período" : `${travas} travas no período`}</Etiqueta>
+        </div>
 
         <div className={estilos.botoesGeracao}>
-          {temHorario && (
-            <Botao variante="secundario" onClick={aoAbrirHistorico} disabled={ocupado}>
-              Histórico de versões
-            </Botao>
-          )}
           <Botao
-            variante={temHorario ? "secundario" : "primario"}
             onClick={aoGerar}
             carregando={emAndamento === "gerar"}
-            disabled={aguardandoFormulario || ocupado}
-            aria-describedby={aguardandoFormulario ? ID_MOTIVO : undefined}
+            disabled={indisponivel || emAndamento !== null}
+            aria-describedby={indisponivel ? ID_MOTIVO : undefined}
           >
-            {temHorario ? "Gerar nova versão" : "Gerar horário"}
+            {temExecucao ? "Gerar novamente" : "Gerar horário"}
           </Botao>
-          {temPrevia && (
-            <Botao onClick={aoOficializar} carregando={emAndamento === "oficializar"} disabled={ocupado}>
-              Oficializar horário
-            </Botao>
-          )}
         </div>
       </div>
     </div>

@@ -3,37 +3,25 @@
 import { useState } from "react";
 import type { PedidoConfirmacao } from "@/components/ui/ModalConfirmacao";
 import { useAvisos } from "@/components/ui/ProvedorAvisos";
-import { rotuloTurma } from "@/lib/horario";
-import type { Grade, Turma } from "@/types";
-import type { AcaoGeracao } from "./AcoesGeracao";
+import { ConfirmacaoGeracaoNecessaria } from "@/services/horarios";
+import type { Execucao, ProfessorResumo } from "@/types";
 import type { useGestaoHorario } from "./useGestaoHorario";
 
-type Acoes = Omit<ReturnType<typeof useGestaoHorario>, "dados" | "falhou" | "recarregar">;
+type Acoes = Pick<ReturnType<typeof useGestaoHorario>, "gerar" | "publicar" | "encerrar">;
 
-type Contexto = {
-  atuais: Grade[];
-  turmas: Turma[];
-  respostasPendentes: number;
-  previasVisiveis: boolean;
-};
+export type AcaoGeracao = "gerar" | "publicar";
 
 const mensagemErro = (erro: unknown) => (erro instanceof Error ? erro.message : "Tente novamente em instantes.");
 
 /** Confirmações, carregamento e avisos (toasts) das ações da aba Horários. */
-export function useAcoesHorario(acoes: Acoes, { atuais, turmas, respostasPendentes, previasVisiveis }: Contexto) {
+export function useAcoesHorario(acoes: Acoes, { pendentes, travas }: { pendentes: ProfessorResumo[]; travas: number }) {
   const { mostrarAviso } = useAvisos();
   const [emAndamento, setEmAndamento] = useState<AcaoGeracao | null>(null);
-  const [idAlternando, setIdAlternando] = useState<string | null>(null);
-  const [turmasAfetadas, setTurmasAfetadas] = useState<string[]>([]);
   const [confirmacao, setConfirmacao] = useState<PedidoConfirmacao | null>(null);
+  /** RN-37, CA-83: lista nominal dos pendentes antes da geração antecipada. */
+  const [antecipada, setAntecipada] = useState<ProfessorResumo[] | null>(null);
 
-  const nomeTurma = (id: string) => {
-    const turma = turmas.find((t) => t.id === id);
-    return turma ? rotuloTurma(turma) : "A turma";
-  };
-
-  /** Rejeita de novo em caso de erro: o ModalConfirmacao continua aberto para tentar outra vez. */
-  async function executar(acao: AcaoGeracao | null, tarefa: () => Promise<void>, falha: string) {
+  async function executar(acao: AcaoGeracao, tarefa: () => Promise<void>, falha: string) {
     setEmAndamento(acao);
     try {
       await tarefa();
@@ -45,111 +33,79 @@ export function useAcoesHorario(acoes: Acoes, { atuais, turmas, respostasPendent
     }
   }
 
-  const gerar = () =>
+  const gerar = (confirmada: boolean) =>
     executar(
       "gerar",
       async () => {
-        const afetadas = await acoes.gerar();
-        setTurmasAfetadas(afetadas);
+        try {
+          await acoes.gerar(confirmada);
+        } catch (erro) {
+          if (erro instanceof ConfirmacaoGeracaoNecessaria) {
+            setAntecipada(erro.pendentes);
+            return;
+          }
+          throw erro;
+        }
+        setAntecipada(null);
         mostrarAviso({
-          tipo: "sucesso",
-          titulo: afetadas.length ? "Nova versão gerada" : "Nada para gerar",
-          descricao: afetadas.length
-            ? `Turmas afetadas: ${afetadas.map(nomeTurma).join("; ")}. Elas aparecem com a etiqueta "Nova versão".`
-            : "Todas as turmas estão bloqueadas.",
+          tipo: "info",
+          titulo: "Geração iniciada",
+          descricao: `O motor tem até 600 segundos. ${travas > 0 ? `As ${travas} travas do período entram como restrições obrigatórias.` : ""}`.trim(),
         });
       },
-      "Não foi possível gerar o horário",
+      "Não foi possível iniciar a geração",
     );
 
   function pedirGeracao() {
-    if (atuais.length === 0) return void gerar().catch(() => {});
-    const bloqueadas = atuais.filter((g) => g.bloqueada).length;
-    setConfirmacao({
-      titulo: "Gerar uma nova versão?",
-      descricao: `As aulas bloqueadas${bloqueadas ? ` e ${bloqueadas === 1 ? "a turma bloqueada" : `as ${bloqueadas} turmas bloqueadas`}` : ""} serão mantidas; o restante será refeito. A versão atual continua no histórico.`,
-      rotuloAcao: "Gerar nova versão",
-      variante: "primario",
-      aoConfirmar: gerar,
-    });
+    if (pendentes.length > 0) return setAntecipada(pendentes);
+    gerar(false).catch(() => {});
   }
 
-  function pedirOficializacao() {
+  function pedirPublicacao(execucao: Execucao) {
     setConfirmacao({
-      titulo: "Oficializar o horário?",
-      descricao: "As prévias atuais viram o horário oficial e ficam visíveis para todos os professores, que serão notificados.",
-      rotuloAcao: "Oficializar horário",
+      titulo: "Publicar esta grade?",
+      descricao:
+        "A grade ótima comprovada passa a ser a vigente: os professores veem o próprio horário com todas as coordenadas. A publicação anterior continua no histórico.",
+      rotuloAcao: "Publicar grade",
       variante: "primario",
       aoConfirmar: () =>
         executar(
-          "oficializar",
+          "publicar",
           async () => {
-            await acoes.oficializar();
-            mostrarAviso({ tipo: "sucesso", titulo: "Horário oficializado", descricao: "Os professores já podem consultar o horário." });
+            await acoes.publicar(execucao.id);
+            mostrarAviso({ tipo: "sucesso", titulo: "Grade publicada", descricao: "Os professores já podem consultar o horário." });
           },
-          "Não foi possível oficializar",
+          "Não foi possível publicar",
         ),
     });
   }
 
-  function pedirEncerramento() {
+  function pedirEncerramento(respostasPendentes: number) {
     setConfirmacao({
       titulo: "Encerrar formulário agora?",
       descricao: `${respostasPendentes === 1 ? "1 professor ainda não respondeu" : `${respostasPendentes} professores ainda não responderam`} e não poderá mais enviar a resposta.`,
       rotuloAcao: "Encerrar formulário",
-      aoConfirmar: () =>
-        executar(
-          null,
-          async () => {
-            await acoes.encerrar();
-            mostrarAviso({ tipo: "sucesso", titulo: "Formulário encerrado", descricao: "Agora você já pode gerar o horário." });
-          },
-          "Não foi possível encerrar o formulário",
-        ),
-    });
-  }
-
-  function alternarVisibilidade() {
-    executar(
-      "visibilidade",
-      async () => {
-        await acoes.alterarVisibilidade(!previasVisiveis);
-        mostrarAviso({
-          tipo: "sucesso",
-          titulo: previasVisiveis ? "Prévia oculta" : "Prévia disponível",
-          descricao: previasVisiveis ? "Os professores não veem mais a prévia." : "Os professores já podem ver a prévia das suas aulas.",
-        });
+      aoConfirmar: async () => {
+        try {
+          await acoes.encerrar();
+          mostrarAviso({ tipo: "sucesso", titulo: "Formulário encerrado", descricao: "A próxima geração usa as respostas enviadas até agora." });
+        } catch (erro) {
+          mostrarAviso({ tipo: "perigo", titulo: "Não foi possível encerrar o formulário", descricao: mensagemErro(erro) });
+          throw erro;
+        }
       },
-      "Não foi possível alterar a visibilidade",
-    ).catch(() => {});
-  }
-
-  async function alternarBloqueio(grade: Grade) {
-    setIdAlternando(grade.id);
-    try {
-      const { bloqueada } = await acoes.alternarBloqueioTurma(grade);
-      mostrarAviso({
-        tipo: "sucesso",
-        titulo: bloqueada ? "Turma bloqueada" : "Turma desbloqueada",
-        descricao: `${nomeTurma(grade.turmaId)} ${bloqueada ? "será mantida como está" : "será refeita"} na próxima geração.`,
-      });
-    } catch (erro) {
-      mostrarAviso({ tipo: "perigo", titulo: "Não foi possível alterar o bloqueio", descricao: mensagemErro(erro) });
-    } finally {
-      setIdAlternando(null);
-    }
+    });
   }
 
   return {
     emAndamento,
-    idAlternando,
-    turmasAfetadas,
     confirmacao,
     fecharConfirmacao: () => setConfirmacao(null),
+    antecipada,
+    fecharAntecipada: () => setAntecipada(null),
+    confirmarAntecipada: () => gerar(true),
     pedirGeracao,
-    pedirOficializacao,
+    pedirPublicacao,
     pedirEncerramento,
-    alternarVisibilidade,
-    alternarBloqueio,
   };
 }

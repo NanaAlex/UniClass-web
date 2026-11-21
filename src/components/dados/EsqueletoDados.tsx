@@ -15,7 +15,7 @@ export function EsqueletoDados({ aba }: { aba: AbaDados }) {
   }
 
   return (
-    <div className={estilos.cartaoSecao} aria-label={aba === "horarios" ? "Carregando dias e horários" : "Carregando disciplinas"}>
+    <div className={estilos.cartaoSecao} aria-label={aba === "horarios" ? "Carregando dias e blocos" : "Carregando disciplinas"}>
       <Esqueleto largura="40%" altura="1.5rem" />
       <Esqueleto largura="60%" />
       <Esqueleto forma="bloco" altura={aba === "horarios" ? "320px" : "120px"} />

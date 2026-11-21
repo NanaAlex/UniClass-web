@@ -7,49 +7,50 @@ import { ErroCarregamento } from "@/components/ui/ErroCarregamento";
 import { Esqueleto } from "@/components/ui/Esqueleto";
 import { EstadoVazio } from "@/components/ui/EstadoVazio";
 import { useAvisos } from "@/components/ui/ProvedorAvisos";
-import { rotuloTurma } from "@/lib/horario";
 import { criarSolicitacao } from "@/services/solicitacoes";
-import type { Aula, UsuarioLogado } from "@/types";
+import type { BlocoGrade, UsuarioLogado } from "@/types";
 import { FormularioSolicitacaoHorario } from "./FormularioSolicitacaoHorario";
 import { QuadroHorarioProfessor } from "./QuadroHorarioProfessor";
 import { useHorarioProfessor } from "./useHorarioProfessor";
 import estilos from "./PainelHorarioProfessor.module.css";
 
-/** Aba Horário do professor: grade, pedido de alteração (RF 3.4) e histórico dos pedidos (RF 9.1). */
+/** Aba Horário do professor: grade publicada, pedido de alteração (RF 3.4) e histórico dos pedidos (RF 9.1). */
 export function PainelHorarioProfessor({ usuario }: { usuario: UsuarioLogado }) {
   const { mostrarAviso } = useAvisos();
   const { dados, falhou, recarregar, adicionarSolicitacao } = useHorarioProfessor(usuario.id);
   const [selecionando, setSelecionando] = useState(false);
-  const [aulaSelecionada, setAulaSelecionada] = useState<Aula | null>(null);
+  const [blocoSelecionado, setBlocoSelecionado] = useState<BlocoGrade | null>(null);
 
   function cancelar() {
     setSelecionando(false);
-    setAulaSelecionada(null);
+    setBlocoSelecionado(null);
   }
 
   async function enviar(descricao: string) {
-    if (!aulaSelecionada) return;
-    const { dia, posicao, disciplina, turma } = aulaSelecionada;
+    if (!blocoSelecionado || !dados) return;
+    const { dia, turno, indice, disciplinaId, turmaId } = blocoSelecionado;
     const nova = await criarSolicitacao({
       tipo: "horario",
       professor: { id: usuario.id, nome: usuario.nome },
       descricao,
-      aula: { dia, posicao, disciplina: disciplina.nome, turma: rotuloTurma(turma) },
+      aula: {
+        dia,
+        turno,
+        indice,
+        disciplina: dados.nomes.disciplina(disciplinaId ?? "")?.nome ?? "",
+        turma: turmaId ? dados.nomes.turma(turmaId) : "",
+      },
     });
     adicionarSolicitacao(nova);
     cancelar();
     mostrarAviso({
       tipo: "sucesso",
       titulo: "Solicitação enviada",
-      descricao: "A coordenação verá seu pedido e ajustará o horário se for possível.",
+      descricao: "A coordenação verá seu pedido. Ajustes entram como travas numa nova geração.",
     });
   }
 
-  if (falhou) {
-    return (
-      <ErroCarregamento titulo="Não foi possível carregar o horário" aoTentarNovamente={recarregar} />
-    );
-  }
+  if (falhou) return <ErroCarregamento titulo="Não foi possível carregar o horário" aoTentarNovamente={recarregar} />;
 
   return (
     <>
@@ -59,24 +60,30 @@ export function PainelHorarioProfessor({ usuario }: { usuario: UsuarioLogado }) 
           <Esqueleto largura="180px" />
           <Esqueleto forma="bloco" altura="360px" />
         </div>
-      ) : dados.horario.aulas.length === 0 ? (
+      ) : !dados.horario.publicadoEm ? (
         <EstadoVazio
           contorno
-          titulo="Horário indisponível"
-          descricao="A coordenação ainda não publicou um horário com as suas aulas. Assim que ele for liberado, você poderá consultá-lo aqui."
+          titulo="Horário ainda não publicado"
+          descricao="A coordenação só publica uma grade com o ótimo comprovado. Assim que ela for publicada, você verá aqui todas as suas aulas, por bloco."
         />
+      ) : dados.horario.posicoes.every((b) => !b.disciplinaId) ? (
+        <EstadoVazio contorno titulo="Nenhuma aula na grade publicada" descricao="A grade vigente não atribuiu aulas a você neste período." />
       ) : (
         <QuadroHorarioProfessor
           nomeProfessor={usuario.nome}
-          horario={dados.horario}
+          posicoes={dados.horario.posicoes}
+          aulasPorBloco={dados.horario.aulasPorBloco}
           estruturas={dados.estruturas}
+          nomes={dados.nomes}
+          situacao={{ rotulo: "Publicado", variante: "sucesso" }}
+          publicadoEm={dados.horario.publicadoEm}
           selecionando={selecionando}
-          aulaSelecionada={aulaSelecionada}
+          selecionado={blocoSelecionado}
           aoIniciarSelecao={() => setSelecionando(true)}
           aoCancelar={cancelar}
-          aoSelecionar={setAulaSelecionada}
+          aoSelecionar={setBlocoSelecionado}
         >
-          <FormularioSolicitacaoHorario aula={aulaSelecionada} aoCancelar={cancelar} aoEnviar={enviar} />
+          <FormularioSolicitacaoHorario bloco={blocoSelecionado} nomes={dados.nomes} aulasPorBloco={dados.horario.aulasPorBloco} aoCancelar={cancelar} aoEnviar={enviar} />
         </QuadroHorarioProfessor>
       )}
 
@@ -84,7 +91,7 @@ export function PainelHorarioProfessor({ usuario }: { usuario: UsuarioLogado }) 
         <CabecalhoSecao
           id="titulo-solicitacoes-horario"
           titulo="Suas solicitações de horário"
-          descricao="Pedidos enviados à coordenação. Eles não precisam de aprovação: a coordenação lê e ajusta o horário quando possível."
+          descricao="Pedidos enviados à coordenação. Eles não precisam de aprovação: a coordenação lê e, quando possível, trava o ajuste para a próxima geração."
         />
         <ListaSolicitacoes
           solicitacoes={dados?.solicitacoes ?? []}

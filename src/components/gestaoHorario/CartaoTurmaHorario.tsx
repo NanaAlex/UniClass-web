@@ -1,69 +1,50 @@
 import Link from "next/link";
-import { Dica } from "@/components/ui/Dica";
 import { Etiqueta } from "@/components/ui/Etiqueta";
-import { IconeCadeado, IconeCadeadoAberto } from "@/components/ui/Icones";
-import { formatarData } from "@/lib/formatacao";
-import { aulasBloqueadas, etiquetasStatusGrade, hrefGrade } from "@/lib/gestaoHorario";
+import { IconeCadeado } from "@/components/ui/Icones";
+import { hrefGradeTurma } from "@/lib/gestaoHorario";
 import { rotulosTurno } from "@/lib/horario";
-import type { Grade, Turma } from "@/types";
+import type { GradeTurma, Turma } from "@/types";
 import estilos from "./CartaoTurmaHorario.module.css";
 
 type CartaoTurmaHorarioProps = {
-  grade: Grade;
+  execucaoId: string;
+  grade: GradeTurma;
   turma: Turma;
-  /** Ganhou uma versão na última geração (RF 3.17). */
-  novaVersao: boolean;
-  alternando: boolean;
-  aoAlternarBloqueio: (grade: Grade) => void;
+  aulasPorBloco: number;
+  /** Posições da turma com trava (ocupação ou vaga). */
+  travadas: number;
 };
 
-/** Uma turma no horário atual. O cartão leva à grade; o cadeado mantém a turma na próxima geração. */
-export function CartaoTurmaHorario({ grade, turma, novaVersao, alternando, aoAlternarBloqueio }: CartaoTurmaHorarioProps) {
-  const status = etiquetasStatusGrade[grade.status];
-  const fixas = aulasBloqueadas(grade);
-  const nome = `${turma.semestre}º semestre · Turma ${turma.nome}`;
+/** Uma turma na grade da execução. O cartão leva à grade; travar e trocar acontecem lá (sem desbloqueio). */
+export function CartaoTurmaHorario({ execucaoId, grade, turma, aulasPorBloco, travadas }: CartaoTurmaHorarioProps) {
+  const ocupados = grade.posicoes.filter((b) => b.disciplinaId).length;
+  const tudo = travadas === grade.posicoes.length;
 
   return (
-    <li className={[estilos.cartao, grade.bloqueada && estilos.bloqueado].filter(Boolean).join(" ")}>
+    <li className={[estilos.cartao, tudo && estilos.bloqueado].filter(Boolean).join(" ")}>
       <div className={estilos.topo}>
         <div className={estilos.textos}>
-          <Link href={hrefGrade(grade.id)} className={estilos.titulo}>
-            {nome}
+          <Link href={hrefGradeTurma(execucaoId, turma.id)} className={estilos.titulo}>
+            {turma.semestre}º semestre · Turma {turma.nome}
           </Link>
           <span className={estilos.meta}>
-            {rotulosTurno[turma.turno]} · v{grade.versao} · {formatarData(grade.editadaEm ?? grade.geradaEm)}
+            {rotulosTurno[turma.turno]} · {ocupados} de {grade.posicoes.length} blocos ocupados · {ocupados * aulasPorBloco} aulas
           </span>
         </div>
-        <Dica texto={grade.bloqueada ? "Bloqueada: a próxima geração mantém esta turma" : "Bloquear para manter esta turma na próxima geração"}>
-          {(idDica) => (
-            <button
-              type="button"
-              className={estilos.cadeado}
-              aria-pressed={grade.bloqueada}
-              aria-label={`${grade.bloqueada ? "Desbloquear" : "Bloquear"} ${nome}`}
-              aria-describedby={idDica}
-              disabled={alternando}
-              onClick={() => aoAlternarBloqueio(grade)}
-            >
-              {grade.bloqueada ? <IconeCadeado /> : <IconeCadeadoAberto />}
-            </button>
-          )}
-        </Dica>
+        {travadas > 0 && (
+          <span className={estilos.cadeado} aria-hidden="true">
+            <IconeCadeado />
+          </span>
+        )}
       </div>
 
       <div className={estilos.etiquetas}>
-        <Etiqueta variante={status.variante}>{status.rotulo}</Etiqueta>
-        {novaVersao && <Etiqueta variante="info" ponto>Nova versão</Etiqueta>}
-        {grade.bloqueada ? (
-          <Etiqueta>Turma bloqueada</Etiqueta>
+        {tudo ? (
+          <Etiqueta variante="info">Grade travada</Etiqueta>
+        ) : travadas > 0 ? (
+          <Etiqueta variante="info">{travadas === 1 ? "1 posição travada" : `${travadas} posições travadas`}</Etiqueta>
         ) : (
-          fixas > 0 && <Etiqueta>{fixas === 1 ? "1 aula bloqueada" : `${fixas} aulas bloqueadas`}</Etiqueta>
-        )}
-        {grade.editadaEm && <Etiqueta>Editada</Etiqueta>}
-        {grade.conflitos.length > 0 && (
-          <Etiqueta variante="aviso">
-            {grade.conflitos.length === 1 ? "1 pendência" : `${grade.conflitos.length} pendências`}
-          </Etiqueta>
+          <Etiqueta>Sem travas</Etiqueta>
         )}
       </div>
     </li>

@@ -1,4 +1,4 @@
-import { disciplinas, estruturasTurno } from "@/mocks/academico";
+import { configuracao, disciplinas, estruturasTurno } from "@/mocks/academico";
 import { formularioAtual, respostasFormulario } from "@/mocks/formularios";
 import { formularioEncerrado } from "@/lib/formulario";
 import type { Disciplina, Formulario, RespostaFormulario } from "@/types";
@@ -11,8 +11,8 @@ export function obterFormularioAtual(): Promise<Formulario> {
 export type DadosLancamento = Pick<Formulario, "nome" | "periodoLetivo" | "inicio" | "fim">;
 
 /**
- * RF 2.7, RF 2.8: lança um novo formulário com o período de respostas definido.
- * Usa os dias, horários e disciplinas cadastrados em Dados (RF 2.3, RF 2.5).
+ * RF 2.7, RF 2.8: lança uma nova edição do formulário com o período de respostas definido. A edição
+ * guarda K, dias, blocos e disciplinas cadastrados em Dados no momento do lançamento (RN-36, RN-38).
  */
 export async function lancarFormulario(dados: DadosLancamento): Promise<Formulario> {
   if (formularioAtual.status === "aberto" && !formularioEncerrado(formularioAtual)) {
@@ -21,8 +21,10 @@ export async function lancarFormulario(dados: DadosLancamento): Promise<Formular
   Object.assign(formularioAtual, {
     ...dados,
     id: `f${Date.now()}`,
+    edicao: formularioAtual.edicao + 1,
     status: "aberto",
-    estruturas: estruturasTurno,
+    aulasPorBloco: configuracao.aulasPorBloco,
+    estruturas: structuredClone(estruturasTurno),
     disciplinaIds: disciplinas.map((d) => d.id),
   } satisfies Formulario);
   return responder(formularioAtual, 700);

@@ -1,61 +1,57 @@
-import { Fragment } from "react";
-import { EstadoVazio } from "@/components/ui/EstadoVazio";
 import { Esqueleto } from "@/components/ui/Esqueleto";
-import { rotuloAula, rotulosDia } from "@/lib/horario";
-import type { Aula, DiaSemana, EstruturaTurno } from "@/types";
-import { CelulaAula, type InfoSecundaria, type ModoGrade } from "./CelulaAula";
+import type { Nomes } from "@/lib/gestaoHorario";
+import { aulasDoBloco, mesmaCoordenada, rotulosDia } from "@/lib/horario";
+import type { BlocoGrade, Coordenada, EstruturaTurno } from "@/types";
+import { CelulaBloco, type InfoSecundaria, type ModoGrade, type SituacaoTrava } from "./CelulaBloco";
 import estilos from "./GradeHorario.module.css";
 
 type GradeHorarioProps = {
   estrutura: EstruturaTurno;
-  aulas: Aula[];
-  /** visualizar: só leitura · editar: bloqueio por aula (RF 3.14) e troca de lugar · selecionar: escolher uma aula */
-  modo?: ModoGrade;
+  /** K: aulas por bloco (RN-09). */
+  aulasPorBloco: number;
+  /** Posições do turno; coordenadas sem posição aparecem vagas. */
+  posicoes: BlocoGrade[];
+  nomes: Nomes;
   rotuloAcessivel: string;
   infoSecundaria?: InfoSecundaria;
-  idAulaSelecionada?: string;
-  aoSelecionar?: (aula: Aula) => void;
-  aoAlternarBloqueio?: (aula: Aula) => void;
-  /** editar: clicar numa aula a escolhe; o próximo clique define o destino (RF 3.3). */
-  aoEscolherHorario?: (horario: { dia: DiaSemana; posicao: number }) => void;
-  /** Aulas com pedido de alteração não lido (RF 3.4). */
-  idsComPedido?: Set<string>;
-  /** visualizar: cadeado nas aulas bloqueadas (visão do administrador). */
-  mostrarBloqueio?: boolean;
+  /** visualizar: só leitura · editar: trocar e travar blocos · selecionar: escolher um bloco */
+  modo?: ModoGrade;
+  travaDe?: (c: Coordenada) => SituacaoTrava;
+  selecionada?: Coordenada | null;
+  aoEscolher?: (bloco: BlocoGrade) => void;
+  aoTravar?: (bloco: BlocoGrade) => void;
+  /** Blocos com pedido de alteração não lido (RF 3.4). */
+  comPedido?: Coordenada[];
   carregando?: boolean;
-  mensagemVazia?: string;
 };
 
+const vazio = (c: Coordenada, K: number): BlocoGrade => ({ ...c, aulas: aulasDoBloco(K, c.indice), turmaId: null, disciplinaId: null, professorId: null, travas: [] });
+
+/**
+ * Grade de um turno por blocos ordinais (RN-10, RN-35): linhas = Bloco 1..B com as aulas que o
+ * compõem, colunas = dias letivos. Não há horário de relógio.
+ */
 export function GradeHorario({
   estrutura,
-  aulas,
-  modo = "visualizar",
+  aulasPorBloco: K,
+  posicoes,
+  nomes,
   rotuloAcessivel,
   infoSecundaria = "turma",
-  idAulaSelecionada,
-  aoSelecionar,
-  aoAlternarBloqueio,
-  aoEscolherHorario,
-  idsComPedido,
-  mostrarBloqueio = false,
+  modo = "visualizar",
+  travaDe,
+  selecionada,
+  aoEscolher,
+  aoTravar,
+  comPedido = [],
   carregando = false,
-  mensagemVazia = "A prévia do horário ainda não está disponível.",
 }: GradeHorarioProps) {
-  if (!carregando && aulas.length === 0) {
-    return (
-      <EstadoVazio contorno titulo="Nenhuma aula para exibir" descricao={mensagemVazia} />
-    );
-  }
-
-  const aulasPorHorario = new Map(aulas.map((aula) => [`${aula.dia}:${aula.posicao}`, aula]));
-  const temSelecao = modo === "selecionar" && Boolean(idAulaSelecionada);
+  const indices = Array.from({ length: estrutura.blocos }, (_, i) => i + 1);
+  const temSelecao = modo === "selecionar" && Boolean(selecionada);
 
   return (
     <div className={estilos.rolagem}>
-      <table
-        className={[estilos.grade, temSelecao && estilos.comSelecao].filter(Boolean).join(" ")}
-        aria-busy={carregando || undefined}
-      >
+      <table className={[estilos.grade, temSelecao && estilos.comSelecao].filter(Boolean).join(" ")} aria-busy={carregando || undefined}>
         <caption className="apenas-leitor">{rotuloAcessivel}</caption>
         <colgroup>
           <col className={estilos.colunaHorario} />
@@ -66,7 +62,7 @@ export function GradeHorario({
         <thead>
           <tr>
             <th scope="col" className={estilos.canto}>
-              <span className="apenas-leitor">Horário</span>
+              <span className="apenas-leitor">Bloco</span>
             </th>
             {estrutura.dias.map((dia) => (
               <th key={dia} scope="col" className={estilos.dia}>
@@ -79,60 +75,41 @@ export function GradeHorario({
           </tr>
         </thead>
         <tbody>
-          {estrutura.blocos.map((bloco, indiceBloco) => {
-            const anterior = estrutura.blocos[indiceBloco - 1]?.aulas.at(-1);
-            const primeira = bloco.aulas[0];
+          {indices.map((indice) => {
+            const aulas = aulasDoBloco(K, indice);
+            const rotuloAulas = aulas.length === 1 ? `aula ${aulas[0]}` : `aulas ${aulas[0]}–${aulas[aulas.length - 1]}`;
             return (
-              <Fragment key={indiceBloco}>
-                {anterior && (
-                  <tr className={estilos.intervalo}>
-                    <td colSpan={estrutura.dias.length + 1}>
-                      <span>Intervalo</span>
-                      {anterior.fim && primeira?.inicio && (
-                        <span className={estilos.intervaloHora}>
-                          {anterior.fim} – {primeira.inicio}
-                        </span>
+              <tr key={indice}>
+                <th scope="row" className={estilos.horario}>
+                  <span className={estilos.posicao}>Bloco {indice}</span>
+                  <span className={estilos.hora}>{rotuloAulas}</span>
+                </th>
+                {estrutura.dias.map((dia) => {
+                  const c: Coordenada = { dia, turno: estrutura.turno, indice };
+                  const bloco = posicoes.find((b) => mesmaCoordenada(b, c)) ?? vazio(c, K);
+                  return (
+                    <td key={dia} className={estilos.celula}>
+                      {carregando ? (
+                        <Esqueleto forma="bloco" altura="64px" />
+                      ) : (
+                        <CelulaBloco
+                          bloco={bloco}
+                          modo={modo}
+                          contexto={`${rotulosDia[dia].longo}, Bloco ${indice} (${rotuloAulas})`}
+                          nomes={nomes}
+                          infoSecundaria={infoSecundaria}
+                          trava={travaDe?.(c) ?? null}
+                          selecionada={Boolean(selecionada && mesmaCoordenada(selecionada, c))}
+                          haSelecao={Boolean(selecionada)}
+                          comPedido={comPedido.some((p) => mesmaCoordenada(p, c))}
+                          aoEscolher={aoEscolher && (() => aoEscolher(bloco))}
+                          aoTravar={aoTravar && (() => aoTravar(bloco))}
+                        />
                       )}
                     </td>
-                  </tr>
-                )}
-                {bloco.aulas.map((horario) => (
-                  <tr key={horario.posicao}>
-                    <th scope="row" className={estilos.horario}>
-                      <span className={estilos.posicao}>{rotuloAula(horario.posicao)}</span>
-                      {horario.inicio && (
-                        <span className={estilos.hora}>
-                          {horario.inicio}–{horario.fim}
-                        </span>
-                      )}
-                    </th>
-                    {estrutura.dias.map((dia) => {
-                      const aula = aulasPorHorario.get(`${dia}:${horario.posicao}`);
-                      return (
-                        <td key={dia} className={estilos.celula}>
-                          {carregando ? (
-                            <Esqueleto forma="bloco" altura="64px" />
-                          ) : (
-                            <CelulaAula
-                              aula={aula}
-                              modo={modo}
-                              contexto={`${rotulosDia[dia].longo}, ${rotuloAula(horario.posicao)}`}
-                              infoSecundaria={infoSecundaria}
-                              selecionada={aula !== undefined && aula.id === idAulaSelecionada}
-                              aoSelecionar={aoSelecionar}
-                              aoAlternarBloqueio={aoAlternarBloqueio}
-                              haSelecao={Boolean(idAulaSelecionada)}
-                              comPedido={aula !== undefined && Boolean(idsComPedido?.has(aula.id))}
-                              mostrarBloqueio={mostrarBloqueio}
-                              aoEscolher={aoEscolherHorario && (() => aoEscolherHorario({ dia, posicao: horario.posicao }))}
-                            />
-                          )}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                ))}
-              </Fragment>
+                  );
+                })}
+              </tr>
             );
           })}
         </tbody>

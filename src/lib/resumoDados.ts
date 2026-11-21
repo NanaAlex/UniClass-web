@@ -1,6 +1,6 @@
-import { aulasPorBlocoDoCurso, ordemDias } from "@/lib/dadosAcademicos";
+import { aulasPorBlocoDoCurso, horarioDoBloco, ordemDias } from "@/lib/dadosAcademicos";
 import { rotulosDia, rotulosTurno } from "@/lib/horario";
-import type { DadosAcademicos, EstruturaTurno, Turma } from "@/types";
+import type { DadosAcademicos, EstruturaTurno, HorarioBloco, Turma } from "@/types";
 
 /*
    Resumo do que o "Salvar dados" vai gravar: compara o que veio do banco
@@ -8,8 +8,17 @@ import type { DadosAcademicos, EstruturaTurno, Turma } from "@/types";
    dia, criar e excluir a mesma turma) não deixa nada no resumo.
 */
 
-const assinaturaBlocos = (estrutura: EstruturaTurno) =>
-  estrutura.blocos.map((bloco) => bloco.aulas.map((aula) => `${aula.inicio}-${aula.fim}`).join(",")).join("|");
+// Horário do bloco como vai no PUT /admin/dados: início e duração das aulas. Sem horário é null, venha a
+// ausência como null, como lista mais curta ou sem lista (horarioDoBloco trata as três formas igual).
+const mesmoHorario = (a: HorarioBloco | null, b: HorarioBloco | null) =>
+  a === null || b === null ? a === b : a.horaInicio === b.horaInicio && a.duracaoAula === b.duracaoAula;
+
+// A posição é o bloco (RN-35): compara índice a índice, sem compactar nem reordenar. Só os índices que
+// existem antes e depois: incluir ou retirar o último bloco não muda o horário dos outros.
+const horarioDosBlocosMudou = (estrutura: EstruturaTurno, anterior: EstruturaTurno) =>
+  Array.from({ length: Math.min(estrutura.blocos, anterior.blocos) }, (_, i) => i + 1).some(
+    (indice) => !mesmoHorario(horarioDoBloco(estrutura, indice), horarioDoBloco(anterior, indice)),
+  );
 
 // Turma nova ganha outro id: compara pelo que a identifica na tela
 const chaveTurma = (turma: Turma) => `${turma.semestre}|${turma.nome}|${turma.turno}`;
@@ -36,11 +45,11 @@ export function resumirMudancas(antes: DadosAcademicos, depois: DadosAcademicos)
     if (incluidos.length) mudancas.push(`${turno}: incluir ${listar(incluidos.map((d) => rotulosDia[d].longo))}`);
     if (retirados.length) mudancas.push(`${turno}: retirar ${listar(retirados.map((d) => rotulosDia[d].longo))}`);
 
-    if (estrutura.blocos.length !== anterior.blocos.length) {
-      mudancas.push(`${turno}: ${estrutura.blocos.length} bloco(s) de aula (eram ${anterior.blocos.length})`);
-    } else if (aulasAntes === aulasDepois && assinaturaBlocos(estrutura) !== assinaturaBlocos(anterior)) {
-      mudancas.push(`${turno}: horário dos blocos alterado`);
+    if (estrutura.blocos !== anterior.blocos) {
+      mudancas.push(`${turno}: ${estrutura.blocos} bloco(s) de aula (eram ${anterior.blocos})`);
     }
+    // Mudar K ou a quantidade de blocos não altera o horário guardado dos blocos: uma edição de horário aparece junto
+    if (horarioDosBlocosMudou(estrutura, anterior)) mudancas.push(`${turno}: horário dos blocos alterado`);
   }
 
   // Semestres

@@ -9,7 +9,7 @@ export const solicitacoes: Solicitacao[] = [
     descricao:
       "Tenho consulta médica fixa às terças pela manhã durante este semestre. Seria possível trocar as aulas de Estrutura de Dados de terça por outro horário?",
     criadaEm: "2026-10-21T13:12:00Z",
-    aula: { dia: "ter", posicao: 3, disciplina: "Estrutura de Dados", turma: "2º A · Manhã" },
+    aula: { dia: "ter", turno: "manha", indice: 2, disciplina: "Estrutura de Dados", turma: "2º A · Manhã" },
   },
   {
     id: "s2",
@@ -27,7 +27,7 @@ export const solicitacoes: Solicitacao[] = [
     professor: { id: "p1", nome: "Ana Paula Souza" },
     descricao: "Prefiro que as quatro aulas de Matemática Discreta não fiquem concentradas na segunda e na sexta.",
     criadaEm: "2026-10-15T11:05:00Z",
-    aula: { dia: "sex", posicao: 1, disciplina: "Matemática Discreta", turma: "1º A · Manhã" },
+    aula: { dia: "sex", turno: "manha", indice: 1, disciplina: "Matemática Discreta", turma: "1º A · Manhã" },
   },
   {
     id: "s4",

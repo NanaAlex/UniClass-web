@@ -6,10 +6,10 @@ import { Aviso } from "@/components/ui/Aviso";
 import { Botao } from "@/components/ui/Botao";
 import { LinkBotao } from "@/components/ui/LinkBotao";
 import { useAvisos } from "@/components/ui/ProvedorAvisos";
-import { normalizarPrioridades } from "@/lib/formulario";
+import { interessesCompletos, prioridadesDosPeriodos, type InteresseRascunho } from "@/lib/formulario";
 import { hrefsFormularioProfessor } from "@/lib/navegacao";
 import { enviarMinhaResposta } from "@/services/professor";
-import type { ChaveHorario, InteresseDisciplina, RespostaFormulario } from "@/types";
+import type { ChaveBloco, RespostaFormulario } from "@/types";
 import { ConteudoEtapa, etapas } from "./ConteudoEtapa";
 import { IndicadorEtapas } from "./IndicadorEtapas";
 import { ModalConfirmarEnvio } from "./ModalConfirmarEnvio";
@@ -30,9 +30,9 @@ export function AssistenteFormulario({ dados }: AssistenteFormularioProps) {
   const topo = useRef<HTMLDivElement>(null);
 
   const [etapa, setEtapa] = useState(0);
-  const [disponibilidade, setDisponibilidade] = useState<ChaveHorario[]>(resposta?.disponibilidade ?? []);
+  const [disponibilidade, setDisponibilidade] = useState<ChaveBloco[]>(resposta?.disponibilidade ?? []);
   const [prioridades, setPrioridades] = useState<RespostaFormulario["prioridadesPeriodo"]>(resposta?.prioridadesPeriodo ?? {});
-  const [interesses, setInteresses] = useState<InteresseDisciplina[]>(resposta?.interesses ?? []);
+  const [interesses, setInteresses] = useState<InteresseRascunho[]>(resposta?.interesses ?? []);
   const [erroEtapa, setErroEtapa] = useState<string | null>(null);
   const [confirmando, setConfirmando] = useState(false);
   const [enviando, setEnviando] = useState(false);
@@ -47,7 +47,7 @@ export function AssistenteFormulario({ dados }: AssistenteFormularioProps) {
   }
 
   function avancar() {
-    const erro = etapas[etapa].validar?.({ disponibilidade, interesses });
+    const erro = etapas[etapa].validar?.({ disponibilidade, prioridades, interesses });
     if (erro) return setErroEtapa(erro);
     if (ultima) return setConfirmando(true);
     irPara(etapa + 1);
@@ -60,8 +60,8 @@ export function AssistenteFormulario({ dados }: AssistenteFormularioProps) {
       await enviarMinhaResposta({
         formularioId: formulario.id,
         disponibilidade,
-        interesses,
-        prioridadesPeriodo: normalizarPrioridades(prioridades, disponibilidade),
+        interesses: interessesCompletos(interesses),
+        prioridadesPeriodo: prioridadesDosPeriodos(prioridades, disponibilidade),
       });
       mostrarAviso({ tipo: "sucesso", titulo: "Resposta enviada", descricao: "A coordenação já pode usar suas informações na grade." });
       router.push(hrefsFormularioProfessor.inicio);
@@ -100,7 +100,10 @@ export function AssistenteFormulario({ dados }: AssistenteFormularioProps) {
               setErroEtapa(null);
             }}
             prioridades={prioridades}
-            aoMudarPrioridades={setPrioridades}
+            aoMudarPrioridades={(valor) => {
+              setPrioridades(valor);
+              setErroEtapa(null);
+            }}
             interesses={interesses}
             aoMudarInteresses={(valor) => {
               setInteresses(valor);
@@ -135,7 +138,7 @@ export function AssistenteFormulario({ dados }: AssistenteFormularioProps) {
         enviando={enviando}
         estruturas={formulario.estruturas}
         disponibilidade={disponibilidade}
-        interesses={interesses}
+        interesses={interessesCompletos(interesses)}
       />
     </div>
   );

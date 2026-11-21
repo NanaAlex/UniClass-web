@@ -1,6 +1,6 @@
 import { Botao } from "@/components/ui/Botao";
 import { formatarData, iniciais } from "@/lib/formatacao";
-import { rotuloAula, rotulosDia } from "@/lib/horario";
+import { rotulosDia, rotulosTurno } from "@/lib/horario";
 import { aguardandoAdministrador } from "@/lib/solicitacao";
 import type { Solicitacao } from "@/types";
 import { EtiquetaStatusSolicitacao } from "./EtiquetaStatusSolicitacao";
@@ -59,7 +59,7 @@ export function ItemSolicitacao({
               {mostrarProfessor && <span>{rotulosTipo[tipo]}</span>}
               {aula && (
                 <span>
-                  {rotulosDia[aula.dia].longo} · {rotuloAula(aula.posicao)} · {aula.disciplina}
+                  {rotulosDia[aula.dia].longo} · {rotulosTurno[aula.turno]} · Bloco {aula.indice} · {aula.disciplina}
                 </span>
               )}
               <time dateTime={criadaEm}>{formatarData(criadaEm)}</time>

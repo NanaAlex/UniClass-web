@@ -4,19 +4,20 @@ import { useState } from "react";
 import { CabecalhoSecao } from "@/components/layout/CabecalhoSecao";
 import { Abas } from "@/components/ui/Abas";
 import { Aviso } from "@/components/ui/Aviso";
-import { Seletor } from "@/components/ui/Seletor";
+import { ModalConfirmacao, type PedidoConfirmacao } from "@/components/ui/ModalConfirmacao";
 import { useAvisos } from "@/components/ui/ProvedorAvisos";
+import { Seletor } from "@/components/ui/Seletor";
 import {
   MAXIMO_AULAS_BLOCO,
   adicionarBloco,
   alternarDia,
-  aulasPorBlocoDoCurso,
-  definirAulasPorBlocoDoCurso,
+  cargasIncompativeis,
+  definirAulasPorBloco,
   editarHorarioBloco,
   fimDoBloco,
   horarioDoBloco,
   paraMinutos,
-  removerBloco,
+  removerUltimoBloco,
   substituirEstrutura,
   sugestaoNovoBloco,
   type HorarioBloco,
@@ -26,7 +27,6 @@ import type { DadosAcademicos, DiaSemana, EstruturaTurno, Turno } from "@/types"
 import { FiltroDias } from "./FiltroDias";
 import { GradeEstruturaTurno } from "./GradeEstruturaTurno";
 import { ModalBloco } from "./ModalBloco";
-import { ModalConfirmacao, type PedidoConfirmacao } from "@/components/ui/ModalConfirmacao";
 import estilos from "./Dados.module.css";
 
 type AbaDiasHorariosProps = {
@@ -39,15 +39,21 @@ const opcoesAulas = Array.from({ length: MAXIMO_AULAS_BLOCO }, (_, i) => ({
   rotulo: i === 0 ? "1 aula" : `${i + 1} aulas`,
 }));
 
-/** RF 7.1–7.3: dias letivos, tamanho dos blocos e blocos de aula de cada turno. */
+/**
+ * RN-09, RN-10, RN-35: K global, dias letivos e quantidade de blocos ordinais de cada turno. O horário de
+ * relógio de cada bloco é pedido só porque o back o exige para gravar (RF 7.3); não identifica o bloco.
+ */
 export function AbaDiasHorarios({ dados, atualizar }: AbaDiasHorariosProps) {
   const { mostrarAviso } = useAvisos();
   const [turno, setTurno] = useState<Turno>("manha");
   const [exclusao, setExclusao] = useState<PedidoConfirmacao | null>(null);
-  // null: modal fechado · indice null: novo bloco · indice: editar o horário desse bloco
+  // null: modal fechado · indice null: novo bloco · indice (1..B): editar o horário desse bloco
   const [edicao, setEdicao] = useState<{ indice: number | null } | null>(null);
   const estrutura = dados.estruturas.find((e) => e.turno === turno);
-  const estruturasComUso = dados.estruturas.filter((e) => e.blocos.some((b) => b.emUso));
+  const incompativeis = cargasIncompativeis(dados);
+  const K = dados.aulasPorBloco;
+  // Blocos com respostas de professores ou aulas no horário (vem do back)
+  const estruturasComUso = dados.estruturas.filter((e) => (e.blocosEmUso?.length ?? 0) > 0);
   const blocoEmUso = estruturasComUso.length > 0;
   const emUsoNoTurno = estruturasComUso.some((e) => e.turno === turno);
   const turnosComUso = estruturasComUso.map((e) => rotulosTurno[e.turno].toLowerCase()).join(" e da ");
@@ -68,44 +74,43 @@ export function AbaDiasHorarios({ dados, atualizar }: AbaDiasHorariosProps) {
     });
   }
 
-  function excluirBloco(indice: number) {
+  function excluirUltimoBloco() {
+    if (!estrutura) return;
     setExclusao({
-      titulo: `Remover o bloco ${indice + 1}?`,
-      descricao: `As aulas dele saem do turno da ${rotulosTurno[turno].toLowerCase()} e as seguintes são renumeradas.`,
+      titulo: `Remover o Bloco ${estrutura.blocos}?`,
+      descricao: `O turno da ${rotulosTurno[turno].toLowerCase()} passa a ter ${estrutura.blocos - 1} ${estrutura.blocos - 1 === 1 ? "bloco" : "blocos"} por dia.`,
       rotuloAcao: "Remover bloco",
       aoConfirmar: () => {
-        alterar((e) => removerBloco(e, indice));
-        mostrarAviso({ tipo: "sucesso", titulo: `Bloco ${indice + 1} removido` });
+        alterar(removerUltimoBloco);
+        mostrarAviso({ tipo: "sucesso", titulo: `Bloco ${estrutura.blocos} removido` });
       },
     });
   }
 
-  // RF 7.3: o horário vem do modal (o back exige início e fim de cada aula)
+  // RF 7.3: o horário vem do modal (o back exige início e duração das aulas de cada bloco)
   function salvarHorario(horario: HorarioBloco) {
     const indice = edicao?.indice ?? null;
     if (indice === null) {
-      // Um turno sem blocos nasce com o tamanho dos outros turnos
-      alterar((e) => adicionarBloco(e, horario, aulasPorBlocoDoCurso(dados)));
-      mostrarAviso({ tipo: "sucesso", titulo: "Bloco adicionado", descricao: "Ele começa depois de um intervalo." });
+      alterar((e) => adicionarBloco(e, horario));
+      mostrarAviso({ tipo: "sucesso", titulo: "Bloco adicionado", descricao: `Ele reúne ${K} aulas seguidas.` });
     } else {
       alterar((e) => editarHorarioBloco(e, indice, horario));
-      mostrarAviso({ tipo: "sucesso", titulo: `Horário do bloco ${indice + 1} alterado` });
+      mostrarAviso({ tipo: "sucesso", titulo: `Horário do Bloco ${indice} alterado` });
     }
     setEdicao(null);
   }
 
-  // Limites do bloco no modal: depois do anterior (intervalo) e antes do seguinte
-  const indiceModal = edicao?.indice ?? estrutura?.blocos.length ?? 0;
-  const anterior = estrutura?.blocos[indiceModal - 1];
-  const seguinte = edicao?.indice === null ? undefined : estrutura?.blocos[indiceModal + 1];
-  const blocoEditado = edicao?.indice === null || !edicao ? undefined : estrutura?.blocos[edicao.indice];
+  // Limites do bloco no modal: depois do fim do anterior (intervalo) e antes do início do seguinte
+  const editando = edicao?.indice ?? null;
+  const indiceModal = editando ?? (estrutura?.blocos ?? 0) + 1;
+  const horarioSeguinte = estrutura && editando !== null ? horarioDoBloco(estrutura, indiceModal + 1) : null;
 
   return (
     <section className={estilos.cartaoSecao} aria-labelledby="titulo-dias-horarios">
       <CabecalhoSecao
         id="titulo-dias-horarios"
-        titulo="Dias e horários das aulas"
-        descricao="Defina, para cada turno, os dias letivos e como as aulas se agrupam em blocos. Entre um bloco e outro há um intervalo."
+        titulo="Dias e blocos das aulas"
+        descricao="As aulas se agrupam em blocos de K aulas seguidas, iguais em todos os turnos e dias. Cada turno define os dias letivos e quantos blocos tem por dia. Os blocos são identificados pela ordem; o horário de cada um é registrado só para o cadastro e não entra na geração."
         acoes={
           <Abas
             variante="pilula"
@@ -117,47 +122,57 @@ export function AbaDiasHorarios({ dados, atualizar }: AbaDiasHorariosProps) {
         }
       />
 
+      <div className={estilos.controles}>
+        <Seletor
+          rotulo="Aulas por bloco (K)"
+          dica="Vale para todos os turnos e dias."
+          className={estilos.seletorCurto}
+          opcoes={opcoesAulas}
+          value={String(K)}
+          // Mudar K muda o tamanho de todos os blocos, de todos os turnos: um em uso trava o seletor
+          disabled={blocoEmUso}
+          title={blocoEmUso ? "Fixo: há blocos em uso" : undefined}
+          onChange={(evento) => atualizar((atuais) => definirAulasPorBloco(atuais, Number(evento.target.value)))}
+        />
+        {estrutura && <FiltroDias dias={estrutura.dias} diasEmUso={estrutura.diasEmUso} aoAlternar={alternar} />}
+      </div>
+
+      {incompativeis.length > 0 && (
+        <Aviso
+          tipo="aviso"
+          embutido
+          titulo={`Com ${K} aulas por bloco, ${incompativeis.length === 1 ? "1 disciplina fica" : `${incompativeis.length} disciplinas ficam`} com carga incompatível`}
+          descricao={`A carga semanal precisa ser múltipla de ${K}: ${incompativeis.map((d) => `${d.nome} (${d.aulasPorSemana})`).join(", ")}. Ajuste na aba Disciplinas antes de salvar.`}
+        />
+      )}
+
+      {blocoEmUso && (
+        <Aviso
+          tipo="info"
+          embutido
+          {...(emUsoNoTurno
+            ? { titulo: "Este turno tem blocos em uso", descricao: "Eles e os anteriores não podem ser removidos." }
+            : { titulo: "Tamanho dos blocos fixo", descricao: `Há blocos em uso no turno da ${turnosComUso}.` })}
+        />
+      )}
+
       {estrutura && (
-        <>
-          <div className={estilos.controles}>
-            <FiltroDias dias={estrutura.dias} diasEmUso={estrutura.diasEmUso} aoAlternar={alternar} />
-            <Seletor
-              rotulo="Aulas por bloco"
-              className={estilos.seletorCurto}
-              opcoes={opcoesAulas}
-              // Tamanho único: o escalonador usa a mesma quantidade em todos os turnos
-              value={String(aulasPorBlocoDoCurso(dados))}
-              // Mudar o tamanho recria todos os blocos, de todos os turnos: um em uso trava o seletor
-              disabled={blocoEmUso}
-              title={blocoEmUso ? "Fixo: há blocos em uso" : undefined}
-              onChange={(evento) => atualizar((atuais) => definirAulasPorBlocoDoCurso(atuais, Number(evento.target.value)))}
-            />
-          </div>
-          {blocoEmUso && (
-            <Aviso
-              tipo="info"
-              embutido
-              {...(emUsoNoTurno
-                ? { titulo: "Este turno tem blocos em uso", descricao: "Eles e os anteriores não podem ser removidos." }
-                : { titulo: "Tamanho dos blocos fixo", descricao: `Há blocos em uso no turno da ${turnosComUso}.` })}
-            />
-          )}
-          <GradeEstruturaTurno
-            estrutura={estrutura}
-            aoRemoverBloco={excluirBloco}
-            aoEditarBloco={(indice) => setEdicao({ indice })}
-            aoAdicionarBloco={() => setEdicao({ indice: null })}
-          />
-        </>
+        <GradeEstruturaTurno
+          estrutura={estrutura}
+          aulasPorBloco={K}
+          aoRemoverUltimoBloco={excluirUltimoBloco}
+          aoEditarBloco={(indice) => setEdicao({ indice })}
+          aoAdicionarBloco={() => setEdicao({ indice: null })}
+        />
       )}
       {edicao && estrutura && (
         <ModalBloco
-          titulo={blocoEditado ? `Horário do bloco ${indiceModal + 1}` : "Novo bloco"}
-          rotuloAcao={blocoEditado ? "Salvar horário" : "Adicionar bloco"}
-          qtdAulas={aulasPorBlocoDoCurso(dados)}
-          inicial={(blocoEditado && horarioDoBloco(blocoEditado)) || sugestaoNovoBloco(estrutura)}
-          depoisDe={anterior ? fimDoBloco(anterior) : null}
-          antesDe={seguinte?.aulas[0]?.inicio ? paraMinutos(seguinte.aulas[0].inicio) : null}
+          titulo={editando !== null ? `Horário do Bloco ${editando}` : "Novo bloco"}
+          rotuloAcao={editando !== null ? "Salvar horário" : "Adicionar bloco"}
+          qtdAulas={K}
+          inicial={(editando !== null && horarioDoBloco(estrutura, editando)) || sugestaoNovoBloco(estrutura, K)}
+          depoisDe={indiceModal > 1 ? fimDoBloco(estrutura, indiceModal - 1, K) : null}
+          antesDe={horarioSeguinte ? paraMinutos(horarioSeguinte.horaInicio) : null}
           aoFechar={() => setEdicao(null)}
           aoSalvar={salvarHorario}
         />

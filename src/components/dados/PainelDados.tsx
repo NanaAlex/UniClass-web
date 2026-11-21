@@ -7,7 +7,7 @@ import { Botao } from "@/components/ui/Botao";
 import { ErroCarregamento } from "@/components/ui/ErroCarregamento";
 import { ModalConfirmacao, type PedidoConfirmacao } from "@/components/ui/ModalConfirmacao";
 import { useAvisos } from "@/components/ui/ProvedorAvisos";
-import type { AbaDados } from "@/lib/dadosAcademicos";
+import { cargasIncompativeis, type AbaDados } from "@/lib/dadosAcademicos";
 import { AbaDiasHorarios } from "./AbaDiasHorarios";
 import { AbaDisciplinas } from "./AbaDisciplinas";
 import { AbaSemestres } from "./AbaSemestres";
@@ -15,7 +15,7 @@ import { EsqueletoDados } from "./EsqueletoDados";
 import { useDadosAcademicos } from "./useDadosAcademicos";
 import estilos from "./PainelDados.module.css";
 
-/** Aba Dados do administrador (RF 7): dias e horários, semestres e turmas, disciplinas. */
+/** Aba Dados do administrador (RF 7): dias e blocos, semestres e turmas, disciplinas. */
 export function PainelDados({ abaInicial }: { abaInicial: AbaDados }) {
   const { mostrarAviso } = useAvisos();
   const router = useRouter();
@@ -23,6 +23,7 @@ export function PainelDados({ abaInicial }: { abaInicial: AbaDados }) {
   const [aba, setAba] = useState<AbaDados>(abaInicial);
   const [verResumo, setVerResumo] = useState(false);
   const [saida, setSaida] = useState<PedidoConfirmacao | null>(null);
+  const incompativeis = dados ? cargasIncompativeis(dados) : [];
 
   // Recarregar ou fechar a aba: aviso do próprio navegador
   useEffect(() => {
@@ -90,7 +91,7 @@ export function PainelDados({ abaInicial }: { abaInicial: AbaDados }) {
         valor={aba}
         aoMudar={mudarAba}
         abas={[
-          { valor: "horarios", rotulo: "Dias e horários" },
+          { valor: "horarios", rotulo: "Dias e blocos" },
           { valor: "semestres", rotulo: "Semestres e turmas", contador: dados?.semestres.length },
           { valor: "disciplinas", rotulo: "Disciplinas", contador: dados?.disciplinas.length },
         ]}
@@ -118,7 +119,12 @@ export function PainelDados({ abaInicial }: { abaInicial: AbaDados }) {
         )}
         <div className={estilos.barra}>
           <p className={estilos.situacao} aria-live="polite">
-            {alterado ? (
+            {incompativeis.length > 0 ? (
+              <>
+                <span className={estilos.ponto} aria-hidden="true" />
+                {incompativeis.length === 1 ? "1 disciplina" : `${incompativeis.length} disciplinas`} com carga não múltipla de {dados?.aulasPorBloco}
+              </>
+            ) : alterado ? (
               <>
                 <span className={estilos.ponto} aria-hidden="true" />
                 {mudancas.length === 1 ? "1 alteração não salva" : `${mudancas.length} alterações não salvas`}
@@ -136,7 +142,12 @@ export function PainelDados({ abaInicial }: { abaInicial: AbaDados }) {
               "Tudo salvo"
             )}
           </p>
-          <Botao onClick={aoSalvar} carregando={salvando} disabled={!dados || !alterado}>
+          <Botao
+            onClick={aoSalvar}
+            carregando={salvando}
+            disabled={!dados || !alterado || incompativeis.length > 0}
+            title={incompativeis.length ? "Há disciplinas com carga que não é múltipla das aulas por bloco." : undefined}
+          >
             Salvar dados
           </Botao>
         </div>

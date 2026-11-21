@@ -246,3 +246,48 @@
     margin-left: 0;
   }
 }
+
+.listaPendentes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-1);
+  padding-left: var(--espaco-5);
+  font-size: var(--texto-tamanho-sm);
+}
+
+.historicoExecucoes {
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-medio);
+  background: var(--cor-superficie);
+  list-style: none;
+}
+
+.historicoExecucoes li {
+  display: grid;
+  grid-template-columns: minmax(150px, auto) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--espaco-2) var(--espaco-4);
+  padding: var(--espaco-3) var(--espaco-4);
+  font-size: var(--texto-tamanho-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.historicoExecucoes li + li {
+  border-top: 1px solid var(--cor-borda);
+}
+
+.historicoExecucoes li[aria-current="true"] {
+  background: var(--cor-primaria-suave);
+}
+
+.etiquetasExecucao {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-2);
+}
+
+@container conteudo (max-width: 760px) {
+  .historicoExecucoes li {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

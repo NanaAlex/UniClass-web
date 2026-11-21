@@ -1,13 +1,13 @@
 import type { ReactNode } from "react";
+import { CabecalhoSecao } from "@/components/layout/CabecalhoSecao";
 import { EtapasGeracao } from "./EtapasGeracao";
 import estilos from "./GestaoHorario.module.css";
-import { CabecalhoSecao } from "@/components/layout/CabecalhoSecao";
 
 const descricoes = [
-  "O horário é gerado com as respostas do formulário. Encerre o período de respostas para continuar.",
-  "Respostas encerradas. Gere o horário: o escalonador respeita a disponibilidade e as preferências dos professores.",
-  "Revise a prévia de cada turma, ajuste o que for preciso e oficialize quando estiver pronta.",
-  "O horário oficial está disponível para os professores. Bloqueie o que deve ser mantido antes de gerar uma nova versão.",
+  "A grade é gerada com as respostas do formulário. Lance o formulário para começar.",
+  "Gere a grade: o motor Prolog CLPFD procura, em até 600 segundos, a grade completa de menor custo e tenta comprovar o ótimo.",
+  "Revise o resultado. Trave posições, troque blocos na mesma turma ou fixe professores e gere novamente. Só a grade com ótimo comprovado pode ser publicada.",
+  "A grade publicada está disponível para os professores. Novas gerações não alteram a publicação vigente até você publicar outra.",
 ];
 
 type CartaoGeracaoHorarioProps = {

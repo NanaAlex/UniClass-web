@@ -1,13 +1,15 @@
-import type { BlocoAula, DadosAcademicos, DiaSemana, Disciplina, EstruturaTurno, Turma, Turno } from "@/types";
+import type { DadosAcademicos, DiaSemana, Disciplina, EstruturaTurno, HorarioBloco, Turma, Turno } from "@/types";
+import { rotulosTurno } from "./horario";
+
+export type { HorarioBloco };
 
 // Transformações puras da aba Dados (RF 7). A tela só chama estas funções e guarda o resultado.
 
 export const ordemDias: DiaSemana[] = ["seg", "ter", "qua", "qui", "sex", "sab"];
 export const MAXIMO_SEMESTRES = 8;
 export const MAXIMO_AULAS_BLOCO = 4;
-
-/** Início da primeira aula (HH:MM) e duração de cada aula do bloco, em minutos (RF 7.3). */
-export type HorarioBloco = { horaInicio: string; duracaoAula: number };
+export const MAXIMO_BLOCOS_TURNO = 6;
+export const MAXIMO_AULAS_DISCIPLINA = 12;
 
 export const MINUTOS_NO_DIA = 24 * 60;
 
@@ -21,99 +23,108 @@ export function paraHora(minutos: number) {
   return `${String(Math.floor(minutos / 60)).padStart(2, "0")}:${String(minutos % 60).padStart(2, "0")}`;
 }
 
-/** Horário do bloco pela primeira aula; null se ainda não tem horário. */
-export function horarioDoBloco(bloco: BlocoAula): HorarioBloco | null {
-  const aula = bloco.aulas[0];
-  if (!aula?.inicio || !aula.fim) return null;
-  return { horaInicio: aula.inicio, duracaoAula: paraMinutos(aula.fim) - paraMinutos(aula.inicio) };
+/** RN-09: K é global, igual em todos os turnos e dias. */
+export function definirAulasPorBloco(dados: DadosAcademicos, K: number): DadosAcademicos {
+  return { ...dados, aulasPorBloco: K };
 }
 
-/** Minuto em que o bloco termina (fim da última aula); null se não tem horário. */
-export function fimDoBloco(bloco: BlocoAula) {
-  const fim = bloco.aulas[bloco.aulas.length - 1]?.fim;
-  return fim ? paraMinutos(fim) : null;
-}
-
-/**
- * Posições contínuas no turno (1, 2, 3...) depois de mudar blocos. Com horário, as aulas
- * vêm em sequência a partir do início do bloco (como o back calcula); sem horário, ficam vazias.
- */
-function renumerar(blocos: { quantidade: number; base?: BlocoAula; horario?: HorarioBloco }[]): BlocoAula[] {
-  let posicao = 1;
-  return blocos.map(({ quantidade, base, horario }) => {
-    const usado = horario ?? (base ? horarioDoBloco(base) : null);
-    return {
-      ...(base?.emUso && { emUso: true }), // a marca de uso acompanha o bloco ao renumerar
-      aulas: Array.from({ length: quantidade }, (_, i) => {
-        if (!usado) return { ...base?.aulas[i], posicao: posicao++ };
-        const inicio = paraMinutos(usado.horaInicio) + i * usado.duracaoAula;
-        return { posicao: posicao++, inicio: paraHora(inicio), fim: paraHora(inicio + usado.duracaoAula) };
-      }),
-    };
-  });
-}
-
-export function aulasPorBloco(estrutura: EstruturaTurno) {
-  return estrutura.blocos[0]?.aulas.length ?? 2;
-}
-
-/** RF 7.2: muda o tamanho de todos os blocos do turno. */
-export function definirAulasPorBloco(estrutura: EstruturaTurno, quantidade: number): EstruturaTurno {
-  return { ...estrutura, blocos: renumerar(estrutura.blocos.map((base) => ({ quantidade, base }))) };
-}
-
-/**
- * Tamanho único dos blocos no curso: o escalonador usa a mesma quantidade de aulas por bloco
- * em todos os turnos (o back recusa tamanhos diferentes). Vem do primeiro turno com blocos.
- */
+/** Tamanho único dos blocos no curso (o back recusa tamanhos diferentes): é o K global (RN-09). */
 export function aulasPorBlocoDoCurso(dados: DadosAcademicos) {
-  const comBlocos = dados.estruturas.find((e) => e.blocos.length > 0);
-  return comBlocos ? aulasPorBloco(comBlocos) : 2;
+  return dados.aulasPorBloco;
 }
 
-/** RF 7.2: muda o tamanho dos blocos de todos os turnos (tamanho único). */
-export function definirAulasPorBlocoDoCurso(dados: DadosAcademicos, quantidade: number): DadosAcademicos {
-  return { ...dados, estruturas: dados.estruturas.map((e) => definirAulasPorBloco(e, quantidade)) };
+/**
+ * Horários de relógio alinhados aos índices 1..B (posição i−1 = bloco i). Bloco sem horário fica null:
+ * o horário nunca é inventado, e a gravação no back o exige (services/administrador.ts).
+ */
+function horariosAlinhados(estrutura: EstruturaTurno): (HorarioBloco | null)[] {
+  return Array.from({ length: estrutura.blocos }, (_, i) => estrutura.horarios?.[i] ?? null);
 }
 
-/** RF 7.3: novo bloco no fim, separado do anterior por um intervalo. */
-export function adicionarBloco(estrutura: EstruturaTurno, horario: HorarioBloco, quantidade = aulasPorBloco(estrutura)): EstruturaTurno {
-  const atuais = estrutura.blocos.map((base) => ({ quantidade: base.aulas.length, base }));
-  return { ...estrutura, blocos: renumerar([...atuais, { quantidade, horario }]) };
+/** Horário de relógio do bloco de índice ordinal `indice` (1..B); null se ainda não tem. */
+export function horarioDoBloco(estrutura: EstruturaTurno, indice: number): HorarioBloco | null {
+  return estrutura.horarios?.[indice - 1] ?? null;
 }
 
-/** RF 7.3: muda o início e a duração das aulas de um bloco (a fileira inteira, todos os dias). */
+/** Minuto em que o bloco `indice` termina (fim da K-ésima aula); null se o bloco não tem horário. */
+export function fimDoBloco(estrutura: EstruturaTurno, indice: number, K: number): number | null {
+  const horario = horarioDoBloco(estrutura, indice);
+  return horario ? paraMinutos(horario.horaInicio) + K * horario.duracaoAula : null;
+}
+
+/**
+ * RN-10: blocos ordinais; um novo bloco entra no fim do turno. O horário de relógio acompanha o bloco
+ * só para o cadastro (RF 7.3: o back exige início e duração das aulas); a identidade é o índice (RN-35).
+ */
+export function adicionarBloco(estrutura: EstruturaTurno, horario: HorarioBloco): EstruturaTurno {
+  if (estrutura.blocos >= MAXIMO_BLOCOS_TURNO) return estrutura;
+  return { ...estrutura, blocos: estrutura.blocos + 1, horarios: [...horariosAlinhados(estrutura), horario] };
+}
+
+/** RF 7.3: muda o início e a duração das aulas do bloco `indice` (a fileira inteira, todos os dias); o índice não muda. */
 export function editarHorarioBloco(estrutura: EstruturaTurno, indice: number, horario: HorarioBloco): EstruturaTurno {
-  return {
-    ...estrutura,
-    blocos: renumerar(
-      estrutura.blocos.map((base, i) => ({ quantidade: base.aulas.length, base, horario: i === indice ? horario : undefined })),
-    ),
-  };
+  const horarios = horariosAlinhados(estrutura);
+  horarios[indice - 1] = horario;
+  return { ...estrutura, horarios };
 }
 
 const INICIO_SUGERIDO: Record<Turno, string> = { manha: "07:30", tarde: "13:30", noite: "19:00" };
 const INTERVALO_SUGERIDO = 20;
 
-/** Sugestão para o novo bloco: 20 min depois do anterior, com a mesma duração das aulas. */
-export function sugestaoNovoBloco(estrutura: EstruturaTurno): HorarioBloco {
-  const ultimo = estrutura.blocos[estrutura.blocos.length - 1];
-  const fim = ultimo ? fimDoBloco(ultimo) : null;
+/** Sugestão para o novo bloco: 20 min depois do último, com a mesma duração das aulas. */
+export function sugestaoNovoBloco(estrutura: EstruturaTurno, K: number): HorarioBloco {
+  const fim = estrutura.blocos > 0 ? fimDoBloco(estrutura, estrutura.blocos, K) : null;
+  const ultimo = estrutura.blocos > 0 ? horarioDoBloco(estrutura, estrutura.blocos) : null;
   return {
     horaInicio: fim === null ? INICIO_SUGERIDO[estrutura.turno] : paraHora(Math.min(fim + INTERVALO_SUGERIDO, MINUTOS_NO_DIA - 1)),
-    duracaoAula: (ultimo && horarioDoBloco(ultimo)?.duracaoAula) || 50,
+    duracaoAula: ultimo?.duracaoAula || 50,
   };
 }
 
-export function removerBloco(estrutura: EstruturaTurno, indice: number): EstruturaTurno {
-  const restantes = estrutura.blocos.filter((_, i) => i !== indice);
-  return { ...estrutura, blocos: renumerar(restantes.map((base) => ({ quantidade: base.aulas.length, base }))) };
+/** Remove o último bloco: os índices restantes continuam 1..B. */
+export function removerUltimoBloco(estrutura: EstruturaTurno): EstruturaTurno {
+  const blocos = Math.max(0, estrutura.blocos - 1);
+  return { ...estrutura, blocos, horarios: estrutura.horarios?.slice(0, blocos) };
 }
 
 /** RF 7.1: dias sempre na ordem da semana. */
 export function alternarDia(estrutura: EstruturaTurno, dia: DiaSemana, incluir: boolean): EstruturaTurno {
   const dias = incluir ? [...estrutura.dias, dia] : estrutura.dias.filter((d) => d !== dia);
   return { ...estrutura, dias: ordemDias.filter((d) => dias.includes(d)) };
+}
+
+/** RN-13, CA-16: cargas possíveis são múltiplos de K. */
+export function opcoesCarga(K: number) {
+  return Array.from({ length: Math.floor(MAXIMO_AULAS_DISCIPLINA / K) }, (_, i) => (i + 1) * K);
+}
+
+/** Disciplinas cuja carga não é múltipla de K: impedem salvar (a geração as rejeitaria na pré-validação). */
+export function cargasIncompativeis(dados: DadosAcademicos) {
+  return dados.disciplinas.filter((d) => d.aulasPorSemana % dados.aulasPorBloco !== 0);
+}
+
+const assinaturaTurma = (t: Turma) => `${t.id}|${t.semestre}|${t.turno}`;
+const assinaturaDisciplina = (d: Disciplina) => `${d.id}|${d.semestre}|${d.aulasPorSemana}`;
+
+/**
+ * RN-38: o que muda a estrutura da edição do formulário (K, dias, blocos, turmas, disciplinas e
+ * cargas). Nome e cor não são estruturais.
+ */
+export function alteracoesEstruturais(antes: DadosAcademicos, depois: DadosAcademicos): string[] {
+  const mudancas: string[] = [];
+  if (antes.aulasPorBloco !== depois.aulasPorBloco) mudancas.push(`Aulas por bloco: ${antes.aulasPorBloco} → ${depois.aulasPorBloco}`);
+  for (const e of depois.estruturas) {
+    const a = antes.estruturas.find((x) => x.turno === e.turno);
+    if (!a || a.dias.join() !== e.dias.join()) mudancas.push(`Dias letivos da ${rotulosTurno[e.turno].toLowerCase()}`);
+    if (!a || a.blocos !== e.blocos) mudancas.push(`Blocos da ${rotulosTurno[e.turno].toLowerCase()}: ${a?.blocos ?? 0} → ${e.blocos}`);
+  }
+  const turmasAntes = new Set(antes.turmas.map(assinaturaTurma));
+  const turmasDepois = new Set(depois.turmas.map(assinaturaTurma));
+  if (turmasAntes.size !== turmasDepois.size || Array.from(turmasDepois).some((t) => !turmasAntes.has(t))) mudancas.push("Turmas");
+  const discAntes = new Set(antes.disciplinas.map(assinaturaDisciplina));
+  const discDepois = new Set(depois.disciplinas.map(assinaturaDisciplina));
+  if (discAntes.size !== discDepois.size || Array.from(discDepois).some((d) => !discAntes.has(d))) mudancas.push("Disciplinas ou cargas");
+  return mudancas;
 }
 
 export function substituirEstrutura(dados: DadosAcademicos, nova: EstruturaTurno): DadosAcademicos {

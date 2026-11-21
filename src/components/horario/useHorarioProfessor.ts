@@ -1,16 +1,18 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { listarMinhasEstruturas, listarMinhasSolicitacoesHorario, obterMeuHorario } from "@/services/professor";
+import { criarNomes, type Nomes } from "@/lib/gestaoHorario";
+import { listarMinhasSolicitacoesHorario, obterMeuHorario } from "@/services/professor";
 import type { EstruturaTurno, HorarioProfessor, Solicitacao } from "@/types";
 
 type Dados = {
   horario: HorarioProfessor;
   estruturas: EstruturaTurno[];
+  nomes: Nomes;
   solicitacoes: Solicitacao[];
 };
 
-/** Carrega o horário do professor, a estrutura dos turnos e os pedidos de alteração de horário (do back). */
+/** Horário do professor por blocos, a estrutura dos turnos e os pedidos de alteração de horário (do back). */
 export function useHorarioProfessor(professorId: string) {
   const [dados, setDados] = useState<Dados | null>(null);
   const [falhou, setFalhou] = useState(false);
@@ -19,13 +21,11 @@ export function useHorarioProfessor(professorId: string) {
     setFalhou(false);
     setDados(null);
     try {
-      // O back identifica o professor pelo token; o professorId só preenche as solicitações
-      const [horario, estruturas, solicitacoes] = await Promise.all([
-        obterMeuHorario(),
-        listarMinhasEstruturas(),
-        listarMinhasSolicitacoesHorario(professorId),
-      ]);
-      setDados({ horario, estruturas, solicitacoes });
+      // O back identifica o professor pelo token; o professorId só preenche o responsável e as solicitações
+      const meu = await obterMeuHorario(professorId);
+      // Os pedidos citam aulas; o bloco de cada aula vem do horário carregado
+      const solicitacoes = await listarMinhasSolicitacoesHorario(professorId, meu.blocoDaAula);
+      setDados({ horario: meu.horario, estruturas: meu.estruturas, nomes: criarNomes(meu.disciplinas, [], meu.turmas), solicitacoes });
     } catch {
       setFalhou(true);
     }

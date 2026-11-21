@@ -1,45 +1,57 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import { listarTurmas } from "@/services/academico";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { criarNomes, type Nomes } from "@/lib/gestaoHorario";
+import { listarDisciplinas, listarTurmas } from "@/services/academico";
 import { encerrarFormulario, obterFormularioAtual } from "@/services/formularios";
 import {
-  alterarBloqueioGrade,
-  alterarVisibilidadeHorario,
   gerarHorario,
-  listarGrades,
-  oficializarHorario,
+  listarExecucoes,
+  listarTravas,
+  obterContextoGeracao,
+  publicarExecucao,
+  type ContextoGeracao,
 } from "@/services/horarios";
 import { listarProfessores } from "@/services/professores";
 import { listarSolicitacoes } from "@/services/solicitacoes";
-import type { Formulario, Grade, ProfessorComSituacao, Solicitacao, Turma } from "@/types";
+import type { Execucao, Formulario, Solicitacao, Trava, Turma } from "@/types";
 
 export type DadosHorarios = {
-  grades: Grade[];
-  turmas: Turma[];
   formulario: Formulario;
-  professores: ProfessorComSituacao[];
+  contexto: ContextoGeracao;
+  execucoes: Execucao[];
+  travas: Trava[];
+  turmas: Turma[];
+  nomes: Nomes;
   /** Pedidos de alteração de horário (RF 3.4, RF 4.4). */
   solicitacoes: Solicitacao[];
 };
 
-/** Tudo o que a aba Horários precisa: grades (com histórico), turmas, formulário e pendências. */
-export function useGestaoHorario() {
+const INTERVALO_ACOMPANHAMENTO_MS = 1500;
+
+/** Tudo o que a aba Horários precisa. Enquanto houver execução em processamento, acompanha o status. */
+export function useGestaoHorario(aoConcluirExecucao: (execucao: Execucao) => void) {
   const [dados, setDados] = useState<DadosHorarios | null>(null);
   const [falhou, setFalhou] = useState(false);
+  const aoConcluir = useRef(aoConcluirExecucao);
+  aoConcluir.current = aoConcluirExecucao;
 
   const carregar = useCallback(async () => {
     setFalhou(false);
     setDados(null);
     try {
-      const [grades, turmas, formulario, professores, solicitacoes] = await Promise.all([
-        listarGrades(),
-        listarTurmas(),
+      const [formulario, contexto, execucoes, travas, turmas, disciplinas, professores, solicitacoes] = await Promise.all([
         obterFormularioAtual(),
+        obterContextoGeracao(),
+        listarExecucoes(),
+        listarTravas(),
+        listarTurmas(),
+        listarDisciplinas(),
         listarProfessores(),
         listarSolicitacoes({ tipo: "horario" }),
       ]);
-      setDados({ grades, turmas, formulario, professores, solicitacoes });
+      const nomes = criarNomes(disciplinas, professores, turmas);
+      setDados({ formulario, contexto, execucoes, travas, turmas, nomes, solicitacoes });
     } catch {
       setFalhou(true);
     }
@@ -49,31 +61,36 @@ export function useGestaoHorario() {
     carregar();
   }, [carregar]);
 
-  const atualizar = (parcial: Partial<DadosHorarios>) => setDados((atual) => (atual ? { ...atual, ...parcial } : atual));
+  const emProcessamento = dados?.execucoes.find((e) => e.status === "EM_PROCESSAMENTO")?.id;
 
-  async function gerar() {
-    const resultado = await gerarHorario();
-    atualizar({ grades: resultado.grades });
-    return resultado.turmasAfetadas;
+  useEffect(() => {
+    if (!emProcessamento) return;
+    const timer = setInterval(async () => {
+      const execucoes = await listarExecucoes();
+      setDados((atual) => atual && { ...atual, execucoes });
+      const concluida = execucoes.find((e) => e.id === emProcessamento);
+      if (concluida && concluida.status !== "EM_PROCESSAMENTO") aoConcluir.current(concluida);
+    }, INTERVALO_ACOMPANHAMENTO_MS);
+    return () => clearInterval(timer);
+  }, [emProcessamento]);
+
+  async function gerar(confirmarGeracaoAntecipada: boolean) {
+    const nova = await gerarHorario({ confirmarGeracaoAntecipada });
+    setDados((atual) => atual && { ...atual, execucoes: [nova, ...atual.execucoes] });
+    return nova;
   }
 
-  async function oficializar() {
-    atualizar({ grades: await oficializarHorario() });
-  }
-
-  async function alterarVisibilidade(visivel: boolean) {
-    atualizar({ grades: await alterarVisibilidadeHorario(visivel) });
-  }
-
-  async function alternarBloqueioTurma(grade: Grade) {
-    const atualizada = await alterarBloqueioGrade(grade.id, !grade.bloqueada);
-    setDados((atual) => atual && { ...atual, grades: atual.grades.map((g) => (g.id === atualizada.id ? atualizada : g)) });
-    return atualizada;
+  async function publicar(id: string) {
+    const publicada = await publicarExecucao(id);
+    setDados((atual) => atual && { ...atual, execucoes: atual.execucoes.map((e) => (e.id === id ? publicada : e)) });
   }
 
   async function encerrar() {
-    if (dados) atualizar({ formulario: await encerrarFormulario(dados.formulario.id) });
+    if (!dados) return;
+    const formulario = await encerrarFormulario(dados.formulario.id);
+    const contexto = await obterContextoGeracao();
+    setDados((atual) => atual && { ...atual, formulario, contexto });
   }
 
-  return { dados, falhou, recarregar: carregar, gerar, oficializar, alterarVisibilidade, alternarBloqueioTurma, encerrar };
+  return { dados, falhou, recarregar: carregar, gerar, publicar, encerrar };
 }

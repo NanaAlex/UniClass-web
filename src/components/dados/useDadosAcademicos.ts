@@ -36,6 +36,7 @@ export function useDadosAcademicos() {
   // Desfazer uma edição tira ela do resumo: "alterado" vem da comparação, não do clique
   const mudancas = useMemo(() => (salvos && dados ? resumirMudancas(salvos, dados) : []), [salvos, dados]);
 
+  /** Grava pela API (PUT /admin/dados) e passa a mostrar o que o back devolveu como gravado. */
   async function salvar() {
     if (!dados) return;
     setSalvando(true);

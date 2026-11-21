@@ -41,8 +41,8 @@ export function VisualizacaoResposta({ formulario, resposta, disciplinas, encerr
         descricao={descricaoAviso(perfil, encerrado, resposta.edicaoLiberada)}
       />
 
-      <Cartao titulo="Disponibilidade" descricao={ehAdmin ? "Dias e horários em que o professor pode dar aula." : "Dias e horários em que você pode dar aula."}>
-        <GradeDisponibilidade estruturas={formulario.estruturas} valor={resposta.disponibilidade} aoMudar={nada} desabilitada />
+      <Cartao titulo="Disponibilidade" descricao={ehAdmin ? "Blocos em que o professor pode dar aula; os demais ficam proibidos." : "Blocos em que você pode dar aula; os demais ficam proibidos."}>
+        <GradeDisponibilidade estruturas={formulario.estruturas} aulasPorBloco={formulario.aulasPorBloco} valor={resposta.disponibilidade} aoMudar={nada} desabilitada />
       </Cartao>
 
       <Cartao titulo="Prioridade por período" descricao="1 é a menor preferência e 5 a maior.">

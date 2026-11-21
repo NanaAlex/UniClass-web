@@ -1,9 +1,10 @@
 import type {
-  BlocoAula,
   DadosAcademicos,
   DiaSemana,
   Disciplina,
+  EstruturaTurno,
   Formulario,
+  HorarioBloco,
   ProfessorComSituacao,
   Turno,
 } from "@/types";
@@ -92,30 +93,37 @@ type ProfessorVinculadoApi = { id: number; email: string; ativo: boolean };
 
 /*
    Aba Dados: back -> front
-   A posição da aula é contínua no turno (1, 2, 3...), como a tela
-   usa; no back cada bloco numera as suas aulas a partir de 1.
+   Cada bloco do back (ordem 1, 2, 3...) é um bloco ordinal da tela;
+   K é o qtdAulas, único em todos os turnos (o back recusa tamanhos
+   diferentes). O horário de relógio do bloco (início da 1ª aula e
+   duração das aulas) fica guardado só para regravar: o back o exige.
 */
 const horaCurta = (hora: string) => hora.slice(0, 5); // TIME do MySQL: "07:30:00"
 
+function horarioDoBack(bloco: DadosApi["turnos"][number]["blocos"][number]): HorarioBloco | null {
+  const aula = [...bloco.aulas].sort((a, b) => a.aula - b.aula)[0];
+  if (!aula?.inicio || !aula.fim) return null;
+  return { horaInicio: horaCurta(aula.inicio), duracaoAula: minutos(horaCurta(aula.fim)) - minutos(horaCurta(aula.inicio)) };
+}
+
 function converterDados(dados: DadosApi): DadosAcademicos {
   const porTurno = new Map(dados.turnos.map((t) => [TURNOS[t.turno], t]));
+  // Sem nenhum bloco cadastrado, o tamanho padrão é 2 (o mesmo que a tela já usava)
+  const comBlocos = dados.turnos.find((t) => t.blocos.length > 0);
 
   return {
+    aulasPorBloco: comBlocos ? comBlocos.blocos[0].qtdAulas : 2,
     estruturas: (["manha", "tarde", "noite"] as Turno[]).map((turno) => {
       const doBack = porTurno.get(turno);
-      let posicao = 1;
+      const blocos = [...(doBack?.blocos ?? [])].sort((a, b) => a.ordem - b.ordem);
       return {
         turno,
         dias: (doBack?.dias ?? []).map((dia) => DIAS[dia.diaSemana]),
         diasEmUso: (doBack?.dias ?? []).filter((dia) => dia.emUso).map((dia) => DIAS[dia.diaSemana]),
-        blocos: (doBack?.blocos ?? []).map((bloco) => ({
-          emUso: bloco.emUso,
-          aulas: bloco.aulas.map((aula) => ({
-            posicao: posicao++,
-            inicio: horaCurta(aula.inicio),
-            fim: horaCurta(aula.fim),
-          })),
-        })),
+        blocos: blocos.length,
+        horarios: blocos.map(horarioDoBack),
+        // Marca de uso de cada bloco, pelo índice ordinal (a ordem do back é o índice 1..B)
+        blocosEmUso: blocos.filter((bloco) => bloco.emUso).map((bloco) => bloco.ordem),
       };
     }),
     semestres: dados.semestres.map((semestre) => ({
@@ -158,18 +166,15 @@ function minutos(hora: string) {
   return h * 60 + m;
 }
 
-function converterBlocos(blocos: BlocoAula[], turno: Turno) {
-  return blocos.map((bloco, i) => {
-    const aula = bloco.aulas[0];
-    // Antes de ir ao servidor: o back exige o horário de cada aula
-    if (!aula?.inicio || !aula.fim)
+function converterBlocos(estrutura: EstruturaTurno) {
+  return Array.from({ length: estrutura.blocos }, (_, i) => {
+    const horario = estrutura.horarios?.[i];
+    // Antes de ir ao servidor: o back exige o horário de cada bloco
+    if (!horario)
       throw new Error(
-        `Informe o horário do bloco ${i + 1} do turno da ${turno === "manha" ? "manhã" : turno}.`,
+        `Informe o horário do bloco ${i + 1} do turno da ${estrutura.turno === "manha" ? "manhã" : estrutura.turno}.`,
       );
-    return {
-      horaInicio: aula.inicio,
-      duracaoAula: minutos(aula.fim) - minutos(aula.inicio),
-    };
+    return { horaInicio: horario.horaInicio, duracaoAula: horario.duracaoAula };
   });
 }
 
@@ -185,8 +190,9 @@ function paraOBack(dados: DadosAcademicos) {
     turnos: dados.estruturas.map((estrutura) => ({
       turno: TURNOS_API[estrutura.turno],
       dias: estrutura.dias.map((dia) => DIAS_API[dia]),
-      qtdAulas: estrutura.blocos[0]?.aulas.length ?? 0,
-      blocos: converterBlocos(estrutura.blocos, estrutura.turno),
+      // K global (RN-09): o mesmo em todo turno que tem blocos
+      qtdAulas: estrutura.blocos > 0 ? dados.aulasPorBloco : 0,
+      blocos: converterBlocos(estrutura),
     })),
     semestres: [...dados.semestres]
       .sort((a, b) => a.numero - b.numero)
@@ -204,7 +210,8 @@ function paraOBack(dados: DadosAcademicos) {
       id: idDoBanco(disciplina.id),
       nome: disciplina.nome,
       qtdAulasSemana: disciplina.aulasPorSemana,
-      qtdProfessores: disciplina.quantidadeProfessores,
+      // RN-19: um único responsável; a disciplina criada na tela já vem com 1
+      qtdProfessores: disciplina.quantidadeProfessores ?? 1,
       numeroSemestre: disciplina.semestre,
     })),
   };
@@ -278,7 +285,10 @@ function converterFormulario(formulario: FormularioApi): Formulario {
         : "aberto",
     inicio: deBrasilia(formulario.inicio),
     fim: deBrasilia(formulario.fim),
-    // Usados só na tela do professor
+    // Edição = id do formulário no back, a mesma convenção do snapshot da geração (form_version = id_formulario)
+    edicao: formulario.id,
+    // Usados só na tela do professor (a rota da lista não devolve K, dias nem blocos)
+    aulasPorBloco: 0,
     estruturas: [],
     disciplinaIds: [],
   };

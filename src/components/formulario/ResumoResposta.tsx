@@ -1,14 +1,14 @@
 import { rotulosTurno } from "@/lib/horario";
-import type { ChaveHorario, EstruturaTurno, InteresseDisciplina } from "@/types";
+import type { ChaveBloco, EstruturaTurno, InteresseDisciplina } from "@/types";
 import estilos from "./ResumoResposta.module.css";
 
 type ResumoRespostaProps = {
   estruturas: EstruturaTurno[];
-  disponibilidade: ChaveHorario[];
+  disponibilidade: ChaveBloco[];
   interesses: InteresseDisciplina[];
 };
 
-/** Conferência antes do envio: horários por turno e matérias escolhidas. */
+/** Conferência antes do envio: blocos por turno e matérias escolhidas. */
 export function ResumoResposta({ estruturas, disponibilidade, interesses }: ResumoRespostaProps) {
   const muitoInteresse = interesses.filter((i) => i.nivel >= 4).length;
 
@@ -20,7 +20,7 @@ export function ResumoResposta({ estruturas, disponibilidade, interesses }: Resu
           <div key={turno} className={estilos.item}>
             <dt>{rotulosTurno[turno]}</dt>
             <dd>
-              <strong>{total}</strong> {total === 1 ? "horário" : "horários"}
+              <strong>{total}</strong> {total === 1 ? "bloco" : "blocos"}
             </dd>
           </div>
         );

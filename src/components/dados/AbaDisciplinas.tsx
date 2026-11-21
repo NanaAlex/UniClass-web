@@ -65,7 +65,7 @@ export function AbaDisciplinas({ dados, atualizar }: AbaDisciplinasProps) {
           descricao="Toda disciplina pertence a um semestre. Crie os semestres na aba Semestres e turmas."
         />
       ) : (
-        <FormularioDisciplina semestres={dados.semestres} disciplinas={dados.disciplinas} aoCriar={criar} />
+        <FormularioDisciplina semestres={dados.semestres} disciplinas={dados.disciplinas} aulasPorBloco={dados.aulasPorBloco} aoCriar={criar} />
       )}
 
       <div className={estilos.cabecalhoSecao}>
@@ -76,7 +76,7 @@ export function AbaDisciplinas({ dados, atualizar }: AbaDisciplinasProps) {
       </div>
 
       {visiveis.length > 0 ? (
-        <TabelaDisciplinas disciplinas={visiveis} aoRemover={pedirExclusao} />
+        <TabelaDisciplinas disciplinas={visiveis} aulasPorBloco={dados.aulasPorBloco} aoRemover={pedirExclusao} />
       ) : (
         <EstadoVazio
           titulo={filtro.length ? "Nenhuma disciplina nesse filtro" : "Nenhuma disciplina cadastrada"}

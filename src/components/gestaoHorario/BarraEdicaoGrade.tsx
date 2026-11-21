@@ -1,35 +1,54 @@
 import { Botao } from "@/components/ui/Botao";
+import { descreverAcao, type Nomes } from "@/lib/gestaoHorario";
+import type { AcaoPendente } from "./useEdicaoExecucao";
 import estilos from "./GradeTurma.module.css";
 
 type BarraEdicaoGradeProps = {
-  alteracoes: number;
-  salvando: boolean;
+  instrucao: string;
+  pendentes: AcaoPendente[];
+  nomes: Nomes;
+  registrando: boolean;
+  /** Ações extras da visão (ex.: fixar disciplina com professor). */
+  extras?: React.ReactNode;
+  aoDesfazerUltima: () => void;
   aoDescartar: () => void;
-  aoSalvar: () => void;
+  aoRegistrar: () => void;
 };
 
-/** Fixa no topo durante a edição: como editar, quantas mudanças e as ações. */
-export function BarraEdicaoGrade({ alteracoes, salvando, aoDescartar, aoSalvar }: BarraEdicaoGradeProps) {
+/** Fixa no topo durante a edição: como editar, as ações acumuladas e o registro das travas. */
+export function BarraEdicaoGrade({ instrucao, pendentes, nomes, registrando, extras, aoDesfazerUltima, aoDescartar, aoRegistrar }: BarraEdicaoGradeProps) {
+  const travas = pendentes.reduce((soma, p) => soma + p.travas.length, 0);
+
   return (
-    <div className={estilos.barraEdicao} role="region" aria-label="Edição do horário">
+    <div className={estilos.barraEdicao} role="region" aria-label="Edição da grade">
       <div className={estilos.textos}>
-        <p className={estilos.tituloBarra}>Editando o horário</p>
-        <p className={estilos.instrucao}>
-          Clique numa aula e depois no horário de destino para mover ou trocar. Use o cadeado para manter a aula na
-          próxima geração.
-        </p>
+        <p className={estilos.tituloBarra}>Editando sobre esta grade validada</p>
+        <p className={estilos.instrucao}>{instrucao}</p>
       </div>
       <p className={estilos.contador} aria-live="polite">
-        {alteracoes === 0 ? "Nenhuma alteração" : alteracoes === 1 ? "1 aula alterada" : `${alteracoes} aulas alteradas`}
+        {pendentes.length === 0
+          ? "Nenhuma ação"
+          : `${pendentes.length === 1 ? "1 ação" : `${pendentes.length} ações`} · ${travas === 1 ? "1 trava" : `${travas} travas`}`}
       </p>
       <div className={estilos.acoes}>
-        <Botao variante="secundario" onClick={aoDescartar} disabled={salvando}>
-          {alteracoes === 0 ? "Sair da edição" : "Descartar"}
+        {extras}
+        <Botao variante="fantasma" onClick={aoDesfazerUltima} disabled={registrando || pendentes.length === 0}>
+          Desfazer última
         </Botao>
-        <Botao onClick={aoSalvar} carregando={salvando} disabled={alteracoes === 0}>
-          Salvar alterações
+        <Botao variante="secundario" onClick={aoDescartar} disabled={registrando}>
+          {pendentes.length === 0 ? "Sair da edição" : "Descartar"}
+        </Botao>
+        <Botao onClick={aoRegistrar} carregando={registrando} disabled={pendentes.length === 0}>
+          Registrar travas
         </Botao>
       </div>
+      {pendentes.length > 0 && (
+        <ol className={estilos.listaAcoes} aria-label="Ações a registrar">
+          {pendentes.map((p, i) => (
+            <li key={i}>{descreverAcao(p.acao, nomes)}</li>
+          ))}
+        </ol>
+      )}
     </div>
   );
 }

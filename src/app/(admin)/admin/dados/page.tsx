@@ -14,7 +14,7 @@ export default function PaginaDados({ searchParams }: PaginaDadosProps) {
     <>
       <CabecalhoPagina
         titulo="Dados do curso"
-        subtitulo="Dias, horários, semestres, turmas e disciplinas usados no formulário dos professores e na geração do horário."
+        subtitulo="Aulas por bloco, dias e blocos de cada turno, semestres, turmas e disciplinas usados no formulário dos professores e na geração do horário."
       />
       <PainelDados abaInicial={aba} />
     </>

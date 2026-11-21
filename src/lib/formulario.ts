@@ -1,5 +1,5 @@
 import type { VarianteEtiqueta } from "@/components/ui/Etiqueta";
-import type { ChaveHorario, ChavePeriodo, Formulario, NivelInteresse, RespostaFormulario, Solicitacao } from "@/types";
+import type { ChaveBloco, ChavePeriodo, Formulario, InteresseDisciplina, NivelInteresse, RespostaFormulario, Solicitacao } from "@/types";
 
 /** O que o professor pode fazer com o formulário atual. */
 export type SituacaoFormulario = "indisponivel" | "pendente" | "respondido" | "edicao_liberada" | "encerrado";
@@ -53,7 +53,6 @@ export function motivoBloqueioSolicitacao(situacao: SituacaoFormulario, solicita
 }
 
 export const NIVEIS: NivelInteresse[] = [1, 2, 3, 4, 5];
-export const NIVEL_PADRAO: NivelInteresse = 3;
 
 export const rotulosNivel: Record<NivelInteresse, string> = {
   1: "Muito baixa",
@@ -63,22 +62,35 @@ export const rotulosNivel: Record<NivelInteresse, string> = {
   5: "Muito alta",
 };
 
-export function chavePeriodo(chave: ChaveHorario): ChavePeriodo {
+/** Disciplina escolhida no rascunho: a nota começa vazia e é obrigatória no envio (RN-22, CA-27). */
+export type InteresseRascunho = { disciplinaId: string; nivel: NivelInteresse | null };
+
+export function chavePeriodo(chave: ChaveBloco): ChavePeriodo {
   const [turno, dia] = chave.split(":");
   return `${turno}:${dia}` as ChavePeriodo;
 }
 
-/** Períodos (turno + dia) com pelo menos um horário marcado como disponível. */
-export function periodosDisponiveis(disponibilidade: ChaveHorario[]) {
+/** Dias/turnos com pelo menos um bloco selecionado: são os que exigem nota (RN-17). */
+export function periodosDisponiveis(disponibilidade: ChaveBloco[]) {
   return new Set(disponibilidade.map(chavePeriodo));
 }
 
-/** Mantém só os períodos com disponibilidade e completa os que faltam com o nível padrão. */
-export function normalizarPrioridades(
+/** Mantém só as notas dos dias/turnos que ainda têm bloco selecionado. Nunca completa com valor padrão. */
+export function prioridadesDosPeriodos(
   prioridades: RespostaFormulario["prioridadesPeriodo"],
-  disponibilidade: ChaveHorario[],
+  disponibilidade: ChaveBloco[],
 ): RespostaFormulario["prioridadesPeriodo"] {
-  return Object.fromEntries(
-    Array.from(periodosDisponiveis(disponibilidade)).map((periodo) => [periodo, prioridades[periodo] ?? NIVEL_PADRAO]),
-  );
+  const periodos = periodosDisponiveis(disponibilidade);
+  return Object.fromEntries(Object.entries(prioridades).filter(([periodo]) => periodos.has(periodo as ChavePeriodo)));
 }
+
+/** Notas que faltam para enviar: cada dia/turno com bloco e cada disciplina escolhida (RN-17, RN-22). */
+export function notasPendentes(disponibilidade: ChaveBloco[], prioridades: RespostaFormulario["prioridadesPeriodo"], interesses: InteresseRascunho[]) {
+  const periodos = Array.from(periodosDisponiveis(disponibilidade)).filter((p) => prioridades[p] === undefined).length;
+  const disciplinas = interesses.filter((i) => i.nivel === null).length;
+  return { periodos, disciplinas };
+}
+
+/** Rascunho completo → interesses do envio. */
+export const interessesCompletos = (interesses: InteresseRascunho[]): InteresseDisciplina[] =>
+  interesses.filter((i): i is InteresseDisciplina => i.nivel !== null);

@@ -1,128 +1,172 @@
 import { disciplinas, estruturasTurno, turmas } from "@/mocks/academico";
-import { formularioAtual } from "@/mocks/formularios";
-import { grades, professorDaDisciplina } from "@/mocks/grades";
-import { escalonarTurma, registrarOcupacao, type Ocupacao } from "@/lib/escalonador";
-import { situacaoDaGestao } from "@/lib/gestaoFormulario";
-import { maisRecentes } from "@/lib/gestaoHorario";
-import type { Aula, Grade, HorarioProfessor, ResultadoGeracao, Turno } from "@/types";
+import { formularioAtual, respostasFormulario } from "@/mocks/formularios";
+import { execucoes, travasDoPeriodo } from "@/mocks/geracoes";
+import { professores } from "@/mocks/usuarios";
+import { aplicarAcao, type ContextoEdicao } from "@/lib/edicaoGrade";
+import { motivoParaNaoPublicar, temGradeValidada } from "@/lib/geracao";
+import { simularRegeneracao } from "@/lib/simulacaoGeracao";
+import type { AcaoEdicao, Execucao, HorarioProfessor, ProfessorResumo, RespostaFormulario, Trava } from "@/types";
 import { ErroNaoEncontrado, esperar, responder } from "./simulacao";
 
-/** RF 3.11: grade mais recente de uma turma no turno (null = prévia indisponível, RF 3.13). */
-export function obterGradeDaTurma(turmaId: string, turno: Turno): Promise<Grade | null> {
-  const daTurma = grades.filter((g) => g.turmaId === turmaId && g.turno === turno);
-  const maisRecente = daTurma.sort((a, b) => b.versao - a.versao)[0] ?? null;
-  return responder(maisRecente);
+// Geração do horário pelo motor (contrato das rotas /admin/geracoes do backend). Sem a API, as
+// execuções vêm de mocks/geracoes e a regeneração com travas é simulada localmente
+// (lib/simulacaoGeracao), sem nunca declarar ótimo.
+
+/** Professores ativos com resposta enviada ao formulário vigente: os participantes (RN-20, RN-37). */
+function participantes(): RespostaFormulario[] {
+  const ativos = new Set(professores.filter((p) => p.statusConta === "ativa").map((p) => p.id));
+  return respostasFormulario.filter((r) => r.formularioId === formularioAtual.id && ativos.has(r.professorId));
 }
 
-/** Todas as grades, com o histórico de versões (RF 3.11, RF 3.19). */
-export function listarGrades(): Promise<Grade[]> {
-  return responder(grades);
-}
+export type ContextoGeracao = {
+  periodoLetivo: string;
+  ativos: number;
+  enviados: number;
+  pendentes: ProfessorResumo[];
+};
 
-export function obterGrade(id: string): Promise<Grade> {
-  const grade = grades.find((g) => g.id === id);
-  if (!grade) return Promise.reject(new ErroNaoEncontrado("Grade", id));
-  return responder(grade);
-}
-
-/**
- * RF 3.12, RF 3.16: aulas do professor em todas as turmas.
- * Para o professor, prévias só aparecem se o admin liberou a visualização (RF 8.11).
- * O administrador vê a grade mais recente de cada turma, liberada ou não (RF 8.8).
- */
-export function obterHorarioDoProfessor(
-  professorId: string,
-  visao: "professor" | "administrador" = "professor",
-): Promise<HorarioProfessor> {
-  const doProfessor = (aula: Aula) => aula.professor?.id === professorId;
-  const liberadas = visao === "administrador" ? grades : grades.filter((g) => g.status === "definitiva" || g.visivelParaProfessores);
-  const visiveis = maisRecentes(liberadas).filter((g) => g.aulas.some(doProfessor));
+/** RN-36, RN-37: ativos, respostas enviadas e pendentes da edição vigente do formulário. */
+export function obterContextoGeracao(): Promise<ContextoGeracao> {
+  const ativos = professores.filter((p) => p.statusConta === "ativa");
+  const enviaram = new Set(participantes().map((r) => r.professorId));
   return responder({
-    aulas: visiveis.flatMap((g) => g.aulas).filter(doProfessor),
-    previa: visiveis.some((g) => g.status === "previa"),
-    atualizadoEm: visiveis.map((g) => g.geradaEm).sort().at(-1) ?? null,
+    periodoLetivo: formularioAtual.periodoLetivo.replace(".", "/"),
+    ativos: ativos.length,
+    enviados: enviaram.size,
+    pendentes: ativos.filter((p) => !enviaram.has(p.id)).map(({ id, nome, fotoUrl }) => ({ id, nome, fotoUrl })),
   });
 }
 
+/** Execuções do período, da mais recente para a mais antiga. */
+export function listarExecucoes(): Promise<Execucao[]> {
+  return responder([...execucoes].sort((a, b) => b.iniciadaEm.localeCompare(a.iniciadaEm)));
+}
+
+export function obterExecucao(id: string): Promise<Execucao> {
+  const execucao = execucoes.find((e) => e.id === id);
+  if (!execucao) return Promise.reject(new ErroNaoEncontrado("Execução", id));
+  return responder(execucao);
+}
+
+export class ConfirmacaoGeracaoNecessaria extends Error {
+  constructor(public pendentes: ProfessorResumo[]) {
+    super("Há professores ativos sem resposta enviada; confirme a geração antecipada.");
+    this.name = "ConfirmacaoGeracaoNecessaria";
+  }
+}
+
 /**
- * RF 3.1, RF 3.15, RF 3.17: executa o escalonador. Turmas bloqueadas ficam como estão; nas demais,
- * as aulas bloqueadas são mantidas e o restante é refeito numa nova versão (prévia oculta).
+ * POST /admin/geracoes. Com professores pendentes, exige confirmação explícita (RN-37, CA-83). A
+ * execução nasce EM_PROCESSAMENTO e é concluída em segundo plano (prazo único de 600 s no motor).
  */
-export async function gerarHorario(): Promise<ResultadoGeracao> {
-  await esperar(1400);
-  if (situacaoDaGestao(formularioAtual) !== "encerrado") {
-    throw new Error("Encerre o formulário antes de gerar o horário.");
+export async function gerarHorario({ confirmarGeracaoAntecipada }: { confirmarGeracaoAntecipada: boolean }): Promise<Execucao> {
+  const contexto = await obterContextoGeracao();
+  if (contexto.pendentes.length > 0 && !confirmarGeracaoAntecipada) throw new ConfirmacaoGeracaoNecessaria(contexto.pendentes);
+  if (execucoes.some((e) => e.status === "EM_PROCESSAMENTO")) throw new Error("Já existe uma geração em processamento; aguarde a conclusão.");
+
+  const base = [...execucoes].filter(temGradeValidada).sort((a, b) => b.iniciadaEm.localeCompare(a.iniciadaEm))[0];
+  const inicio = new Date();
+  const id = `sim-${inicio.getTime()}`;
+  const emProcessamento: Execucao = {
+    ...structuredClone(base ?? execucoes[0]),
+    id,
+    status: "EM_PROCESSAMENTO",
+    iniciadaEm: inicio.toISOString(),
+    concluidaEm: null,
+    publicadaEm: null,
+    grade: null,
+    simulada: true,
+  };
+  execucoes.push(emProcessamento);
+
+  setTimeout(() => {
+    const indice = execucoes.findIndex((e) => e.id === id);
+    if (indice < 0) return;
+    if (!base) {
+      execucoes[indice] = { ...emProcessamento, status: "ERRO_EXECUCAO", concluidaEm: new Date().toISOString() };
+      return;
+    }
+    execucoes[indice] = simularRegeneracao(
+      {
+        base,
+        travas: [...travasDoPeriodo],
+        respostas: participantes(),
+        turmas,
+        disciplinas,
+        estruturas: estruturasTurno,
+        contexto: { ativos: contexto.ativos, enviados: contexto.enviados, pendentes: contexto.pendentes.length, antecipada: contexto.pendentes.length > 0 },
+      },
+      id,
+      inicio,
+    );
+  }, 2500);
+
+  return responder(emProcessamento, 500);
+}
+
+export type DadosEdicao = Omit<ContextoEdicao, "execucao" | "travas">;
+
+/** O que a tela precisa para conferir cada gesto de edição antes de enviá-lo (a API repete a conferência). */
+export function obterDadosEdicao(): Promise<DadosEdicao> {
+  return responder({ respostas: participantes(), turmas, disciplinas, estruturas: estruturasTurno });
+}
+
+/** Travas do período (RN-50: não há travas herdadas de outro período). */
+export function listarTravas(): Promise<Trava[]> {
+  return responder(travasDoPeriodo);
+}
+
+/**
+ * POST /admin/geracoes/:id/edicoes. Aplica as ações em ordem, tudo ou nada: se uma for recusada,
+ * nenhuma trava é gravada (a API repete as verificações da tela: RN-64, CA-185).
+ */
+export async function aplicarEdicoes(execucaoId: string, acoes: AcaoEdicao[]): Promise<Trava[]> {
+  await esperar(500);
+  const execucao = execucoes.find((e) => e.id === execucaoId);
+  if (!execucao || !temGradeValidada(execucao)) throw new Error("Só uma grade completa e validada pode ser base de edição.");
+  const criadas: Trava[] = [];
+  for (const acao of acoes) {
+    const ctx: ContextoEdicao = {
+      execucao,
+      travas: [...travasDoPeriodo, ...criadas],
+      respostas: participantes(),
+      turmas,
+      disciplinas,
+      estruturas: estruturasTurno,
+    };
+    const r = aplicarAcao(ctx, acao);
+    if (!r.ok) throw new Error(r.motivo);
+    criadas.push(...r.travas);
   }
-
-  const atuais = maisRecentes(grades);
-  const ocupacao: Ocupacao = new Set();
-  atuais.forEach((g) => registrarOcupacao(ocupacao, g.bloqueada ? g.aulas : g.aulas.filter((a) => a.bloqueada)));
-
-  const geradaEm = new Date().toISOString();
-  const novas = turmas
-    .filter((turma) => !atuais.some((g) => g.turmaId === turma.id && g.bloqueada))
-    .map((turma): Grade => {
-      const anterior = atuais.find((g) => g.turmaId === turma.id);
-      const versao = (anterior?.versao ?? 0) + 1;
-      const { aulas, conflitos } = escalonarTurma({
-        turma,
-        estrutura: estruturasTurno.find((e) => e.turno === turma.turno)!,
-        disciplinas: disciplinas.filter((d) => d.semestre === turma.semestre),
-        professorDe: professorDaDisciplina,
-        ocupacao,
-        versao,
-        fixas: anterior?.aulas.filter((a) => a.bloqueada) ?? [],
-      });
-      return {
-        id: `g-${turma.id}-v${versao}-${Date.now()}`,
-        turmaId: turma.id,
-        turno: turma.turno,
-        versao,
-        status: "previa",
-        visivelParaProfessores: false,
-        bloqueada: false,
-        geradaEm,
-        aulas,
-        conflitos,
-      };
-    });
-
-  grades.push(...novas);
-  return responder({ grades, turmasAfetadas: novas.map((g) => g.turmaId) }, 0);
+  travasDoPeriodo.push(...criadas);
+  return structuredClone(criadas);
 }
 
-/** RF 3.18: as prévias atuais viram o horário oficial, visível para os professores. */
-export async function oficializarHorario(): Promise<Grade[]> {
-  for (const grade of maisRecentes(grades)) {
-    grade.status = "definitiva";
-    grade.visivelParaProfessores = true;
-  }
-  return responder(grades, 700);
+/** POST /admin/geracoes/:id/publicar: só OTIMA_COMPROVADA com grade validada (RN-29, CA-195). */
+export async function publicarExecucao(id: string): Promise<Execucao> {
+  await esperar(600);
+  const execucao = execucoes.find((e) => e.id === id);
+  if (!execucao) throw new ErroNaoEncontrado("Execução", id);
+  const motivo = motivoParaNaoPublicar(execucao);
+  if (motivo) throw new Error(motivo);
+  // A publicação anterior continua no histórico; a vigente é a mais recente (RN-29)
+  execucao.publicadaEm = new Date().toISOString();
+  return structuredClone(execucao);
 }
 
-/** RF 8.11, RF 8.12: mostra ou oculta as prévias atuais para os professores. */
-export async function alterarVisibilidadeHorario(visivel: boolean): Promise<Grade[]> {
-  for (const grade of maisRecentes(grades)) if (grade.status === "previa") grade.visivelParaProfessores = visivel;
-  return responder(grades, 400);
+/** Grade vigente: a última execução publicada. */
+export function obterExecucaoVigente(): Promise<Execucao | null> {
+  const publicadas = execucoes.filter((e) => e.publicadaEm).sort((a, b) => (b.publicadaEm ?? "").localeCompare(a.publicadaEm ?? ""));
+  return responder(publicadas[0] ?? null);
 }
 
-function encontrar(id: string) {
-  const grade = grades.find((g) => g.id === id);
-  if (!grade) throw new ErroNaoEncontrado("Grade", id);
-  return grade;
-}
-
-/** RF 3.14: bloqueia a turma inteira para a próxima geração. */
-export async function alterarBloqueioGrade(gradeId: string, bloqueada: boolean): Promise<Grade> {
-  const grade = encontrar(gradeId);
-  grade.bloqueada = bloqueada;
-  return responder(grade, 300);
-}
-
-/** RF 3.3, RF 3.14: grava a edição manual (posições e bloqueios das aulas). */
-export async function salvarEdicaoGrade(gradeId: string, aulas: Aula[]): Promise<Grade> {
-  const grade = encontrar(gradeId);
-  grade.aulas = structuredClone(aulas);
-  grade.editadaEm = new Date().toISOString();
-  return responder(grade, 600);
+/** Horário do professor: projeção da grade publicada, com todas as coordenadas (RN-69, CA-190). */
+export async function obterHorarioDoProfessor(professorId: string): Promise<HorarioProfessor> {
+  const vigente = await obterExecucaoVigente();
+  const projecao = vigente?.grade?.porProfessor.find((p) => p.professorId === professorId);
+  return {
+    posicoes: projecao?.posicoes ?? [],
+    publicadoEm: vigente?.publicadaEm ?? null,
+    aulasPorBloco: vigente?.aulasPorBloco ?? 2,
+  };
 }

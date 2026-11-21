@@ -1,62 +1,62 @@
 import { CabecalhoPagina } from "@/components/layout/CabecalhoPagina";
 import { Botao } from "@/components/ui/Botao";
 import { Etiqueta } from "@/components/ui/Etiqueta";
-import { IconeCadeado, IconeCadeadoAberto } from "@/components/ui/Icones";
+import { IconeCadeado } from "@/components/ui/Icones";
 import { formatarDataHora } from "@/lib/formatacao";
-import { etiquetasStatusGrade, hrefHorarios } from "@/lib/gestaoHorario";
-import { rotuloTurma } from "@/lib/horario";
-import type { Grade, Turma } from "@/types";
+import { rotulosStatus } from "@/lib/geracao";
+import { hrefExecucao } from "@/lib/gestaoHorario";
+import type { Execucao } from "@/types";
 
-type CabecalhoGradeTurmaProps = {
-  grade: Grade;
-  turma: Turma;
-  /** Versões antigas são só leitura. */
-  atual: boolean;
+type CabecalhoGradeProps = {
+  titulo: string;
+  execucao: Execucao;
+  /** "8 de 10 posições travadas" etc. */
+  resumoTravas: string;
   editando: boolean;
-  alternandoBloqueio: boolean;
+  /** Tudo já travado: o botão de travar a grade inteira some. */
+  tudoTravado: boolean;
+  rotuloTravarTudo: string;
+  travandoTudo: boolean;
   aoEditar: () => void;
-  aoAlternarBloqueio: () => void;
+  aoTravarTudo: () => void;
 };
 
-/** RF 3.11: turma, versão e situação; ações de editar e bloquear a turma inteira. */
-export function CabecalhoGradeTurma({
-  grade,
-  turma,
-  atual,
+/** Título, execução de origem e as ações de travar a grade inteira ou editar (sem desbloqueio). */
+export function CabecalhoGrade({
+  titulo,
+  execucao,
+  resumoTravas,
   editando,
-  alternandoBloqueio,
+  tudoTravado,
+  rotuloTravarTudo,
+  travandoTudo,
   aoEditar,
-  aoAlternarBloqueio,
-}: CabecalhoGradeTurmaProps) {
-  const status = etiquetasStatusGrade[grade.status];
+  aoTravarTudo,
+}: CabecalhoGradeProps) {
+  const status = rotulosStatus[execucao.status];
 
   return (
     <CabecalhoPagina
-      voltar={{ href: hrefHorarios, rotulo: "Horários" }}
-      titulo={`Horário do ${rotuloTurma(turma)}`}
+      voltar={{ href: hrefExecucao(execucao.id), rotulo: "Horários" }}
+      titulo={titulo}
       meta={
         <>
-          <Etiqueta variante={atual ? status.variante : "neutra"}>{atual ? status.rotulo : "Versão substituída"}</Etiqueta>
-          {grade.bloqueada && <Etiqueta>Turma bloqueada</Etiqueta>}
-          <span>Versão {grade.versao}</span>
-          <span>Gerada em {formatarDataHora(grade.geradaEm)}</span>
-          {grade.editadaEm && <span>Editada em {formatarDataHora(grade.editadaEm)}</span>}
+          <Etiqueta variante={status.variante}>{status.rotulo}</Etiqueta>
+          {execucao.publicadaEm ? <Etiqueta variante="sucesso">Publicada</Etiqueta> : <Etiqueta>Não publicada</Etiqueta>}
+          {execucao.simulada && <Etiqueta variante="info">Simulação do front</Etiqueta>}
+          <span>Execução de {formatarDataHora(execucao.iniciadaEm)}</span>
+          <span>{resumoTravas}</span>
         </>
       }
       acoes={
-        atual &&
         !editando && (
           <>
-            <Botao
-              variante="secundario"
-              icone={grade.bloqueada ? <IconeCadeado /> : <IconeCadeadoAberto />}
-              aria-pressed={grade.bloqueada}
-              carregando={alternandoBloqueio}
-              onClick={aoAlternarBloqueio}
-            >
-              {grade.bloqueada ? "Desbloquear turma" : "Bloquear turma"}
-            </Botao>
-            <Botao onClick={aoEditar}>Editar horário</Botao>
+            {!tudoTravado && (
+              <Botao variante="secundario" icone={<IconeCadeado />} carregando={travandoTudo} onClick={aoTravarTudo}>
+                {rotuloTravarTudo}
+              </Botao>
+            )}
+            <Botao onClick={aoEditar}>Editar e travar</Botao>
           </>
         )
       }

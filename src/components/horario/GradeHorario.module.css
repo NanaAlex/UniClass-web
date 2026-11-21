@@ -64,23 +64,9 @@
   vertical-align: top;
 }
 
-.intervalo td {
-  padding: var(--espaco-1) var(--espaco-3);
-  border-radius: var(--raio-pequeno);
-  background: var(--cor-superficie-alternativa);
-  font-size: var(--texto-tamanho-xs);
-  font-weight: var(--peso-semi);
-  letter-spacing: 0.04em;
-  color: var(--cor-texto-secundario);
-  text-align: center;
-}
 
-.intervaloHora {
-  margin-left: var(--espaco-2);
-  font-weight: var(--peso-normal);
-}
 
-/* Com uma aula selecionada, as demais recuam para destacar a escolha */
+/* Com um bloco selecionado, os demais recuam para destacar a escolha */
 .comSelecao :global(button[aria-pressed="false"]) {
   opacity: 0.55;
 }

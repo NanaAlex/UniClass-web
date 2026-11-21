@@ -8,7 +8,7 @@ import { Aviso } from "@/components/ui/Aviso";
 import { Botao } from "@/components/ui/Botao";
 import { Modal } from "@/components/ui/Modal";
 import { formatarData } from "@/lib/formatacao";
-import { rotuloAula, rotulosDia } from "@/lib/horario";
+import { rotulosDia, rotulosTurno } from "@/lib/horario";
 import { aguardandoAdministrador, LIMITES_DESCRICAO } from "@/lib/solicitacao";
 import type { Solicitacao } from "@/types";
 import estilos from "./ModalAnalisarSolicitacao.module.css";
@@ -82,7 +82,7 @@ export function ModalAnalisarSolicitacao({ solicitacao, aoFechar, aoDecidir, aoV
 
           {solicitacao.aula && (
             <dl className={estilos.aula}>
-              <div><dt>Aula</dt><dd>{rotulosDia[solicitacao.aula.dia].longo} · {rotuloAula(solicitacao.aula.posicao)}</dd></div>
+              <div><dt>Bloco</dt><dd>{rotulosDia[solicitacao.aula.dia].longo} · {rotulosTurno[solicitacao.aula.turno]} · Bloco {solicitacao.aula.indice}</dd></div>
               <div><dt>Disciplina</dt><dd>{solicitacao.aula.disciplina}</dd></div>
               <div><dt>Turma</dt><dd>{solicitacao.aula.turma}</dd></div>
             </dl>

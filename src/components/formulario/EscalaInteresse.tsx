@@ -6,11 +6,12 @@ type EscalaInteresseProps = {
   /** Identifica o grupo de rádios (precisa ser único na página). */
   nome: string;
   rotulo: string;
-  valor: NivelInteresse;
+  /** null: ainda sem nota (não há valor padrão: RN-22, CA-27). */
+  valor: NivelInteresse | null;
   aoMudar: (nivel: NivelInteresse) => void;
 };
 
-/** RF 2.6: interesse de 1 a 5. Rádios nativos: setas do teclado trocam o nível. */
+/** RF 2.6: interesse de 1 a 5, obrigatório e sem valor pré-marcado. Rádios nativos: setas trocam o nível. */
 export function EscalaInteresse({ nome, rotulo, valor, aoMudar }: EscalaInteresseProps) {
   return (
     <fieldset className={estilos.escala}>

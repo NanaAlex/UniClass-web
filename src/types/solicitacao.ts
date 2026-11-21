@@ -1,4 +1,4 @@
-import type { DiaSemana } from "./academico";
+import type { DiaSemana, Turno } from "./academico";
 import type { ProfessorResumo } from "./usuario";
 
 /**
@@ -10,9 +10,11 @@ export type TipoSolicitacao = "horario" | "formulario";
 /** RF 9.4. Solicitações de horário permanecem "pendente"; o que muda nelas é `lidaEm`. */
 export type StatusSolicitacao = "pendente" | "aprovada" | "rejeitada";
 
+/** Bloco da grade citado no pedido: o bloco inteiro, nunca uma aula isolada (RN-58). */
 export type AulaReferenciada = {
   dia: DiaSemana;
-  posicao: number;
+  turno: Turno;
+  indice: number;
   disciplina: string;
   turma: string;
 };

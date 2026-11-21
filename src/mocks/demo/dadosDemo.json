@@ -1,0 +1,821 @@
+{
+  "periodoLetivo": "2027/1",
+  "aulasPorBloco": 2,
+  "estruturas": [
+    {
+      "turno": "manha",
+      "dias": [
+        "seg",
+        "ter",
+        "qua",
+        "qui",
+        "sex"
+      ],
+      "blocos": 2
+    },
+    {
+      "turno": "tarde",
+      "dias": [
+        "seg",
+        "ter",
+        "qua",
+        "qui",
+        "sex"
+      ],
+      "blocos": 2
+    },
+    {
+      "turno": "noite",
+      "dias": [
+        "seg",
+        "ter",
+        "qua",
+        "qui",
+        "sex",
+        "sab"
+      ],
+      "blocos": 2
+    }
+  ],
+  "turmas": [
+    {
+      "id": "t1a",
+      "nome": "A",
+      "semestre": 1,
+      "turno": "manha"
+    },
+    {
+      "id": "t1b",
+      "nome": "B",
+      "semestre": 1,
+      "turno": "noite"
+    },
+    {
+      "id": "t2a",
+      "nome": "A",
+      "semestre": 2,
+      "turno": "manha"
+    },
+    {
+      "id": "t2b",
+      "nome": "B",
+      "semestre": 2,
+      "turno": "noite"
+    },
+    {
+      "id": "t3a",
+      "nome": "A",
+      "semestre": 3,
+      "turno": "manha"
+    },
+    {
+      "id": "t4a",
+      "nome": "A",
+      "semestre": 4,
+      "turno": "manha"
+    },
+    {
+      "id": "t5a",
+      "nome": "A",
+      "semestre": 5,
+      "turno": "noite"
+    },
+    {
+      "id": "t6a",
+      "nome": "A",
+      "semestre": 6,
+      "turno": "noite"
+    }
+  ],
+  "disciplinas": [
+    {
+      "id": "alg",
+      "nome": "Algoritmos e Lógica de Programação",
+      "semestre": 1,
+      "aulasPorSemana": 4,
+      "cor": 1
+    },
+    {
+      "id": "mat",
+      "nome": "Matemática Discreta",
+      "semestre": 1,
+      "aulasPorSemana": 4,
+      "cor": 2
+    },
+    {
+      "id": "arq",
+      "nome": "Arquitetura e Organização de Computadores",
+      "semestre": 1,
+      "aulasPorSemana": 4,
+      "cor": 3
+    },
+    {
+      "id": "fsi",
+      "nome": "Fundamentos de Sistemas de Informação",
+      "semestre": 1,
+      "aulasPorSemana": 2,
+      "cor": 4
+    },
+    {
+      "id": "ing1",
+      "nome": "Inglês Instrumental I",
+      "semestre": 1,
+      "aulasPorSemana": 2,
+      "cor": 5
+    },
+    {
+      "id": "com",
+      "nome": "Comunicação e Expressão",
+      "semestre": 1,
+      "aulasPorSemana": 2,
+      "cor": 6
+    },
+    {
+      "id": "ed",
+      "nome": "Estrutura de Dados",
+      "semestre": 2,
+      "aulasPorSemana": 4,
+      "cor": 1
+    },
+    {
+      "id": "bd1",
+      "nome": "Banco de Dados I",
+      "semestre": 2,
+      "aulasPorSemana": 4,
+      "cor": 7
+    },
+    {
+      "id": "es1",
+      "nome": "Engenharia de Software I",
+      "semestre": 2,
+      "aulasPorSemana": 4,
+      "cor": 8
+    },
+    {
+      "id": "web1",
+      "nome": "Desenvolvimento Web I",
+      "semestre": 2,
+      "aulasPorSemana": 4,
+      "cor": 3
+    },
+    {
+      "id": "est",
+      "nome": "Estatística Aplicada",
+      "semestre": 2,
+      "aulasPorSemana": 2,
+      "cor": 2
+    },
+    {
+      "id": "poo",
+      "nome": "Programação Orientada a Objetos",
+      "semestre": 3,
+      "aulasPorSemana": 4,
+      "cor": 1
+    },
+    {
+      "id": "bd2",
+      "nome": "Banco de Dados II",
+      "semestre": 3,
+      "aulasPorSemana": 4,
+      "cor": 7
+    },
+    {
+      "id": "red",
+      "nome": "Redes de Computadores",
+      "semestre": 3,
+      "aulasPorSemana": 4,
+      "cor": 6
+    },
+    {
+      "id": "ihc",
+      "nome": "Interação Humano-Computador",
+      "semestre": 3,
+      "aulasPorSemana": 2,
+      "cor": 5
+    },
+    {
+      "id": "ing2",
+      "nome": "Inglês Instrumental II",
+      "semestre": 3,
+      "aulasPorSemana": 2,
+      "cor": 4
+    },
+    {
+      "id": "mob",
+      "nome": "Desenvolvimento para Dispositivos Móveis",
+      "semestre": 4,
+      "aulasPorSemana": 4,
+      "cor": 3
+    },
+    {
+      "id": "so",
+      "nome": "Sistemas Operacionais",
+      "semestre": 4,
+      "aulasPorSemana": 4,
+      "cor": 6
+    },
+    {
+      "id": "es2",
+      "nome": "Engenharia de Software II",
+      "semestre": 4,
+      "aulasPorSemana": 4,
+      "cor": 8
+    },
+    {
+      "id": "gp",
+      "nome": "Gestão de Projetos",
+      "semestre": 4,
+      "aulasPorSemana": 2,
+      "cor": 2
+    },
+    {
+      "id": "seg",
+      "nome": "Segurança da Informação",
+      "semestre": 4,
+      "aulasPorSemana": 2,
+      "cor": 5
+    },
+    {
+      "id": "ia",
+      "nome": "Inteligência Artificial",
+      "semestre": 5,
+      "aulasPorSemana": 4,
+      "cor": 1
+    },
+    {
+      "id": "web2",
+      "nome": "Desenvolvimento Web II",
+      "semestre": 5,
+      "aulasPorSemana": 4,
+      "cor": 3
+    },
+    {
+      "id": "nuv",
+      "nome": "Computação em Nuvem",
+      "semestre": 5,
+      "aulasPorSemana": 4,
+      "cor": 6
+    },
+    {
+      "id": "emp",
+      "nome": "Empreendedorismo",
+      "semestre": 5,
+      "aulasPorSemana": 2,
+      "cor": 4
+    },
+    {
+      "id": "tg",
+      "nome": "Trabalho de Graduação",
+      "semestre": 6,
+      "aulasPorSemana": 4,
+      "cor": 8
+    },
+    {
+      "id": "qs",
+      "nome": "Qualidade de Software",
+      "semestre": 6,
+      "aulasPorSemana": 4,
+      "cor": 7
+    },
+    {
+      "id": "dados",
+      "nome": "Ciência de Dados",
+      "semestre": 6,
+      "aulasPorSemana": 4,
+      "cor": 2
+    },
+    {
+      "id": "etica",
+      "nome": "Ética e Legislação em TI",
+      "semestre": 6,
+      "aulasPorSemana": 2,
+      "cor": 5
+    }
+  ],
+  "respostas": [
+    {
+      "id": "r-p1",
+      "professorId": "p1",
+      "enviadaEm": "2026-10-16T14:22:00Z",
+      "edicaoLiberada": false,
+      "interesses": [
+        {
+          "disciplinaId": "mat",
+          "nivel": 5
+        },
+        {
+          "disciplinaId": "est",
+          "nivel": 5
+        },
+        {
+          "disciplinaId": "alg",
+          "nivel": 3
+        },
+        {
+          "disciplinaId": "ed",
+          "nivel": 2
+        }
+      ],
+      "disponibilidade": [
+        "manha:seg:1",
+        "manha:seg:2",
+        "manha:ter:1",
+        "manha:ter:2",
+        "manha:qua:1",
+        "manha:qua:2",
+        "manha:qui:1",
+        "manha:qui:2",
+        "manha:sex:1",
+        "manha:sex:2",
+        "noite:seg:1",
+        "noite:seg:2",
+        "noite:qua:1",
+        "noite:qua:2"
+      ],
+      "prioridadesPeriodo": {
+        "manha:seg": 5,
+        "manha:ter": 4,
+        "manha:qua": 5,
+        "manha:qui": 4,
+        "manha:sex": 3,
+        "noite:seg": 2,
+        "noite:qua": 2
+      }
+    },
+    {
+      "id": "r-p3",
+      "professorId": "p3",
+      "enviadaEm": "2026-10-17T19:40:00Z",
+      "edicaoLiberada": false,
+      "interesses": [
+        {
+          "disciplinaId": "web1",
+          "nivel": 5
+        },
+        {
+          "disciplinaId": "web2",
+          "nivel": 5
+        },
+        {
+          "disciplinaId": "ihc",
+          "nivel": 4
+        },
+        {
+          "disciplinaId": "mob",
+          "nivel": 2
+        }
+      ],
+      "disponibilidade": [
+        "manha:ter:2",
+        "manha:qua:1",
+        "manha:qua:2",
+        "manha:qui:1",
+        "manha:qui:2",
+        "noite:ter:1",
+        "noite:ter:2",
+        "noite:qua:1",
+        "noite:qua:2",
+        "noite:qui:1",
+        "noite:qui:2",
+        "noite:sex:1",
+        "noite:sex:2"
+      ],
+      "prioridadesPeriodo": {
+        "manha:ter": 4,
+        "manha:qua": 4,
+        "manha:qui": 4,
+        "noite:ter": 5,
+        "noite:qua": 5,
+        "noite:qui": 5,
+        "noite:sex": 5
+      }
+    },
+    {
+      "id": "r-p4",
+      "professorId": "p4",
+      "enviadaEm": "2026-10-18T08:10:00Z",
+      "edicaoLiberada": true,
+      "interesses": [
+        {
+          "disciplinaId": "ing1",
+          "nivel": 5
+        },
+        {
+          "disciplinaId": "ing2",
+          "nivel": 5
+        },
+        {
+          "disciplinaId": "com",
+          "nivel": 3
+        },
+        {
+          "disciplinaId": "etica",
+          "nivel": 2
+        }
+      ],
+      "disponibilidade": [
+        "manha:seg:1",
+        "manha:seg:2",
+        "manha:ter:1",
+        "manha:ter:2",
+        "manha:qua:1",
+        "manha:qua:2",
+        "manha:qui:1",
+        "manha:qui:2",
+        "manha:sex:1",
+        "manha:sex:2",
+        "noite:seg:1",
+        "noite:seg:2",
+        "noite:ter:1",
+        "noite:ter:2",
+        "noite:qua:1",
+        "noite:qua:2",
+        "noite:qui:1",
+        "noite:qui:2",
+        "noite:sex:1",
+        "noite:sex:2"
+      ],
+      "prioridadesPeriodo": {
+        "manha:seg": 5,
+        "manha:ter": 5,
+        "manha:qua": 5,
+        "manha:qui": 5,
+        "manha:sex": 5,
+        "noite:seg": 3,
+        "noite:ter": 3,
+        "noite:qua": 3,
+        "noite:qui": 3,
+        "noite:sex": 3
+      }
+    },
+    {
+      "id": "r-p5",
+      "professorId": "p5",
+      "enviadaEm": "2026-10-18T10:00:00Z",
+      "edicaoLiberada": false,
+      "interesses": [
+        {
+          "disciplinaId": "es1",
+          "nivel": 5
+        },
+        {
+          "disciplinaId": "es2",
+          "nivel": 5
+        },
+        {
+          "disciplinaId": "qs",
+          "nivel": 5
+        },
+        {
+          "disciplinaId": "gp",
+          "nivel": 4
+        },
+        {
+          "disciplinaId": "fsi",
+          "nivel": 3
+        },
+        {
+          "disciplinaId": "tg",
+          "nivel": 3
+        }
+      ],
+      "disponibilidade": [
+        "manha:seg:1",
+        "manha:seg:2",
+        "manha:ter:1",
+        "manha:ter:2",
+        "manha:qua:1",
+        "manha:qua:2",
+        "manha:qui:1",
+        "manha:qui:2",
+        "manha:sex:1",
+        "manha:sex:2",
+        "noite:ter:1",
+        "noite:ter:2",
+        "noite:qua:1",
+        "noite:qua:2",
+        "noite:qui:1",
+        "noite:qui:2",
+        "noite:sex:1",
+        "noite:sex:2",
+        "noite:sab:1",
+        "noite:sab:2"
+      ],
+      "prioridadesPeriodo": {
+        "manha:seg": 4,
+        "manha:ter": 4,
+        "manha:qua": 4,
+        "manha:qui": 4,
+        "manha:sex": 4,
+        "noite:ter": 5,
+        "noite:qua": 5,
+        "noite:qui": 4,
+        "noite:sex": 3,
+        "noite:sab": 2
+      }
+    },
+    {
+      "id": "r-p6",
+      "professorId": "p6",
+      "enviadaEm": "2026-10-19T21:05:00Z",
+      "edicaoLiberada": false,
+      "interesses": [
+        {
+          "disciplinaId": "red",
+          "nivel": 5
+        },
+        {
+          "disciplinaId": "so",
+          "nivel": 5
+        },
+        {
+          "disciplinaId": "nuv",
+          "nivel": 4
+        },
+        {
+          "disciplinaId": "arq",
+          "nivel": 3
+        },
+        {
+          "disciplinaId": "seg",
+          "nivel": 3
+        }
+      ],
+      "disponibilidade": [
+        "manha:seg:1",
+        "manha:seg:2",
+        "manha:ter:1",
+        "manha:ter:2",
+        "manha:qua:1",
+        "manha:qua:2",
+        "manha:qui:1",
+        "manha:qui:2",
+        "noite:seg:1",
+        "noite:seg:2",
+        "noite:ter:1",
+        "noite:ter:2",
+        "noite:qua:1",
+        "noite:qua:2",
+        "noite:qui:1",
+        "noite:qui:2"
+      ],
+      "prioridadesPeriodo": {
+        "manha:seg": 3,
+        "manha:ter": 3,
+        "manha:qua": 3,
+        "manha:qui": 3,
+        "noite:seg": 5,
+        "noite:ter": 5,
+        "noite:qua": 5,
+        "noite:qui": 5
+      }
+    },
+    {
+      "id": "r-p7",
+      "professorId": "p7",
+      "enviadaEm": "2026-10-19T16:55:00Z",
+      "edicaoLiberada": false,
+      "interesses": [
+        {
+          "disciplinaId": "bd1",
+          "nivel": 5
+        },
+        {
+          "disciplinaId": "bd2",
+          "nivel": 5
+        },
+        {
+          "disciplinaId": "dados",
+          "nivel": 5
+        },
+        {
+          "disciplinaId": "est",
+          "nivel": 3
+        }
+      ],
+      "disponibilidade": [
+        "manha:seg:1",
+        "manha:seg:2",
+        "manha:ter:1",
+        "manha:ter:2",
+        "manha:qua:1",
+        "manha:qua:2",
+        "manha:qui:1",
+        "manha:qui:2",
+        "manha:sex:1",
+        "manha:sex:2",
+        "noite:qua:1",
+        "noite:qua:2",
+        "noite:qui:1",
+        "noite:qui:2",
+        "noite:sex:1",
+        "noite:sex:2",
+        "noite:sab:1",
+        "noite:sab:2"
+      ],
+      "prioridadesPeriodo": {
+        "manha:seg": 5,
+        "manha:ter": 5,
+        "manha:qua": 5,
+        "manha:qui": 5,
+        "manha:sex": 5,
+        "noite:qua": 3,
+        "noite:qui": 3,
+        "noite:sex": 3,
+        "noite:sab": 1
+      }
+    },
+    {
+      "id": "r-p8",
+      "professorId": "p8",
+      "enviadaEm": "2026-10-20T11:30:00Z",
+      "edicaoLiberada": false,
+      "interesses": [
+        {
+          "disciplinaId": "arq",
+          "nivel": 5
+        },
+        {
+          "disciplinaId": "seg",
+          "nivel": 5
+        },
+        {
+          "disciplinaId": "so",
+          "nivel": 3
+        },
+        {
+          "disciplinaId": "fsi",
+          "nivel": 4
+        }
+      ],
+      "disponibilidade": [
+        "manha:seg:1",
+        "manha:seg:2",
+        "manha:ter:1",
+        "manha:ter:2",
+        "manha:qua:1",
+        "manha:qua:2",
+        "manha:qui:1",
+        "manha:qui:2",
+        "manha:sex:1",
+        "manha:sex:2",
+        "noite:seg:1",
+        "noite:seg:2",
+        "noite:ter:1",
+        "noite:ter:2",
+        "noite:qua:1",
+        "noite:qua:2",
+        "noite:qui:1",
+        "noite:qui:2",
+        "noite:sex:1",
+        "noite:sex:2"
+      ],
+      "prioridadesPeriodo": {
+        "manha:seg": 4,
+        "manha:ter": 4,
+        "manha:qua": 4,
+        "manha:qui": 4,
+        "manha:sex": 4,
+        "noite:seg": 4,
+        "noite:ter": 4,
+        "noite:qua": 4,
+        "noite:qui": 4,
+        "noite:sex": 4
+      }
+    },
+    {
+      "id": "r-p9",
+      "professorId": "p9",
+      "enviadaEm": "2026-10-21T09:15:00Z",
+      "edicaoLiberada": false,
+      "interesses": [
+        {
+          "disciplinaId": "com",
+          "nivel": 5
+        },
+        {
+          "disciplinaId": "etica",
+          "nivel": 5
+        },
+        {
+          "disciplinaId": "emp",
+          "nivel": 4
+        },
+        {
+          "disciplinaId": "fsi",
+          "nivel": 3
+        },
+        {
+          "disciplinaId": "gp",
+          "nivel": 3
+        }
+      ],
+      "disponibilidade": [
+        "manha:seg:1",
+        "manha:seg:2",
+        "manha:ter:1",
+        "manha:ter:2",
+        "manha:qua:1",
+        "manha:qua:2",
+        "manha:qui:1",
+        "manha:qui:2",
+        "manha:sex:1",
+        "manha:sex:2",
+        "noite:seg:1",
+        "noite:seg:2",
+        "noite:ter:1",
+        "noite:ter:2",
+        "noite:qua:1",
+        "noite:qua:2",
+        "noite:qui:1",
+        "noite:qui:2",
+        "noite:sex:1",
+        "noite:sex:2",
+        "noite:sab:1",
+        "noite:sab:2"
+      ],
+      "prioridadesPeriodo": {
+        "manha:seg": 3,
+        "manha:ter": 3,
+        "manha:qua": 3,
+        "manha:qui": 3,
+        "manha:sex": 3,
+        "noite:seg": 4,
+        "noite:ter": 4,
+        "noite:qua": 4,
+        "noite:qui": 4,
+        "noite:sex": 4,
+        "noite:sab": 4
+      }
+    },
+    {
+      "id": "r-p10",
+      "professorId": "p10",
+      "enviadaEm": "2026-10-22T18:45:00Z",
+      "edicaoLiberada": false,
+      "interesses": [
+        {
+          "disciplinaId": "mob",
+          "nivel": 5
+        },
+        {
+          "disciplinaId": "ia",
+          "nivel": 5
+        },
+        {
+          "disciplinaId": "tg",
+          "nivel": 4
+        },
+        {
+          "disciplinaId": "alg",
+          "nivel": 4
+        },
+        {
+          "disciplinaId": "poo",
+          "nivel": 4
+        },
+        {
+          "disciplinaId": "ed",
+          "nivel": 3
+        }
+      ],
+      "disponibilidade": [
+        "manha:seg:1",
+        "manha:seg:2",
+        "manha:ter:1",
+        "manha:ter:2",
+        "manha:qua:1",
+        "manha:qua:2",
+        "manha:qui:1",
+        "manha:qui:2",
+        "manha:sex:1",
+        "manha:sex:2",
+        "noite:seg:1",
+        "noite:seg:2",
+        "noite:ter:1",
+        "noite:ter:2",
+        "noite:qua:1",
+        "noite:qua:2",
+        "noite:qui:1",
+        "noite:qui:2",
+        "noite:sex:1",
+        "noite:sex:2",
+        "noite:sab:1",
+        "noite:sab:2"
+      ],
+      "prioridadesPeriodo": {
+        "manha:seg": 2,
+        "manha:ter": 2,
+        "manha:qua": 2,
+        "manha:qui": 2,
+        "manha:sex": 2,
+        "noite:seg": 5,
+        "noite:ter": 5,
+        "noite:qua": 5,
+        "noite:qui": 5,
+        "noite:sex": 5,
+        "noite:sab": 5
+      }
+    }
+  ]
+}
