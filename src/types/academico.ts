@@ -13,17 +13,26 @@ export type HorarioBloco = { horaInicio: string; duracaoAula: number };
 export type EstruturaTurno = {
   turno: Turno;
   dias: DiaSemana[];
+  /** Dias com resposta de formulário ou aula alocada: não podem ser removidos (vem do back). */
+  diasEmUso?: DiaSemana[];
   blocos: number;
   /**
    * Horário de relógio de cada bloco (posição i−1 = bloco i; null = ainda sem horário). Só para o
    * cadastro: o back exige início e duração das aulas para gravar os blocos (PUT /admin/dados).
    */
   horarios?: (HorarioBloco | null)[];
+  /**
+   * Índices (1..B) dos blocos com resposta de formulário ou aula alocada: não podem sair nem mudar de
+   * horário (vem do back: emUso de cada bloco, cuja ordem é o índice).
+   */
+  blocosEmUso?: number[];
 };
 
 export type Semestre = {
   id: string;
   numero: number; // 1 a 8
+  /** Tem formulário, geração de horário, turma ou disciplina em uso: o back recusa a exclusão (vem do back). */
+  exclusaoBloqueada?: boolean;
   turmaIds: string[];
 };
 
@@ -33,6 +42,8 @@ export type Turma = {
   nome: string; // "A", "B"...
   semestre: number;
   turno: Turno;
+  /** Tem horário gerado: não pode ser excluída (vem do back). */
+  emUso?: boolean;
 };
 
 /**
@@ -52,6 +63,8 @@ export type Disciplina = {
   quantidadeProfessores?: number;
   /** 1–8: força a cor na grade; sem valor, a cor é derivada do id. */
   cor?: number;
+  /** Escolhida em resposta, alocada ou com pendência de geração: não pode ser excluída (vem do back). */
+  emUso?: boolean;
 };
 
 /** Tudo o que o administrador cadastra na aba Dados (RN-01). */

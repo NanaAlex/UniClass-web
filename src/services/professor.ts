@@ -75,6 +75,8 @@ type SolicitacaoHorarioApi = {
 type FormularioAtualApi = {
   id: number;
   nome: string;
+  /** "2027/1"; null em formulário lançado antes da migration 006. */
+  periodoLetivo: string | null;
   status: "NAO_INICIADO" | "ABERTO" | "ENCERRADO";
   dataInicio: string | null;
   dataFim: string | null;
@@ -421,7 +423,7 @@ export async function carregarMeuFormulario(professorId: string): Promise<MeuFor
   const formulario: Formulario = {
     id: String(atual.id),
     nome: atual.nome,
-    periodoLetivo: "—", // a rota do formulário atual não devolve o período letivo
+    periodoLetivo: atual.periodoLetivo ? atual.periodoLetivo.replace("/", ".") : "—", // back "2027/1", tela "2027.1"
     // Edição = id do formulário no back, a mesma convenção do snapshot da geração (form_version = id_formulario)
     edicao: atual.id,
     // NAO_INICIADO vira "aberto" com início no futuro: a tela mostra "Indisponível"

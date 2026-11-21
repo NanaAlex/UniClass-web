@@ -52,6 +52,11 @@ export function AbaDiasHorarios({ dados, atualizar }: AbaDiasHorariosProps) {
   const estrutura = dados.estruturas.find((e) => e.turno === turno);
   const incompativeis = cargasIncompativeis(dados);
   const K = dados.aulasPorBloco;
+  // Blocos com respostas de professores ou aulas no horário (vem do back)
+  const estruturasComUso = dados.estruturas.filter((e) => (e.blocosEmUso?.length ?? 0) > 0);
+  const blocoEmUso = estruturasComUso.length > 0;
+  const emUsoNoTurno = estruturasComUso.some((e) => e.turno === turno);
+  const turnosComUso = estruturasComUso.map((e) => rotulosTurno[e.turno].toLowerCase()).join(" e da ");
 
   function alterar(transformar: (atual: EstruturaTurno) => EstruturaTurno) {
     atualizar((atuais) => {
@@ -124,9 +129,12 @@ export function AbaDiasHorarios({ dados, atualizar }: AbaDiasHorariosProps) {
           className={estilos.seletorCurto}
           opcoes={opcoesAulas}
           value={String(K)}
+          // Mudar K muda o tamanho de todos os blocos, de todos os turnos: um em uso trava o seletor
+          disabled={blocoEmUso}
+          title={blocoEmUso ? "Fixo: há blocos em uso" : undefined}
           onChange={(evento) => atualizar((atuais) => definirAulasPorBloco(atuais, Number(evento.target.value)))}
         />
-        {estrutura && <FiltroDias dias={estrutura.dias} aoAlternar={alternar} />}
+        {estrutura && <FiltroDias dias={estrutura.dias} diasEmUso={estrutura.diasEmUso} aoAlternar={alternar} />}
       </div>
 
       {incompativeis.length > 0 && (
@@ -135,6 +143,16 @@ export function AbaDiasHorarios({ dados, atualizar }: AbaDiasHorariosProps) {
           embutido
           titulo={`Com ${K} aulas por bloco, ${incompativeis.length === 1 ? "1 disciplina fica" : `${incompativeis.length} disciplinas ficam`} com carga incompatível`}
           descricao={`A carga semanal precisa ser múltipla de ${K}: ${incompativeis.map((d) => `${d.nome} (${d.aulasPorSemana})`).join(", ")}. Ajuste na aba Disciplinas antes de salvar.`}
+        />
+      )}
+
+      {blocoEmUso && (
+        <Aviso
+          tipo="info"
+          embutido
+          {...(emUsoNoTurno
+            ? { titulo: "Este turno tem blocos em uso", descricao: "Eles e os anteriores não podem ser removidos." }
+            : { titulo: "Tamanho dos blocos fixo", descricao: `Há blocos em uso no turno da ${turnosComUso}.` })}
         />
       )}
 

@@ -28,6 +28,11 @@ export function definirAulasPorBloco(dados: DadosAcademicos, K: number): DadosAc
   return { ...dados, aulasPorBloco: K };
 }
 
+/** Tamanho único dos blocos no curso (o back recusa tamanhos diferentes): é o K global (RN-09). */
+export function aulasPorBlocoDoCurso(dados: DadosAcademicos) {
+  return dados.aulasPorBloco;
+}
+
 /**
  * Horários de relógio alinhados aos índices 1..B (posição i−1 = bloco i). Bloco sem horário fica null:
  * o horário nunca é inventado, e a gravação no back o exige (services/administrador.ts).

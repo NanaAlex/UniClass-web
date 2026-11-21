@@ -1,6 +1,7 @@
 import { Botao } from "@/components/ui/Botao";
 import { BotaoIcone } from "@/components/ui/BotaoIcone";
 import { EstadoVazio } from "@/components/ui/EstadoVazio";
+import { Etiqueta } from "@/components/ui/Etiqueta";
 import { IconeLapis, IconeLixeira, IconeMais } from "@/components/ui/Icones";
 import { MAXIMO_BLOCOS_TURNO, fimDoBloco, horarioDoBloco, paraHora } from "@/lib/dadosAcademicos";
 import { aulasDoBloco, rotulosDia } from "@/lib/horario";
@@ -23,6 +24,9 @@ type GradeEstruturaTurnoProps = {
 export function GradeEstruturaTurno({ estrutura, aulasPorBloco: K, aoRemoverUltimoBloco, aoEditarBloco, aoAdicionarBloco }: GradeEstruturaTurnoProps) {
   const { dias, blocos } = estrutura;
   const indices = Array.from({ length: blocos }, (_, i) => i + 1);
+  // Bloco com respostas de professores ou aulas no horário (vem do back): não sai nem muda de horário.
+  // Só o último bloco sai e nada é renumerado, então os anteriores a um bloco em uso também ficam.
+  const emUso = (indice: number) => estrutura.blocosEmUso?.includes(indice) ?? false;
   const botaoAdicionar = (
     <Botao variante="secundario" icone={<IconeMais />} onClick={aoAdicionarBloco} disabled={blocos >= MAXIMO_BLOCOS_TURNO}>
       Adicionar bloco
@@ -71,6 +75,13 @@ export function GradeEstruturaTurno({ estrutura, aulasPorBloco: K, aoRemoverUlti
                     <span className={estilos.numeroAula}>Bloco {indice}</span>
                     <span className={estilos.horas}>{aulas.length === 1 ? `aula ${aulas[0]}` : `aulas ${aulas[0]}–${aulas[aulas.length - 1]}`}</span>
                     <span className={estilos.horas}>{horario && fim !== null ? `${horario.horaInicio} – ${paraHora(fim)}` : "Horário a definir"}</span>
+                    {emUso(indice) && (
+                      <span className={estilos.emUso} title="Já tem respostas de professores ou aulas no horário">
+                        <Etiqueta variante="aviso" ponto>
+                          Em uso
+                        </Etiqueta>
+                      </span>
+                    )}
                   </th>
                   {dias.map((dia) => (
                     <td key={dia}>
@@ -78,9 +89,20 @@ export function GradeEstruturaTurno({ estrutura, aulasPorBloco: K, aoRemoverUlti
                     </td>
                   ))}
                   <td className={estilos.colunaAcao}>
-                    <BotaoIcone rotulo={`Editar horário do Bloco ${indice}`} icone={<IconeLapis />} onClick={() => aoEditarBloco(indice)} />
+                    <BotaoIcone
+                      rotulo={emUso(indice) ? `O Bloco ${indice} está em uso e o horário dele não pode mudar` : `Editar horário do Bloco ${indice}`}
+                      icone={<IconeLapis />}
+                      disabled={emUso(indice)}
+                      onClick={() => aoEditarBloco(indice)}
+                    />
                     {indice === blocos && (
-                      <BotaoIcone rotulo={`Remover o Bloco ${indice}`} icone={<IconeLixeira />} variante="perigo" onClick={aoRemoverUltimoBloco} />
+                      <BotaoIcone
+                        rotulo={emUso(indice) ? `O Bloco ${indice} está em uso e não pode ser removido` : `Remover o Bloco ${indice}`}
+                        icone={<IconeLixeira />}
+                        variante="perigo"
+                        disabled={emUso(indice)}
+                        onClick={aoRemoverUltimoBloco}
+                      />
                     )}
                   </td>
                 </tr>
