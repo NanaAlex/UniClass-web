@@ -19,6 +19,9 @@ export const hrefConfiguracoes = {
   professor: "/professor/configuracoes",
 } as const;
 
+/** Tela de perfil do professor (telefone e foto), aberta pelo bloco do usuário no menu. */
+export const hrefPerfilProfessor = "/professor/perfil";
+
 /** Aba Formulário do professor: situação + sub-rota de preenchimento/visualização. */
 export const hrefsFormularioProfessor = {
   inicio: "/professor/formulario",

@@ -39,19 +39,28 @@ export class ErroApi extends Error {
     }
 }
 
-// Faz uma requisição para o back-end
+/*
+   Faz uma requisição para o back-end
+   Corpo em JSON; com FormData (envio de arquivo), vai como multipart
+   e o navegador põe o Content-Type com o boundary sozinho.
+*/
 export async function chamarApi<T>(
     caminho: string,
     opcoes: { method?: string; body?: unknown } = {},
 ): Promise<T> {
-    const cabecalhos: Record<string, string> = { "Content-Type": "application/json" };
+    const ehFormulario = opcoes.body instanceof FormData;
+    const cabecalhos: Record<string, string> = ehFormulario ? {} : { "Content-Type": "application/json" };
     const token = obterToken();
     if (token) cabecalhos.Authorization = `Bearer ${token}`;
+
+    let corpo: BodyInit | undefined;
+    if (ehFormulario) corpo = opcoes.body as FormData;
+    else if (opcoes.body !== undefined) corpo = JSON.stringify(opcoes.body);
 
     const resposta = await fetch(`${URL_API}${caminho}`, {
         method: opcoes.method ?? "GET",
         headers: cabecalhos,
-        body: opcoes.body !== undefined ? JSON.stringify(opcoes.body) : undefined,
+        body: corpo,
     });
 
     const dados = await resposta.json().catch(() => ({}));
@@ -62,4 +71,19 @@ export async function chamarApi<T>(
     }
 
     return dados as T;
+}
+
+/*
+   Imagem de uma rota protegida (ex.: foto do professor)
+   O <img src> não manda o cabeçalho Authorization; por isso a imagem
+   é baixada com o token e mostrada como Blob. 404 = sem imagem.
+*/
+export async function baixarImagemApi(endereco: string): Promise<Blob | null> {
+    const token = obterToken();
+    const resposta = await fetch(endereco, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+    });
+    if (resposta.status === 404) return null;
+    if (!resposta.ok) throw new ErroApi(resposta.status, "Erro ao carregar a imagem");
+    return resposta.blob();
 }
