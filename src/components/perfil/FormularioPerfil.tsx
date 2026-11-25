@@ -17,6 +17,17 @@ import { enviarFoto, obterPerfil, removerFoto, salvarTelefone, type PerfilProfes
 import estilos from "./FormularioPerfil.module.css";
 
 const TIPOS_FOTO = ["image/jpeg", "image/png", "image/webp"];
+const EXTENSOES_FOTO = [".jpg", ".jpeg", ".png", ".webp"];
+
+/*
+   O tipo informado pelo sistema pode vir vazio (ex.: .webp em alguns Windows):
+   vale o tipo ou a extensão. O back confere de novo pelo conteúdo do arquivo.
+*/
+const formatoAceito = (arquivo: File) =>
+  TIPOS_FOTO.includes(arquivo.type) || EXTENSOES_FOTO.some((extensao) => arquivo.name.toLowerCase().endsWith(extensao));
+
+// DDD (dois dígitos de 1 a 9) + número de 8 ou 9 dígitos: a mesma regra do back
+const TELEFONE_VALIDO = /^[1-9]{2}\d{8,9}$/;
 
 const soDigitos = (texto: string) => texto.replace(/\D/g, "");
 const mensagemDoErro = (erro: unknown) => (erro instanceof ErroApi ? erro.message : "Tente novamente em alguns instantes.");
@@ -60,7 +71,7 @@ export function FormularioPerfil() {
     evento.target.value = ""; // permite escolher o mesmo arquivo de novo
     if (!arquivo) return;
 
-    if (!TIPOS_FOTO.includes(arquivo.type)) {
+    if (!formatoAceito(arquivo)) {
       return mostrarAviso({ tipo: "perigo", titulo: "Formato não aceito", descricao: "Escolha uma foto em JPG, PNG ou WebP." });
     }
     if (arquivo.size > TAMANHO_MAXIMO_FOTO_MB * 1024 * 1024) {
@@ -70,10 +81,10 @@ export function FormularioPerfil() {
     setRemoverFotoSalva(false);
   }
 
-  /** Descarta a foto escolhida e, se havia uma salva, marca para remover ao salvar. */
+  /** Com uma foto escolhida, só a descarta (volta a salva); sem ela, marca a salva para remover ao salvar. */
   function aoRemoverFoto() {
-    setNovaFoto(null);
-    if (perfil?.fotoUrl) setRemoverFotoSalva(true);
+    if (novaFoto) setNovaFoto(null);
+    else if (perfil?.fotoUrl) setRemoverFotoSalva(true);
   }
 
   const fotoExibida = novaFoto?.previa ?? (removerFotoSalva ? undefined : perfil?.fotoUrl);
@@ -85,18 +96,20 @@ export function FormularioPerfil() {
     if (!perfil || !alterado) return;
 
     const digitos = soDigitos(telefone);
-    if (digitos && (digitos.length < 10 || digitos.length > 20 || /[^\d\s().+-]/.test(telefone))) {
-      return setErroTelefone("Informe o DDD e o número, ex.: (11) 98765-4321.");
+    if (digitos && (!TELEFONE_VALIDO.test(digitos) || /[^\d\s().-]/.test(telefone))) {
+      return setErroTelefone("Informe o DDD e o número, com 10 ou 11 dígitos, ex.: (11) 98765-4321.");
     }
     setErroTelefone(undefined);
 
     setSalvando(true);
     let etapa: "foto" | "telefone" = "foto";
+    let fotoSalva = false;
     try {
       if (novaFoto || removerFotoSalva) {
         setPerfil(novaFoto ? await enviarFoto(novaFoto.arquivo) : await removerFoto());
         setNovaFoto(null);
         setRemoverFotoSalva(false);
+        fotoSalva = true;
         router.refresh(); // a foto também aparece no menu lateral, que vem do layout
       }
       if (telefoneAlterado) {
@@ -107,8 +120,19 @@ export function FormularioPerfil() {
       }
       mostrarAviso({ tipo: "sucesso", titulo: "Perfil salvo" });
     } catch (erro) {
-      if (etapa === "telefone" && erro instanceof ErroApi && erro.status === 400) setErroTelefone(erro.message);
-      else mostrarAviso({ tipo: "perigo", titulo: "Não foi possível salvar o perfil", descricao: mensagemDoErro(erro) });
+      const telefoneRecusado = etapa === "telefone" && erro instanceof ErroApi && erro.status === 400;
+      if (telefoneRecusado) setErroTelefone(erro.message);
+
+      if (fotoSalva) {
+        // A foto já foi gravada: avisar que só o telefone ficou para trás
+        mostrarAviso({
+          tipo: "aviso",
+          titulo: "A foto foi salva, mas o telefone não",
+          descricao: telefoneRecusado ? "Corrija o telefone e salve de novo." : mensagemDoErro(erro),
+        });
+      } else if (!telefoneRecusado) {
+        mostrarAviso({ tipo: "perigo", titulo: "Não foi possível salvar o perfil", descricao: mensagemDoErro(erro) });
+      }
     } finally {
       setSalvando(false);
     }
@@ -160,7 +184,7 @@ export function FormularioPerfil() {
         <input
           ref={refArquivo}
           type="file"
-          accept={TIPOS_FOTO.join(",")}
+          accept={[...TIPOS_FOTO, ...EXTENSOES_FOTO].join(",")}
           className="apenas-leitor"
           tabIndex={-1}
           aria-hidden="true"
@@ -197,9 +221,12 @@ export function FormularioPerfil() {
             inputMode="tel"
             autoComplete="tel"
             placeholder="(11) 98765-4321"
-            maxLength={30}
+            maxLength={20}
             value={telefone}
-            onChange={(evento) => setTelefone(evento.target.value)}
+            onChange={(evento) => {
+              setTelefone(evento.target.value);
+              setErroTelefone(undefined); // o erro some assim que a pessoa corrige
+            }}
             erro={erroTelefone}
           />
         </div>
