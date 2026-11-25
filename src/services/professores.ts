@@ -70,11 +70,3 @@ export async function alterarStatusConta(id: string, ativa: boolean): Promise<Pr
   professor.statusConta = ativa ? "ativa" : "desativada";
   return responder(comSituacao(professor), 500);
 }
-
-/** Protótipo "Editar foto". Sem back-end, a foto é um endereço local do navegador (some ao recarregar). */
-export async function atualizarFotoProfessor(id: string, fotoUrl: string): Promise<ProfessorComSituacao> {
-  const professor = professores.find((p) => p.id === id);
-  if (!professor) throw new ErroNaoEncontrado("Professor", id);
-  professor.fotoUrl = fotoUrl;
-  return responder(comSituacao(professor), 600);
-}

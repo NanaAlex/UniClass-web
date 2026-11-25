@@ -1,5 +1,5 @@
 import type { UsuarioLogado } from "@/types";
-import { apagarToken, chamarApi, ErroApi, salvarToken } from "./api";
+import { apagarToken, chamarApi, ErroApi, salvarToken, URL_API } from "./api";
 
 export type MotivoFalhaLogin = "credenciais_invalidas" | "conta_desativada" | "convite_pendente";
 
@@ -24,6 +24,8 @@ type RespostaLogin = {
     nome: string;
     email: string;
     tipoUsuario: "PROFESSOR" | "ADMINISTRADOR";
+    /** Só no GET /auth/eu: muda quando a foto do professor muda; null = sem foto. */
+    fotoVersao?: string | null;
   };
 };
 
@@ -46,6 +48,8 @@ export function converterUsuario(usuario: UsuarioApi): UsuarioLogado {
     email: usuario.email,
     perfil: ehAdministrador ? "administrador" : "professor",
     descricao: ehAdministrador ? "Coordenação" : "Professor",
+    // Rota protegida: o menu mostra com ImagemApi; a versão na URL troca a imagem guardada em cache
+    fotoUrl: usuario.fotoVersao ? `${URL_API}/professor/perfil/foto?v=${usuario.fotoVersao}` : undefined,
   };
 }
 

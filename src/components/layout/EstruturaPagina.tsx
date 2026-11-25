@@ -7,12 +7,13 @@ type EstruturaPaginaProps = {
   itensMenu: ItemMenu[];
   usuario: UsuarioLogado;
   hrefConfiguracoes: string;
+  hrefPerfil?: string;
   caminhoAtivo?: string;
   children: ReactNode;
 };
 
 /** Menu lateral + área de conteúdo. Usada pelos layouts de (admin) e (professor). */
-export function EstruturaPagina({ itensMenu, usuario, hrefConfiguracoes, caminhoAtivo, children }: EstruturaPaginaProps) {
+export function EstruturaPagina({ itensMenu, usuario, hrefConfiguracoes, hrefPerfil, caminhoAtivo, children }: EstruturaPaginaProps) {
   return (
     <>
       <a href="#conteudo" className={estilos.pularParaConteudo}>
@@ -23,6 +24,7 @@ export function EstruturaPagina({ itensMenu, usuario, hrefConfiguracoes, caminho
           itens={itensMenu}
           usuario={usuario}
           hrefConfiguracoes={hrefConfiguracoes}
+          hrefPerfil={hrefPerfil}
           caminhoAtivo={caminhoAtivo}
         />
         <main id="conteudo" className={estilos.conteudo} tabIndex={-1}>
