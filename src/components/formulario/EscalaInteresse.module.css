@@ -1,0 +1,50 @@
+.escala {
+  display: inline-flex;
+  padding: 2px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-medio);
+  background: var(--cor-superficie);
+}
+
+.opcao {
+  position: relative;
+  display: flex;
+}
+
+/* Escondido visualmente, mas focável e anunciado */
+.radio {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.marcador {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 28px;
+  border-radius: var(--raio-pequeno);
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-semi);
+  color: var(--cor-texto-secundario);
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+  transition:
+    background-color var(--transicao-padrao),
+    color var(--transicao-padrao);
+}
+
+.opcao:hover .marcador {
+  background: var(--cor-primaria-suave);
+  color: var(--cor-primaria);
+}
+
+.radio:checked + .marcador {
+  background: var(--cor-primaria);
+  color: var(--cor-texto-invertido);
+}
+
+.radio:focus-visible + .marcador {
+  box-shadow: var(--anel-foco);
+}

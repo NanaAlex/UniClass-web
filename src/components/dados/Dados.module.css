@@ -1,0 +1,55 @@
+/* Estilos compartilhados pelas abas da tela Dados */
+.cartaoSecao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-5);
+  padding: var(--espaco-5);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-grande);
+  box-shadow: var(--sombra-suave);
+}
+
+.cabecalhoSecao {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--espaco-4);
+}
+
+.descricaoSecao {
+  max-width: 64ch;
+  margin-top: var(--espaco-1);
+  font-size: var(--texto-tamanho-sm);
+  color: var(--cor-texto-secundario);
+}
+
+/* Linha de controles: rótulo acima, itens alinhados pela base */
+.controles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--espaco-5);
+}
+
+.grupoControle {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-2);
+}
+
+.rotuloControle {
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-medio);
+}
+
+.seletorCurto {
+  width: 160px;
+}
+
+.gradeSemestres {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(208px, 1fr));
+  gap: var(--espaco-4);
+}

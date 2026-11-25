@@ -1,0 +1,114 @@
+.lista {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-grande);
+  background: var(--cor-superficie);
+  list-style: none;
+}
+
+.item {
+  position: relative;
+  display: flex;
+  gap: var(--espaco-4);
+  padding: var(--espaco-4) var(--espaco-5);
+  transition: background-color var(--transicao-padrao);
+}
+
+.item + .item {
+  border-top: 1px solid var(--cor-borda);
+}
+
+.item:hover {
+  background: var(--cor-fundo);
+}
+
+/* Faixa lateral discreta para o que ainda precisa de atenção */
+.pendente::before {
+  content: "";
+  position: absolute;
+  top: var(--espaco-4);
+  bottom: var(--espaco-4);
+  left: 0;
+  width: 3px;
+  border-radius: 0 var(--raio-pequeno) var(--raio-pequeno) 0;
+  background: var(--cor-aviso);
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--raio-total);
+  background: var(--cor-primaria-suave);
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-semi);
+  color: var(--cor-primaria);
+}
+
+.corpo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--espaco-2);
+  min-width: 0;
+}
+
+.topo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--espaco-3);
+}
+
+.titulo {
+  font-size: var(--texto-tamanho-md);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 2px;
+  font-size: var(--texto-tamanho-xs);
+  color: var(--cor-texto-secundario);
+}
+
+.meta > * + *::before {
+  content: "·";
+  margin: 0 var(--espaco-2);
+}
+
+.descricao {
+  display: -webkit-box;
+  overflow: hidden;
+  max-width: 72ch;
+  font-size: var(--texto-tamanho-sm);
+  color: var(--cor-texto);
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.acoes {
+  display: flex;
+  gap: var(--espaco-2);
+  margin-top: var(--espaco-1);
+}
+
+/* Recado do administrador ao analisar o pedido */
+.resposta {
+  max-width: 72ch;
+  padding: var(--espaco-2) var(--espaco-3);
+  border-left: 3px solid var(--cor-primaria);
+  border-radius: 0 var(--raio-pequeno) var(--raio-pequeno) 0;
+  background: var(--cor-fundo);
+  font-size: var(--texto-tamanho-sm);
+}
+
+.rotuloResposta {
+  font-size: var(--texto-tamanho-xs);
+  font-weight: var(--peso-medio);
+  color: var(--cor-texto-secundario);
+}

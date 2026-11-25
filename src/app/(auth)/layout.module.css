@@ -1,0 +1,29 @@
+.estrutura {
+  display: grid;
+  grid-template-columns: minmax(380px, 5fr) 7fr;
+  min-height: 100vh;
+}
+
+.conteudo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--espaco-7) var(--espaco-5);
+  background: var(--cor-superficie);
+}
+
+.coluna {
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Telas estreitas: só o formulário */
+@media (max-width: 900px) {
+  .estrutura {
+    grid-template-columns: 1fr;
+  }
+
+  .estrutura > aside {
+    display: none;
+  }
+}

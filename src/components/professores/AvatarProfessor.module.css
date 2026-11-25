@@ -1,0 +1,29 @@
+.avatar {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: var(--raio-total);
+  background: var(--cor-primaria-suave);
+  font-weight: var(--peso-semi);
+  color: var(--cor-primaria);
+}
+
+.m {
+  width: 44px;
+  height: 44px;
+  font-size: var(--texto-tamanho-sm);
+}
+
+.g {
+  width: 96px;
+  height: 96px;
+  font-size: var(--texto-tamanho-2xl);
+  box-shadow: 0 0 0 4px var(--cor-superficie), 0 0 0 5px var(--cor-borda);
+}
+
+.foto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

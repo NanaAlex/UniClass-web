@@ -1,0 +1,105 @@
+/* Exibido sobre o cabeçalho azul-marinho do assistente: cores invertidas */
+.lista {
+  display: flex;
+  gap: var(--espaco-2);
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--espaco-2);
+  min-width: 0;
+}
+
+/* Linha que liga uma etapa à próxima */
+.item:not(:last-child)::after {
+  content: "";
+  flex: 1;
+  min-width: var(--espaco-4);
+  height: 2px;
+  border-radius: var(--raio-total);
+  background: var(--cor-menu-borda);
+}
+
+.item[data-estado="concluida"]::after {
+  background: var(--cor-texto-invertido);
+}
+
+.botao {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  min-width: 0;
+  padding: var(--espaco-1) var(--espaco-3) var(--espaco-1) var(--espaco-1);
+  border-radius: var(--raio-total);
+  color: inherit;
+  text-align: left;
+  transition: background-color var(--transicao-padrao);
+}
+
+.botao:hover:not(:disabled) {
+  background: var(--cor-menu-hover);
+}
+
+.botao:focus-visible {
+  box-shadow: 0 0 0 2px var(--cor-texto-invertido);
+}
+
+.botao:disabled {
+  cursor: default;
+}
+
+.numero {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--cor-menu-borda);
+  border-radius: var(--raio-total);
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-semi);
+  color: var(--cor-menu-texto-suave);
+}
+
+.rotulo {
+  overflow: hidden;
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-medio);
+  color: var(--cor-menu-texto-suave);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.item[data-estado="atual"] .numero {
+  border-color: var(--cor-superficie);
+  background: var(--cor-superficie);
+  color: var(--cor-primaria);
+}
+
+.item[data-estado="concluida"] .numero {
+  border-color: var(--cor-texto-invertido);
+  color: var(--cor-texto-invertido);
+}
+
+.item[data-estado="atual"] .rotulo,
+.item[data-estado="concluida"] .rotulo {
+  color: var(--cor-texto-invertido);
+}
+
+.item[data-estado="atual"] .rotulo {
+  font-weight: var(--peso-semi);
+}
+
+@container conteudo (max-width: 760px) {
+  /* Em telas estreitas só a etapa atual mostra o nome */
+  .item:not([data-estado="atual"]) .rotulo {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+}

@@ -1,0 +1,65 @@
+/* Estilos compartilhados por FormularioLogin e FormularioRecuperarSenha */
+.cabecalho {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-2);
+  margin-bottom: var(--espaco-6);
+}
+
+.titulo {
+  font-size: var(--texto-tamanho-3xl);
+  font-weight: var(--peso-negrito);
+  letter-spacing: -0.01em;
+}
+
+.subtitulo {
+  color: var(--cor-texto-secundario);
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-5);
+}
+
+.link {
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-medio);
+  color: var(--cor-primaria);
+  text-decoration: underline;
+  text-decoration-color: var(--cor-borda-forte);
+  border-radius: var(--raio-pequeno);
+}
+
+.link:hover {
+  text-decoration-color: currentColor;
+}
+
+.voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  margin-bottom: var(--espaco-5);
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-medio);
+  color: var(--cor-texto-secundario);
+  text-decoration: none;
+  border-radius: var(--raio-pequeno);
+}
+
+.voltar:hover {
+  color: var(--cor-primaria);
+}
+
+.acoesConfirmacao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-3);
+  width: 100%;
+}
+
+.destaque {
+  font-weight: var(--peso-semi);
+  color: var(--cor-texto);
+  overflow-wrap: anywhere;
+}

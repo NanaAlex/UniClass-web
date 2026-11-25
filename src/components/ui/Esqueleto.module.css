@@ -1,0 +1,38 @@
+.esqueleto {
+  display: block;
+  background: linear-gradient(
+    90deg,
+    var(--cor-superficie-alternativa) 0%,
+    var(--cor-campo-desabilitado) 40%,
+    var(--cor-superficie-alternativa) 80%
+  );
+  background-size: 200% 100%;
+  animation: brilho 1.4s ease-in-out infinite;
+}
+
+.linha {
+  width: 100%;
+  height: 0.875rem;
+  border-radius: var(--raio-pequeno);
+}
+
+.circulo {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--raio-total);
+}
+
+.bloco {
+  width: 100%;
+  height: 96px;
+  border-radius: var(--raio-medio);
+}
+
+@keyframes brilho {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}

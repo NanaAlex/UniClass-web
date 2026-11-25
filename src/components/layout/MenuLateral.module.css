@@ -1,0 +1,234 @@
+/* Painel flutuante: afastado das bordas da janela, com cantos bem arredondados */
+.menu {
+  position: sticky;
+  top: var(--espaco-3);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: var(--largura-menu);
+  height: calc(100vh - var(--espaco-3) * 2);
+  margin: var(--espaco-3) 0 var(--espaco-3) var(--espaco-3);
+  padding: var(--espaco-5) var(--espaco-3) var(--espaco-4);
+  border-radius: var(--raio-extra);
+  background: var(--cor-menu-fundo);
+  color: var(--cor-menu-texto);
+  box-shadow: var(--sombra-elevada);
+  overflow-y: auto;
+}
+
+/* Marca */
+.marca {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-3);
+  margin: 0 var(--espaco-2) var(--espaco-6);
+  color: var(--cor-menu-texto);
+  text-decoration: none;
+  border-radius: var(--raio-medio);
+}
+
+.monograma {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--raio-medio);
+  background: var(--cor-superficie);
+  color: var(--cor-primaria);
+  font-size: var(--texto-tamanho-lg);
+  font-weight: var(--peso-negrito);
+}
+
+.nomeMarca {
+  font-size: var(--texto-tamanho-xl);
+  font-weight: var(--peso-negrito);
+  letter-spacing: -0.01em;
+}
+
+/* Navegação */
+.navegacao {
+  flex: 1;
+}
+
+.rotuloSecao {
+  margin: 0 var(--espaco-3) var(--espaco-2);
+  font-size: var(--texto-tamanho-xs);
+  font-weight: var(--peso-semi);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cor-menu-rotulo);
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-1);
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-3);
+  height: 40px;
+  padding: 0 var(--espaco-3);
+  border-radius: var(--raio-grande);
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-medio);
+  color: var(--cor-menu-texto-suave);
+  text-decoration: none;
+  transition:
+    background-color var(--transicao-padrao),
+    color var(--transicao-padrao);
+}
+
+.item:hover {
+  background: var(--cor-menu-hover);
+  color: var(--cor-menu-texto);
+}
+
+.item:focus-visible {
+  box-shadow: 0 0 0 2px var(--cor-menu-texto);
+}
+
+.item[aria-current="page"] {
+  background: var(--cor-superficie);
+  color: var(--cor-primaria);
+  font-weight: var(--peso-semi);
+  box-shadow: var(--sombra-suave);
+}
+
+.item[aria-current="page"]:focus-visible {
+  box-shadow: 0 0 0 2px var(--cor-menu-fundo), 0 0 0 4px var(--cor-menu-texto);
+}
+
+.icone {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  background: currentColor;
+  mask: var(--icone) center / contain no-repeat;
+  -webkit-mask: var(--icone) center / contain no-repeat;
+}
+
+.rotuloItem {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.contador {
+  min-width: 20px;
+  padding: 0 var(--espaco-1);
+  border-radius: var(--raio-total);
+  background: var(--cor-aviso-suave);
+  color: var(--cor-aviso);
+  font-size: var(--texto-tamanho-xs);
+  font-weight: var(--peso-semi);
+  text-align: center;
+}
+
+/* Rodapé */
+.rodape {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+  padding-top: var(--espaco-4);
+  border-top: 1px solid var(--cor-menu-borda);
+}
+
+.usuario {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-3);
+  padding: var(--espaco-2);
+  border-radius: var(--raio-grande);
+  background: var(--cor-menu-hover);
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--raio-total);
+  background: var(--cor-primaria-suave);
+  color: var(--cor-primaria);
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-semi);
+}
+
+.dadosUsuario {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.nomeUsuario,
+.perfilUsuario {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.nomeUsuario {
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-semi);
+}
+
+.perfilUsuario {
+  font-size: var(--texto-tamanho-xs);
+  color: var(--cor-menu-texto-suave);
+}
+
+/* Até 1024px o menu recolhe para ícones; o nome aparece no title e no leitor de tela */
+@media (max-width: 1024px) {
+  .menu {
+    width: var(--largura-menu-recolhido);
+    padding-inline: var(--espaco-3);
+  }
+
+  .marca {
+    justify-content: center;
+    margin-inline: 0;
+  }
+
+  .item {
+    position: relative;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .nomeMarca,
+  .rotuloItem,
+  .dadosUsuario {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .rotuloSecao {
+    visibility: hidden;
+    height: 0;
+    margin: 0;
+  }
+
+  .contador {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    min-width: 16px;
+    font-size: 0.625rem;
+  }
+
+  .usuario {
+    justify-content: center;
+    padding: var(--espaco-1);
+    background: none;
+  }
+}

@@ -1,0 +1,66 @@
+export type DiaSemana = "seg" | "ter" | "qua" | "qui" | "sex" | "sab";
+
+export type Turno = "manha" | "tarde" | "noite";
+
+/** Uma aula dentro de um bloco. `posicao` é contínua no turno (1, 2, 3...). */
+export type HorarioAula = {
+  posicao: number;
+  inicio?: string; // "07:30"
+  fim?: string; // "08:20"
+};
+
+/** Aulas seguidas; entre um bloco e o próximo existe um intervalo (RF 7.2, RF 7.3). */
+export type BlocoAula = {
+  aulas: HorarioAula[];
+  /** Tem resposta de formulário ou aula alocada: não pode sair (vem do back). */
+  emUso?: boolean;
+};
+
+/** Dias e blocos de um turno, definidos pelo administrador (RF 7.1–7.3). */
+export type EstruturaTurno = {
+  turno: Turno;
+  dias: DiaSemana[];
+  /** Dias com resposta de formulário ou aula alocada: não podem ser removidos (vem do back). */
+  diasEmUso?: DiaSemana[];
+  blocos: BlocoAula[];
+};
+
+export type Semestre = {
+  id: string;
+  numero: number; // 1 a 8
+  /** Tem formulário, geração de horário, turma ou disciplina em uso: o back recusa a exclusão (vem do back). */
+  exclusaoBloqueada?: boolean;
+  turmaIds: string[];
+};
+
+export type Turma = {
+  id: string;
+  nome: string; // "A", "B"...
+  semestre: number;
+  turno: Turno;
+  /** Tem horário gerado: não pode ser excluída (vem do back). */
+  emUso?: boolean;
+};
+
+/** RF 7.6: nome, aulas por semana, semestre e quantidade de professores. */
+export type Disciplina = {
+  id: string;
+  nome: string;
+  semestre: number;
+  aulasPorSemana: number;
+  quantidadeProfessores: number;
+  /** A disciplina não tem turno no back (migration 003): o turno é da turma. */
+  turno?: Turno;
+  /** 1–8: força a cor na grade; sem valor, a cor é derivada do id. */
+  cor?: number;
+  /** Escolhida em resposta, alocada ou com pendência de geração: não pode ser excluída (vem do back). */
+  emUso?: boolean;
+};
+
+/** Tudo o que o administrador cadastra na aba Dados (RF 7). */
+export type DadosAcademicos = {
+  estruturas: EstruturaTurno[];
+  semestres: Semestre[];
+  turmas: Turma[];
+  disciplinas: Disciplina[];
+};

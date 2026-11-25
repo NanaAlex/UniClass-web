@@ -1,0 +1,50 @@
+.estrutura {
+  display: flex;
+  min-height: 100vh;
+}
+
+.conteudo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--espaco-6);
+  min-width: 0;
+  max-width: 1280px;
+  padding: var(--espaco-6) var(--espaco-7) var(--espaco-7);
+  /* Componentes respondem à largura útil (que muda quando o menu recolhe), não à da janela.
+     Larguras de referência: 880px (largo) e 760px (estreito). */
+  container: conteudo / inline-size;
+}
+
+.conteudo:focus {
+  outline: none;
+}
+
+.pularParaConteudo {
+  position: absolute;
+  top: var(--espaco-2);
+  left: var(--espaco-2);
+  z-index: var(--camada-aviso);
+  padding: var(--espaco-2) var(--espaco-4);
+  border-radius: var(--raio-medio);
+  background: var(--cor-superficie);
+  font-weight: var(--peso-semi);
+  transform: translateY(-200%);
+  transition: transform var(--transicao-padrao);
+}
+
+.pularParaConteudo:focus-visible {
+  transform: none;
+}
+
+@media (max-width: 1280px) {
+  .conteudo {
+    padding-inline: var(--espaco-6);
+  }
+}
+
+@media (max-width: 1024px) {
+  .conteudo {
+    padding: var(--espaco-5) var(--espaco-5) var(--espaco-6);
+  }
+}

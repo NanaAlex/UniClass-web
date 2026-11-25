@@ -1,0 +1,131 @@
+import { Fragment } from "react";
+import { Botao } from "@/components/ui/Botao";
+import { BotaoIcone } from "@/components/ui/BotaoIcone";
+import { EstadoVazio } from "@/components/ui/EstadoVazio";
+import { Etiqueta } from "@/components/ui/Etiqueta";
+import { IconeLapis, IconeLixeira, IconeMais } from "@/components/ui/Icones";
+import { rotuloAula, rotulosDia } from "@/lib/horario";
+import type { EstruturaTurno } from "@/types";
+import estilos from "./GradeEstruturaTurno.module.css";
+
+type GradeEstruturaTurnoProps = {
+  estrutura: EstruturaTurno;
+  aoRemoverBloco: (indice: number) => void;
+  aoEditarBloco: (indice: number) => void;
+  aoAdicionarBloco: () => void;
+};
+
+/** Prévia dos horários do turno: dias nas colunas, aulas nas linhas, intervalo entre blocos. */
+export function GradeEstruturaTurno({ estrutura, aoRemoverBloco, aoEditarBloco, aoAdicionarBloco }: GradeEstruturaTurnoProps) {
+  const { dias, blocos } = estrutura;
+  // Remover um bloco renumera os seguintes, e o back compara por posição: um em uso adiante seria alterado
+  const emUsoDepois = (indice: number) => blocos.slice(indice + 1).some((b) => b.emUso);
+  const botaoAdicionar = (
+    <Botao variante="secundario" icone={<IconeMais />} onClick={aoAdicionarBloco}>
+      Adicionar bloco
+    </Botao>
+  );
+
+  if (dias.length === 0 || blocos.length === 0) {
+    return (
+      <EstadoVazio
+        contorno
+        titulo={dias.length === 0 ? "Nenhum dia letivo" : "Nenhum bloco de aulas"}
+        descricao={
+          dias.length === 0
+            ? "Escolha acima os dias da semana em que este turno tem aula."
+            : "Adicione um bloco para definir quantas aulas acontecem antes do primeiro intervalo."
+        }
+        acao={blocos.length === 0 ? botaoAdicionar : undefined}
+      />
+    );
+  }
+
+  return (
+    <div className={estilos.envoltorio}>
+      <div className={estilos.rolagem}>
+        <table className={estilos.grade}>
+          <caption className="apenas-leitor">Aulas do turno por dia da semana</caption>
+          <thead>
+            <tr>
+              <th scope="col" className={estilos.colunaAula}>
+                <span className="apenas-leitor">Aula</span>
+              </th>
+              {dias.map((dia) => (
+                <th key={dia} scope="col">
+                  {rotulosDia[dia].longo}
+                </th>
+              ))}
+              <th scope="col" className={estilos.colunaAcao}>
+                <span className="apenas-leitor">Ações do bloco</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {blocos.map((bloco, indice) => (
+              <Fragment key={indice}>
+                {indice > 0 && (
+                  <tr>
+                    <td colSpan={dias.length + 2} className={estilos.intervalo}>
+                      Intervalo
+                    </td>
+                  </tr>
+                )}
+                {bloco.aulas.map((aula, i) => (
+                  <tr key={aula.posicao} className={i === 0 ? estilos.inicioBloco : undefined}>
+                    <th scope="row" className={estilos.colunaAula}>
+                      <span className={estilos.numeroAula}>{rotuloAula(aula.posicao)}</span>
+                      <span className={estilos.horas}>
+                        {aula.inicio && aula.fim ? `${aula.inicio} – ${aula.fim}` : "Horário a definir"}
+                      </span>
+                      {i === 0 && bloco.emUso && (
+                        <span className={estilos.emUso} title="Já tem respostas de professores ou aulas no horário">
+                          <Etiqueta variante="aviso" ponto>
+                            Em uso
+                          </Etiqueta>
+                        </span>
+                      )}
+                    </th>
+                    {dias.map((dia) => (
+                      <td key={dia}>
+                        <span className={estilos.vaga} />
+                      </td>
+                    ))}
+                    {i === 0 && (
+                      <td rowSpan={bloco.aulas.length} className={estilos.colunaAcao}>
+                        <BotaoIcone
+                          rotulo={
+                            bloco.emUso
+                              ? `O bloco ${indice + 1} está em uso e o horário dele não pode mudar`
+                              : `Editar horário do bloco ${indice + 1}`
+                          }
+                          icone={<IconeLapis />}
+                          disabled={bloco.emUso}
+                          onClick={() => aoEditarBloco(indice)}
+                        />
+                        <BotaoIcone
+                          rotulo={
+                            bloco.emUso
+                              ? `O bloco ${indice + 1} está em uso e não pode ser removido`
+                              : emUsoDepois(indice)
+                                ? `O bloco ${indice + 1} vem antes de um bloco em uso e não pode ser removido`
+                                : `Remover bloco ${indice + 1}`
+                          }
+                          icone={<IconeLixeira />}
+                          variante="perigo"
+                          disabled={bloco.emUso || emUsoDepois(indice)}
+                          onClick={() => aoRemoverBloco(indice)}
+                        />
+                      </td>
+                    )}
+                  </tr>
+                ))}
+              </Fragment>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {botaoAdicionar}
+    </div>
+  );
+}

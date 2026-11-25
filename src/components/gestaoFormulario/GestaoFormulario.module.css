@@ -1,0 +1,67 @@
+.painel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-5);
+}
+
+/* Lançamento: nome mais largo, datas lado a lado, ação à direita no fim */
+.lancamento {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr));
+  gap: var(--espaco-4);
+  align-items: start;
+}
+
+.acaoLancamento {
+  display: flex;
+  grid-column: 1 / -1;
+  justify-content: flex-end;
+}
+
+.camposModal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+}
+
+.respostas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-3);
+}
+
+.legenda {
+  font-size: var(--texto-tamanho-sm);
+  color: var(--cor-texto-secundario);
+}
+
+.esqueletoResumo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-3);
+  padding: var(--espaco-6);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-grande);
+}
+
+.esqueletoDetalhes {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--espaco-5);
+  margin-top: var(--espaco-3);
+}
+
+@container conteudo (max-width: 880px) {
+  .lancamento {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .campoNome {
+    grid-column: 1 / -1;
+  }
+
+  .esqueletoDetalhes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

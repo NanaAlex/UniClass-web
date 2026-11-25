@@ -1,0 +1,41 @@
+.ancora {
+  position: relative;
+  display: inline-flex;
+}
+
+.dica {
+  position: absolute;
+  left: 50%;
+  z-index: var(--camada-modal);
+  width: max-content;
+  max-width: 220px;
+  padding: var(--espaco-1) var(--espaco-2);
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-texto);
+  color: var(--cor-texto-invertido);
+  font-size: var(--texto-tamanho-xs);
+  font-weight: var(--peso-medio);
+  line-height: var(--altura-linha-justa);
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%);
+  transition:
+    opacity var(--transicao-padrao),
+    visibility var(--transicao-padrao);
+}
+
+.cima {
+  bottom: calc(100% + var(--espaco-2));
+}
+
+.baixo {
+  top: calc(100% + var(--espaco-2));
+}
+
+.ancora:hover .dica,
+.ancora:focus-within .dica {
+  opacity: 1;
+  visibility: visible;
+}

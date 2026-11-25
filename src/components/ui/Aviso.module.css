@@ -1,0 +1,73 @@
+.caixa {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--espaco-3);
+  width: 100%;
+  max-width: 380px;
+  padding: var(--espaco-3) var(--espaco-4);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-left: 4px solid;
+  border-radius: var(--raio-medio);
+  box-shadow: var(--sombra-elevada);
+}
+
+.icone {
+  display: inline-flex;
+  flex-shrink: 0;
+  padding-top: 2px;
+  font-size: 1.25rem;
+}
+
+.texto {
+  flex: 1;
+  min-width: 0;
+}
+
+.titulo {
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-semi);
+}
+
+.descricao {
+  margin-top: var(--espaco-1);
+  font-size: var(--texto-tamanho-sm);
+  color: var(--cor-texto-secundario);
+}
+
+.sucesso {
+  border-left-color: var(--cor-sucesso);
+}
+
+.sucesso .icone {
+  color: var(--cor-sucesso);
+}
+
+.perigo {
+  border-left-color: var(--cor-perigo);
+}
+
+.perigo .icone {
+  color: var(--cor-perigo);
+}
+
+.aviso {
+  border-left-color: var(--cor-aviso);
+}
+
+.aviso .icone {
+  color: var(--cor-aviso);
+}
+
+.info {
+  border-left-color: var(--cor-info);
+}
+
+.info .icone {
+  color: var(--cor-info);
+}
+
+.embutido {
+  max-width: none;
+  box-shadow: none;
+}

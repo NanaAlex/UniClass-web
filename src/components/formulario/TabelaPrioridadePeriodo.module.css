@@ -1,0 +1,90 @@
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-3);
+  list-style: none;
+}
+
+/* Uma faixa azul-marinho por turno, com os dias à direita */
+.turno {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  align-items: center;
+  gap: var(--espaco-4);
+  padding: var(--espaco-4) var(--espaco-5);
+  border-radius: var(--raio-grande);
+  background: var(--cor-primaria);
+  color: var(--cor-texto-invertido);
+}
+
+.nomeTurno {
+  font-size: var(--texto-tamanho-xl);
+  color: inherit;
+}
+
+.dias {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(124px, 1fr));
+  gap: var(--espaco-3);
+}
+
+.dia {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-1);
+  min-width: 0;
+}
+
+.rotuloDia {
+  font-size: var(--texto-tamanho-xs);
+  font-weight: var(--peso-medio);
+  color: var(--cor-menu-texto-suave);
+}
+
+/* Seletor sobre o azul: campo branco sem borda e anel de foco claro */
+.dia select {
+  height: 36px;
+  border-color: transparent;
+}
+
+.dia select:hover:not(:disabled) {
+  border-color: var(--cor-primaria-suave);
+}
+
+.dia select:focus-visible {
+  border-color: var(--cor-superficie);
+  box-shadow: 0 0 0 2px var(--cor-primaria), 0 0 0 4px var(--cor-texto-invertido);
+}
+
+.semAula {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 var(--espaco-3);
+  border: 1px dashed var(--cor-menu-borda);
+  border-radius: var(--raio-medio);
+  font-size: var(--texto-tamanho-xs);
+  color: var(--cor-menu-texto-suave);
+}
+
+.leitura {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--espaco-1);
+  font-size: var(--texto-tamanho-xs);
+  color: var(--cor-menu-texto-suave);
+}
+
+.leitura strong {
+  font-size: var(--texto-tamanho-lg);
+  font-weight: var(--peso-semi);
+  color: var(--cor-texto-invertido);
+  font-variant-numeric: tabular-nums;
+}
+
+@container conteudo (max-width: 760px) {
+  .turno {
+    grid-template-columns: 1fr;
+    gap: var(--espaco-3);
+  }
+}

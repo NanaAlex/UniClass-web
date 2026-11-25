@@ -1,0 +1,37 @@
+.cabecalho {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espaco-3) var(--espaco-4);
+}
+
+/* Com descrição, as ações alinham pela base do texto */
+.cabecalho:has(.descricao) {
+  align-items: flex-end;
+}
+
+.textos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-1);
+  min-width: 0;
+  max-width: 72ch;
+}
+
+.titulo {
+  font-size: var(--texto-tamanho-xl);
+  font-weight: var(--peso-semi);
+}
+
+.descricao {
+  font-size: var(--texto-tamanho-sm);
+  color: var(--cor-texto-secundario);
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espaco-2);
+}

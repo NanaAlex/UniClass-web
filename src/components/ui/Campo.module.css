@@ -1,0 +1,157 @@
+/* Estilos compartilhados por CampoTexto e Seletor */
+.grupo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-2);
+  min-width: 0;
+}
+
+.linhaRotulo {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--espaco-3);
+}
+
+.rotulo {
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-medio);
+  color: var(--cor-texto);
+}
+
+.obrigatorio {
+  color: var(--cor-perigo);
+}
+
+.envoltorio {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.campo {
+  width: 100%;
+  height: 40px;
+  padding: 0 var(--espaco-3);
+  background: var(--cor-campo);
+  /* Cor explícita: o reset usa color: inherit e o campo pode estar sobre fundo escuro */
+  color: var(--cor-texto);
+  border: 1px solid var(--cor-borda-campo);
+  border-radius: var(--raio-medio);
+  font-size: var(--texto-tamanho-sm);
+  transition:
+    border-color var(--transicao-padrao),
+    box-shadow var(--transicao-padrao);
+}
+
+.campo::placeholder {
+  color: var(--cor-texto-secundario);
+}
+
+.campo:hover:not(:disabled) {
+  border-color: var(--cor-texto-secundario);
+}
+
+.campo:focus-visible {
+  border-color: var(--cor-primaria);
+}
+
+.campo:disabled {
+  cursor: not-allowed;
+  background: var(--cor-campo-desabilitado);
+  color: var(--cor-texto-secundario);
+}
+
+.campo[aria-invalid="true"] {
+  border-color: var(--cor-perigo);
+}
+
+.campo[aria-invalid="true"]:focus-visible {
+  box-shadow: var(--anel-foco-perigo);
+}
+
+.comIcone {
+  padding-left: calc(var(--espaco-3) + 1.25rem + var(--espaco-2));
+}
+
+.comAcao {
+  padding-right: calc(var(--espaco-2) + 32px);
+}
+
+.acaoDireita {
+  position: absolute;
+  right: var(--espaco-1);
+  display: flex;
+}
+
+.iconeEsquerda {
+  position: absolute;
+  left: var(--espaco-3);
+  display: inline-flex;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--cor-texto-secundario);
+  pointer-events: none;
+}
+
+.seletor {
+  appearance: none;
+  padding-right: calc(var(--espaco-3) + 1.25rem + var(--espaco-2));
+  cursor: pointer;
+}
+
+.seta {
+  position: absolute;
+  right: var(--espaco-3);
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--cor-texto-secundario);
+  pointer-events: none;
+}
+
+.dica,
+.erro {
+  font-size: var(--texto-tamanho-xs);
+}
+
+.dica {
+  color: var(--cor-texto-secundario);
+}
+
+.erro {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--espaco-1);
+  color: var(--cor-perigo);
+  font-weight: var(--peso-medio);
+}
+
+.iconeErro {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  margin-top: 1px;
+}
+
+/* AreaTexto */
+.areaTexto {
+  height: auto;
+  min-height: 128px;
+  padding: var(--espaco-3);
+  line-height: var(--altura-linha-normal);
+  resize: vertical;
+}
+
+.rodapeCampo {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--espaco-3);
+}
+
+.contador {
+  margin-left: auto;
+  font-size: var(--texto-tamanho-xs);
+  color: var(--cor-texto-secundario);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}

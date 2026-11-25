@@ -1,0 +1,102 @@
+/* Mesma aparência do Campo: borda de 1px, foco com borda primária + anel */
+.caixa {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espaco-2);
+  min-height: 96px;
+  padding: var(--espaco-2) var(--espaco-3);
+  border: 1px solid var(--cor-borda-campo);
+  border-radius: var(--raio-medio);
+  background: var(--cor-campo);
+  cursor: text;
+  transition:
+    border-color var(--transicao-padrao),
+    box-shadow var(--transicao-padrao);
+}
+
+.caixa:hover {
+  border-color: var(--cor-texto-secundario);
+}
+
+.caixa:focus-within {
+  border-color: var(--cor-primaria);
+  box-shadow: var(--anel-foco);
+}
+
+.comErro,
+.comErro:hover {
+  border-color: var(--cor-perigo);
+}
+
+.chips {
+  display: contents;
+  list-style: none;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  max-width: 100%;
+  height: 30px;
+  padding: 0 var(--espaco-1) 0 var(--espaco-3);
+  border: 1px solid var(--cor-primaria-suave);
+  border-radius: var(--raio-total);
+  background: var(--cor-primaria-suave);
+  font-size: var(--texto-tamanho-sm);
+  color: var(--cor-primaria);
+}
+
+.chipErro {
+  border-color: var(--cor-perigo-borda);
+  background: var(--cor-perigo-suave);
+  color: var(--cor-perigo);
+}
+
+.textoChip {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.problema {
+  font-size: var(--texto-tamanho-xs);
+  font-weight: var(--peso-semi);
+  white-space: nowrap;
+}
+
+.remover {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--raio-total);
+  color: inherit;
+  transition: background-color var(--transicao-padrao);
+}
+
+.remover:hover {
+  background: var(--cor-superficie);
+}
+
+.remover:focus-visible {
+  outline: none;
+  box-shadow: var(--anel-foco);
+}
+
+.campo {
+  flex: 1;
+  min-width: 200px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  font: inherit;
+  color: var(--cor-texto);
+  outline: none;
+}
+
+.campo::placeholder {
+  color: var(--cor-texto-secundario);
+}
+

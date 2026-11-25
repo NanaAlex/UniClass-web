@@ -1,0 +1,49 @@
+.etiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  height: 24px;
+  padding: 0 var(--espaco-2);
+  border: 1px solid;
+  border-radius: var(--raio-pequeno);
+  font-size: var(--texto-tamanho-xs);
+  font-weight: var(--peso-medio);
+  white-space: nowrap;
+}
+
+.ponto {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--raio-total);
+  background: currentColor;
+}
+
+.neutra {
+  background: var(--cor-superficie-alternativa);
+  border-color: var(--cor-borda);
+  color: var(--cor-texto-secundario);
+}
+
+.info {
+  background: var(--cor-info-suave);
+  border-color: var(--cor-info-borda);
+  color: var(--cor-info);
+}
+
+.sucesso {
+  background: var(--cor-sucesso-suave);
+  border-color: var(--cor-sucesso-borda);
+  color: var(--cor-sucesso);
+}
+
+.aviso {
+  background: var(--cor-aviso-suave);
+  border-color: var(--cor-aviso-borda);
+  color: var(--cor-aviso);
+}
+
+.perigo {
+  background: var(--cor-perigo-suave);
+  border-color: var(--cor-perigo-borda);
+  color: var(--cor-perigo);
+}

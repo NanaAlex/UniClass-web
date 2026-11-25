@@ -1,0 +1,25 @@
+.regiao {
+  position: fixed;
+  right: var(--espaco-5);
+  bottom: var(--espaco-5);
+  z-index: var(--camada-aviso);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--espaco-3);
+  width: min(380px, calc(100vw - var(--espaco-6)));
+  pointer-events: none;
+}
+
+.item {
+  width: 100%;
+  pointer-events: auto;
+  animation: entrar 200ms ease-out;
+}
+
+@keyframes entrar {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}

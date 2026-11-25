@@ -1,0 +1,94 @@
+.lista {
+  display: flex;
+  gap: var(--espaco-1);
+  overflow-x: auto;
+}
+
+.aba {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--espaco-2);
+  height: 40px;
+  padding: 0 var(--espaco-4);
+  font-size: var(--texto-tamanho-sm);
+  font-weight: var(--peso-medio);
+  color: var(--cor-texto-secundario);
+  transition:
+    background-color var(--transicao-padrao),
+    color var(--transicao-padrao),
+    border-color var(--transicao-padrao);
+}
+
+.aba:hover:not(:disabled) {
+  color: var(--cor-texto);
+}
+
+.aba:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.aba[aria-selected="true"] {
+  color: var(--cor-primaria);
+  font-weight: var(--peso-semi);
+}
+
+.contador {
+  min-width: 20px;
+  padding: 0 var(--espaco-1);
+  border-radius: var(--raio-total);
+  background: var(--cor-superficie-alternativa);
+  font-size: var(--texto-tamanho-xs);
+  text-align: center;
+}
+
+.aba[aria-selected="true"] .contador {
+  background: var(--cor-primaria-suave);
+}
+
+/* Sublinhado: navegação entre seções */
+.sublinhado {
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.sublinhado .aba {
+  margin-bottom: -1px;
+  border-bottom: 2px solid transparent;
+}
+
+.sublinhado .aba[aria-selected="true"] {
+  border-bottom-color: var(--cor-primaria);
+}
+
+/* Pílula: filtros (semestres, status) */
+.pilula {
+  padding: var(--espaco-1);
+  border-radius: var(--raio-medio);
+  background: var(--cor-superficie-alternativa);
+}
+
+.pilula .aba {
+  height: 32px;
+  padding: 0 var(--espaco-3);
+  border-radius: var(--raio-pequeno);
+}
+
+.pilula .aba:hover:not(:disabled):not([aria-selected="true"]) {
+  background: var(--cor-primaria-suave);
+  color: var(--cor-primaria);
+}
+
+.pilula .aba[aria-selected="true"] {
+  background: var(--cor-primaria);
+  color: var(--cor-texto-invertido);
+  box-shadow: var(--sombra-suave);
+}
+
+.pilula .aba[aria-selected="true"] .contador {
+  background: var(--cor-primaria-hover);
+}
+
+.pilula .aba:focus-visible {
+  box-shadow: var(--anel-foco);
+}
